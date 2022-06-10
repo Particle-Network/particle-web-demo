@@ -1,0 +1,45 @@
+export const chainNames = [
+  "ethereum",
+  "bsc",
+  "polygon",
+  "avalanche",
+  "fantom",
+  "arbitrum",
+  "moonbeam",
+  "moonriver",
+  "harmony",
+  "optimism",
+  "heco",
+  "aurora",
+];
+
+export const chainIds = {
+  ethereum: [1, 42],
+  bsc: [56, 97],
+  polygon: [137, 80001],
+  avalanche: [43114, 43113],
+  fantom: [250, 4002],
+  arbitrum: [42161, 421611],
+  moonbeam: [1284, 1287],
+  moonriver: [1285, 1287],
+  harmony: [1666600000, 1666700000],
+  optimism: [10, 69],
+  heco: [128, 256],
+  aurora: [1313161554, 1313161555],
+};
+
+export const chainSymbols = {
+  solana: "SOL",
+  ethereum: "ETH",
+  bsc: "BNB",
+  polygon: "MATIC",
+  avalanche: "AVAX",
+  fantom: "FTM",
+  arbitrum: "ETH",
+  moonbeam: "GLMR",
+  moonriver: "MOVR",
+  harmony: "ONE",
+  optimism: "ETH",
+  heco: "HT",
+  aurora: "ETH",
+};
