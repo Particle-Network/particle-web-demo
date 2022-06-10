@@ -11,7 +11,7 @@ Currently hosted [here](https://web-demo.particle.network).
 * Install [Yarn](https://classic.yarnpkg.com/en/docs/install#mac-stable)
 * Run `yarn start`
 
-Replace below config with the new values created in the [Dashboard](https://particle.network/#/login).
+Replace below config with the new values created in the [Dashboard](https://dashboard.particle.network/#/login).
 
 ```
 const pn = new ParticleNetwork({
