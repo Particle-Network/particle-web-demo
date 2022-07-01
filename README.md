@@ -1,6 +1,6 @@
 # Particle Web Demo
 
-This repository is [Auth Service](https://docs.particle.network/auth-service/introduction) sample source. It supports EVM-compatiable chains, more chains and more features coming soon! Learn more visit [Particle Network](https://docs.particle.network/).
+This repository is [Auth Service](https://docs.particle.network/auth-service/introduction) sample source. It supports Solana and EVM-compatiable chains, more chains and more features coming soon! Learn more visit [Particle Network](https://docs.particle.network/).
 
 Currently hosted [here](https://web-demo.particle.network).
 
