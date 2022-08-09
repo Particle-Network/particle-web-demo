@@ -48,12 +48,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <a
-          className="App-link"
-          href="https://particle.network"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <a className="App-link" href="https://particle.network" target="_blank" rel="noopener noreferrer">
           Learn More About Particle Network
         </a>
       </header>
@@ -77,12 +72,7 @@ function App() {
 
         <div className="chain-id">
           ChainId:
-          <select
-            className="selector-container"
-            defaultValue={chainId}
-            onChange={changeChainId}
-            disabled={!loginState}
-          >
+          <select className="selector-container" defaultValue={chainId} onChange={changeChainId} disabled={!loginState}>
             {supportChains[chainName].map((item) => (
               <option value={item} key={item}>
                 {item}
@@ -92,17 +82,9 @@ function App() {
         </div>
       </div>
       {chainName === "solana" ? (
-        <SolanaDemo
-          chainName={chainName}
-          chainId={chainId}
-          setLoginState={setLoginState}
-        />
+        <SolanaDemo chainName={chainName} chainId={chainId} setLoginState={setLoginState} />
       ) : (
-        <EVMDemo
-          chainName={chainName}
-          chainId={chainId}
-          setLoginState={setLoginState}
-        />
+        <EVMDemo chainName={chainName} chainId={chainId} setLoginState={setLoginState} />
       )}
     </div>
   );

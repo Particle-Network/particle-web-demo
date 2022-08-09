@@ -16,4 +16,5 @@ export const chainSymbols = {
   optimism: "ETH",
   heco: "HT",
   aurora: "ETH",
+  kcc: "KCS",
 };

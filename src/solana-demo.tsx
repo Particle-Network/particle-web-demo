@@ -27,6 +27,8 @@ function SolanaDemo(props: any) {
     });
   }, []);
 
+  const nftMarketUrl = "https://web-nft-demo.particle.network";
+
   const connectWallet = () => {
     particle.auth
       .login()
@@ -79,6 +81,12 @@ function SolanaDemo(props: any) {
     <div>
       <div className="native-balance">
         Balance: {nativeBalance} {chainSymbols[chainName]}
+      </div>
+
+      <div className="App-header">
+        <a className="App-link" href={nftMarketUrl} target="_blank" rel="noopener noreferrer">
+          Solana NFT Market Demo
+        </a>
       </div>
 
       <div className="body-content">

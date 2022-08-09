@@ -184,7 +184,7 @@ function EVMDemo(props: any) {
       to: "0x16380a03F21E5a5E339c15BA8eBE581d194e0DB3",
       value: "0x0",
       data: result,
-      gasLimit: gasLimit,
+      gasLimit: addHexPrefix(intToHex(gasLimit)),
     };
     window.web3.eth.sendTransaction(txnParams, (error: any, hash) => {
       if (error) {
@@ -226,7 +226,7 @@ function EVMDemo(props: any) {
       to: "0x329a7f8b91Ce7479035cb1B5D62AB41845830Ce8",
       value: "0x0",
       data: result,
-      gasLimit: estimate,
+      gasLimit: addHexPrefix(intToHex(estimate)),
     };
     window.web3.eth.sendTransaction(txnParams, (error: any, hash) => {
       if (error) {
@@ -268,7 +268,7 @@ function EVMDemo(props: any) {
       to: "0x329a7f8b91Ce7479035cb1B5D62AB41845830Ce8",
       value: "0x0",
       data: result,
-      gasLimit: estimate,
+      gasLimit: addHexPrefix(intToHex(estimate)),
     };
     window.web3.eth.sendTransaction(txnParams, (error: any, hash) => {
       if (error) {
@@ -507,7 +507,7 @@ function EVMDemo(props: any) {
     }
 
     const text = "Hello Particle Network!";
-    const msg = bufferToHex(Buffer.from(text, "utf8"));
+    const msg = Buffer.from(text, "utf8").toString("hex");
     const data = recoverPersonalSignature({
       data: msg,
       sig: personalSignResult,
