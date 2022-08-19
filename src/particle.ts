@@ -1,5 +1,6 @@
+import { ParticleNetwork } from "@particle-network/auth";
 import { ParticleProvider } from "@particle-network/provider";
-import { SolanaWallet, ParticleNetwork } from "@particle-network/solana-wallet";
+import { SolanaWallet } from "@particle-network/solana-wallet";
 
 import Web3 from "web3";
 

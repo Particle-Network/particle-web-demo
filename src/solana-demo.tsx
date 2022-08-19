@@ -47,7 +47,7 @@ function SolanaDemo(props: any) {
   const getBalance = () => {
     solanaWallet
       .getConnection()
-      .getBalance(solanaWallet.publicKey())
+      .getBalance(solanaWallet.publicKey)
       .then((result) => {
         console.log("getBalance", result);
         setNativeBalance((result / 1000000000).toFixed(4));
@@ -69,8 +69,8 @@ function SolanaDemo(props: any) {
   };
 
   const getAccounts = () => {
-    if (solanaWallet.publicKey()) {
-      setAddress(solanaWallet.publicKey().toBase58());
+    if (solanaWallet.publicKey) {
+      setAddress(solanaWallet.publicKey.toBase58());
     }
   };
 
