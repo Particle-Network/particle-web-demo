@@ -6,6 +6,8 @@ import { ChainName, supportChains } from "@particle-network/auth";
 import EVMDemo from "./evm-demo";
 import SolanaDemo from "./solana-demo";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { Switch } from "antd";
 
 function App() {
   const [loginState, setLoginState] = useState(false);
@@ -45,12 +47,33 @@ function App() {
     }
   };
 
+  const onThemeChange = (checked: boolean) => {
+    console.log("onThemeChange", checked);
+    if (checked) {
+      particle.setAuthTheme({ uiMode: "light" });
+    } else {
+      particle.setAuthTheme({ uiMode: "dark" });
+    }
+  };
+
   return (
     <div className="App">
       <header className="App-header">
         <a className="App-link" href="https://particle.network" target="_blank" rel="noopener noreferrer">
           Learn More About Particle Network
         </a>
+
+        <Link className="App-link" to="/web3Modal">
+          Web3Modal Sample
+        </Link>
+
+        <Switch
+          className="App-theme"
+          checkedChildren="light"
+          unCheckedChildren="dark"
+          onChange={onThemeChange}
+          defaultChecked
+        />
       </header>
 
       <div className="chain-config">

@@ -10,6 +10,7 @@ import {
 import { useEffect, useState } from "react";
 import { chainSymbols } from "./chain-info";
 import { evmProvider, particle } from "./particle";
+import { message } from "antd";
 
 function EVMDemo(props: any) {
   const { chainName, chainId, setLoginState } = props;
@@ -36,6 +37,10 @@ function EVMDemo(props: any) {
     evmProvider.on("chainChanged", (id) => {
       getBalance();
     });
+
+    particle.auth.on("disconnect", () => {
+      setConnect(false);
+    });
   }, []);
 
   const connectWallet = () => {
@@ -48,7 +53,7 @@ function EVMDemo(props: any) {
       })
       .catch((error: any) => {
         if (error.code !== 4011) {
-          alert(JSON.stringify(error));
+          message.error(error.message);
         }
       });
   };
@@ -99,10 +104,10 @@ function EVMDemo(props: any) {
       (error: any, hash) => {
         if (error) {
           if (error.code !== 4011) {
-            alert(JSON.stringify(error));
+            message.error(error.message);
           }
         } else {
-          alert("contract send success: " + hash);
+          message.success("contract send success: " + hash);
         }
       }
     );
@@ -127,10 +132,10 @@ function EVMDemo(props: any) {
     window.web3.eth.sendTransaction(txnParams, (error: any, hash) => {
       if (error) {
         if (error.code !== 4011) {
-          alert(JSON.stringify(error));
+          message.error(error.message);
         }
       } else {
-        alert("send tx success: " + hash);
+        message.success("send tx success: " + hash);
       }
     });
   };
@@ -148,10 +153,10 @@ function EVMDemo(props: any) {
       console.log("sendLegacyTransaction", error, hash);
       if (error) {
         if (error.code !== 4011) {
-          alert(JSON.stringify(error));
+          message.error(error.message);
         }
       } else {
-        alert("send tx success: " + hash);
+        message.success("send tx success: " + hash);
       }
     });
   };
@@ -165,36 +170,42 @@ function EVMDemo(props: any) {
       "erc20_transfer",
       ["0x16380a03F21E5a5E339c15BA8eBE581d194e0DB3", 100000],
     ];
-    //@ts-ignore
-    const result = await window.web3.currentProvider.request({
-      method,
-      params,
-      from,
-    });
 
-    const gasLimit = await window.web3.eth.estimateGas({
-      from: from,
-      to: "0xFab46E002BbF0b4509813474841E0716E6730136",
-      value: "0x0",
-      data: result,
-    });
+    try {
+      //@ts-ignore
+      const result = await window.web3.currentProvider.request({
+        method,
+        params,
+        from,
+      });
 
-    const txnParams = {
-      from: accounts[0],
-      to: "0x16380a03F21E5a5E339c15BA8eBE581d194e0DB3",
-      value: "0x0",
-      data: result,
-      gasLimit: addHexPrefix(intToHex(gasLimit)),
-    };
-    window.web3.eth.sendTransaction(txnParams, (error: any, hash) => {
-      if (error) {
-        if (error.code !== 4011) {
-          alert(JSON.stringify(error));
+      const gasLimit = await window.web3.eth.estimateGas({
+        from: from,
+        to: "0xFab46E002BbF0b4509813474841E0716E6730136",
+        value: "0x0",
+        data: result,
+      });
+
+      const txnParams = {
+        from: accounts[0],
+        to: "0x16380a03F21E5a5E339c15BA8eBE581d194e0DB3",
+        value: "0x0",
+        data: result,
+        gasLimit: addHexPrefix(intToHex(gasLimit)),
+      };
+      window.web3.eth.sendTransaction(txnParams, (error: any, hash) => {
+        if (error) {
+          if (error.code !== 4011) {
+            message.error(error.message);
+          }
+        } else {
+          message.success("sendERC20Transaction success: " + hash);
         }
-      } else {
-        alert("sendERC20Transaction success: " + hash);
-      }
-    });
+      });
+    } catch (e) {
+      console.log("sendERC20Transaction", e);
+      message.error(e.message ?? e);
+    }
   };
 
   const sendERC721Transaction = async () => {
@@ -207,36 +218,42 @@ function EVMDemo(props: any) {
       "erc721_safeTransferFrom",
       [from, "0x329a7f8b91Ce7479035cb1B5D62AB41845830Ce8", 1],
     ];
-    //@ts-ignore
-    const result = await window.web3.currentProvider.request({
-      method,
-      params,
-      from,
-    });
 
-    const estimate = await window.web3.eth.estimateGas({
-      from: from,
-      to: "0xDF27A250c425Ba6721d399bf09259e6a089D6157",
-      value: "0x0",
-      data: result,
-    });
+    try {
+      //@ts-ignore
+      const result = await window.web3.currentProvider.request({
+        method,
+        params,
+        from,
+      });
 
-    const txnParams = {
-      from: from,
-      to: "0x329a7f8b91Ce7479035cb1B5D62AB41845830Ce8",
-      value: "0x0",
-      data: result,
-      gasLimit: addHexPrefix(intToHex(estimate)),
-    };
-    window.web3.eth.sendTransaction(txnParams, (error: any, hash) => {
-      if (error) {
-        if (error.code !== 4011) {
-          alert(JSON.stringify(error));
+      const estimate = await window.web3.eth.estimateGas({
+        from: from,
+        to: "0xDF27A250c425Ba6721d399bf09259e6a089D6157",
+        value: "0x0",
+        data: result,
+      });
+
+      const txnParams = {
+        from: from,
+        to: "0x329a7f8b91Ce7479035cb1B5D62AB41845830Ce8",
+        value: "0x0",
+        data: result,
+        gasLimit: addHexPrefix(intToHex(estimate)),
+      };
+      window.web3.eth.sendTransaction(txnParams, (error: any, hash) => {
+        if (error) {
+          if (error.code !== 4011) {
+            message.error(error.message);
+          }
+        } else {
+          message.success("sendERC721Transaction success: " + hash);
         }
-      } else {
-        alert("sendERC721Transaction success: " + hash);
-      }
-    });
+      });
+    } catch (e) {
+      console.log("sendERC721Transaction", e);
+      message.error(e.message ?? e);
+    }
   };
 
   const sendERC1155Transaction = async () => {
@@ -249,36 +266,42 @@ function EVMDemo(props: any) {
       "erc1155_safeTransferFrom",
       [from, "0x329a7f8b91Ce7479035cb1B5D62AB41845830Ce8", 4, 1, "0x0"],
     ];
-    //@ts-ignore
-    const result = await window.web3.currentProvider.request({
-      method,
-      params,
-      from,
-    });
 
-    const estimate = await window.web3.eth.estimateGas({
-      from: from,
-      to: "0xcCe924184139a75d312BD8CCE9df55d5f66F08e3",
-      value: "0x0",
-      data: result,
-    });
+    try {
+      //@ts-ignore
+      const result = await window.web3.currentProvider.request({
+        method,
+        params,
+        from,
+      });
 
-    const txnParams = {
-      from: from,
-      to: "0x329a7f8b91Ce7479035cb1B5D62AB41845830Ce8",
-      value: "0x0",
-      data: result,
-      gasLimit: addHexPrefix(intToHex(estimate)),
-    };
-    window.web3.eth.sendTransaction(txnParams, (error: any, hash) => {
-      if (error) {
-        if (error.code !== 4011) {
-          alert(JSON.stringify(error));
+      const estimate = await window.web3.eth.estimateGas({
+        from: from,
+        to: "0xcCe924184139a75d312BD8CCE9df55d5f66F08e3",
+        value: "0x0",
+        data: result,
+      });
+
+      const txnParams = {
+        from: from,
+        to: "0x329a7f8b91Ce7479035cb1B5D62AB41845830Ce8",
+        value: "0x0",
+        data: result,
+        gasLimit: addHexPrefix(intToHex(estimate)),
+      };
+      window.web3.eth.sendTransaction(txnParams, (error: any, hash) => {
+        if (error) {
+          if (error.code !== 4011) {
+            message.error(error.message);
+          }
+        } else {
+          message.success("sendERC1155Transaction success: " + hash);
         }
-      } else {
-        alert("sendERC1155Transaction success: " + hash);
-      }
-    });
+      });
+    } catch (e) {
+      console.log("sendERC1155Transaction", e);
+      message.error(e.message ?? e);
+    }
   };
 
   const msgV1 = [
@@ -490,7 +513,6 @@ function EVMDemo(props: any) {
       .request({
         method,
         params,
-        from,
       })
       .then((result) => {
         console.log("personal_sign", result);
@@ -507,9 +529,8 @@ function EVMDemo(props: any) {
     }
 
     const text = "Hello Particle Network!";
-    const msg = Buffer.from(text, "utf8").toString("hex");
     const data = recoverPersonalSignature({
-      data: msg,
+      data: text,
       sig: personalSignResult,
     });
     setPersonalSignRecoveryResult(toChecksumAddress(data));

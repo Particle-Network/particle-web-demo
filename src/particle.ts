@@ -1,4 +1,4 @@
-import { ParticleNetwork } from "@particle-network/auth";
+import { ParticleNetwork, Auth } from "@particle-network/auth";
 import { ParticleProvider } from "@particle-network/provider";
 import { SolanaWallet } from "@particle-network/solana-wallet";
 
@@ -14,10 +14,16 @@ const particle = new ParticleNetwork({
 });
 
 //set rpcUrl for internal test
-const evmProvider = new ParticleProvider(particle.auth, process.env.REACT_APP_BASE_URL as string);
+const evmProvider = new ParticleProvider(
+  particle.auth,
+  process.env.REACT_APP_BASE_URL as string
+);
 
 //set rpcUrl for internal test
-const solanaWallet = new SolanaWallet(particle.auth, process.env.REACT_APP_BASE_URL as string);
+const solanaWallet = new SolanaWallet(
+  particle.auth,
+  process.env.REACT_APP_BASE_URL as string
+);
 
 //@ts-ignore
 window.web3 = new Web3(evmProvider);

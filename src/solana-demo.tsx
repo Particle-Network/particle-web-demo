@@ -1,4 +1,5 @@
 import { ChainInfo } from "@particle-network/auth";
+import { message } from "antd";
 import { useEffect, useState } from "react";
 import "./App.css";
 import { chainSymbols } from "./chain-info";
@@ -39,7 +40,7 @@ function SolanaDemo(props: any) {
       })
       .catch((error: any) => {
         if (error.code !== 4011) {
-          alert(JSON.stringify(error));
+          message.error(JSON.stringify(error));
         }
       });
   };
