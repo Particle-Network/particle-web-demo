@@ -6,7 +6,7 @@ import { chainSymbols } from "./chain-info";
 import { particle, solanaWallet } from "./particle";
 
 function SolanaDemo(props: any) {
-  const { chainName, chainId, setLoginState } = props;
+  const { chainName, loginFormMode, setLoginState } = props;
 
   const [connect, setConnect] = useState(false);
   const [address, setAddress] = useState("");

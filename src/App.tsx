@@ -12,6 +12,7 @@ import { Switch } from "antd";
 function App() {
   const [loginState, setLoginState] = useState(false);
   const [chainId, setChainId] = useState(42);
+  const [loginFormMode, setLoginFormMode] = useState(!!localStorage.getItem("loginFormMode"));
   const [chainName, setChainName] = useState<ChainName>("ethereum");
 
   useEffect(() => {
@@ -56,13 +57,34 @@ function App() {
     }
   };
 
+  const onLoginFormChange = (checked: boolean) => {
+    setLoginFormMode(checked);
+    localStorage.setItem("loginFormMode", checked ? "checked" : "");
+  };
+
+  useEffect(() => {
+    const classList = document.querySelector("body").classList;
+    if (loginFormMode) {
+      classList.add("mini-login-form");
+    } else {
+      classList.remove("mini-login-form");
+    }
+  }, [loginFormMode]);
+
   return (
     <div className="App">
       <header className="App-header">
         <a className="App-link" href="https://particle.network" target="_blank" rel="noopener noreferrer">
           Learn More About Particle Network
         </a>
-
+        <a
+          className="App-link"
+          href="https://static.particle.network/sdks/web/index.html"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Particle SDK Browser Sample
+        </a>
         <Link className="App-link" to="/web3Modal">
           Web3Modal Sample
         </Link>
@@ -73,6 +95,14 @@ function App() {
           unCheckedChildren="dark"
           onChange={onThemeChange}
           defaultChecked
+        />
+
+        <Switch
+          className="Login-mode"
+          checkedChildren="form"
+          unCheckedChildren="full"
+          checked={!!loginFormMode}
+          onChange={onLoginFormChange}
         />
       </header>
 
@@ -105,9 +135,9 @@ function App() {
         </div>
       </div>
       {chainName === "solana" ? (
-        <SolanaDemo chainName={chainName} chainId={chainId} setLoginState={setLoginState} />
+        <SolanaDemo chainName={chainName} loginFormMode={loginFormMode} setLoginState={setLoginState} />
       ) : (
-        <EVMDemo chainName={chainName} chainId={chainId} setLoginState={setLoginState} />
+        <EVMDemo chainName={chainName} loginFormMode={loginFormMode} setLoginState={setLoginState} />
       )}
     </div>
   );
