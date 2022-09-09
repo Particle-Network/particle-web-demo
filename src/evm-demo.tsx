@@ -9,10 +9,10 @@ import {
   recoverTypedSignature_v4,
 } from "eth-sig-util";
 import { useEffect, useState } from "react";
-import { chainSymbols } from "./chain-info";
-import { particle } from "./particle";
+import { ethersSigner, ethersProvider, particle } from "./particle";
 import { message, Card, Input } from "antd";
 import { AuthType } from "@particle-network/auth";
+import { chains } from "@particle-network/common";
 
 function EVMDemo(props: any) {
   const { chainName, loginFormMode, setLoginState } = props;
@@ -38,6 +38,7 @@ function EVMDemo(props: any) {
     }
 
     window.web3.currentProvider.on("chainChanged", (id) => {
+      console.log("chainChanged", id);
       getBalance();
     });
 
@@ -70,8 +71,10 @@ function EVMDemo(props: any) {
           }
         });
     } else {
-      const regularExpression = /^\+?\d{10,14}$/;
-      input_content = loginAccount && regularExpression.test(loginAccount.toLowerCase()) ? loginAccount : null;
+      if (type === "phone") {
+        const regularExpression = /^\+?\d{8,14}$/;
+        input_content = loginAccount && regularExpression.test(loginAccount.toLowerCase()) ? loginAccount : null;
+      }
       particle.auth
         .login({
           preferredAuthType: type,
@@ -161,7 +164,7 @@ function EVMDemo(props: any) {
       from: accounts[0],
       to: "0x16380a03F21E5a5E339c15BA8eBE581d194e0DB3",
       value: window.web3.utils.toWei("0.001", "ether"),
-      type: 2,
+      type: "0x2",
       gasLimit: 21000,
     };
     window.web3.eth.sendTransaction(txnParams, (error: any, hash) => {
@@ -181,9 +184,11 @@ function EVMDemo(props: any) {
       from: accounts[0],
       to: "0x16380a03F21E5a5E339c15BA8eBE581d194e0DB3",
       value: window.web3.utils.toWei("0.001", "ether"),
-      type: 0,
+      type: "0x0",
       gasLimit: 21000,
     };
+
+    // const rep = await ethersSigner.sendTransaction(txnParams);
     window.web3.eth.sendTransaction(txnParams, (error: any, hash) => {
       console.log("sendLegacyTransaction", error, hash);
       if (error) {
@@ -578,7 +583,7 @@ function EVMDemo(props: any) {
   return (
     <div>
       <div className="native-balance">
-        Balance: {nativeBalance} {chainSymbols[chainName]}
+        Balance: {nativeBalance} {chains.getChainSymbol(chainName)}
       </div>
 
       <div className="body-content">
@@ -609,6 +614,24 @@ function EVMDemo(props: any) {
                       src={require(`./common/images/phone_icon.png`)}
                       alt=""
                       onClick={() => connectWallet("phone")}
+                    />
+
+                    <img
+                      src={require(`./common/images/google_icon.png`)}
+                      alt=""
+                      onClick={() => connectWallet("google")}
+                    />
+
+                    <img
+                      src={require(`./common/images/github_icon.png`)}
+                      alt=""
+                      onClick={() => connectWallet("github")}
+                    />
+
+                    <img
+                      src={require(`./common/images/apple_icon.png`)}
+                      alt=""
+                      onClick={() => connectWallet("apple")}
                     />
                   </div>
                 </>

@@ -15,7 +15,7 @@ const providerOptions = {
       clientKey: process.env.REACT_APP_CLIENT_KEY as string,
       appId: process.env.REACT_APP_APP_ID as string,
       chainName: "ethereum",
-      chainId: 42,
+      chainId: 1,
       authUrl: process.env.REACT_APP_AUTH_URL as string,
     },
     connector: async (ProviderPackage, options) => {

@@ -1,28 +1,43 @@
-import * as bip39 from "bip39";
+import { ethers } from "ethers";
 import { ParticleNetwork } from "@particle-network/auth";
-import { EVMProvider, ParticleProvider } from "@particle-network/provider";
+import { ParticleProvider } from "@particle-network/provider";
+import { EVMProvider } from "@particle-network/local-provider";
 import { SolanaWallet } from "@particle-network/solana-wallet";
 
 import Web3 from "web3";
 
 const particle = new ParticleNetwork({
-  projectId: process.env.REACT_APP_PROJECT_ID as string,
-  clientKey: process.env.REACT_APP_CLIENT_KEY as string,
-  appId: process.env.REACT_APP_APP_ID as string,
-  chainName: "ethereum",
-  chainId: 42,
-  authUrl: process.env.REACT_APP_AUTH_URL as string,
+    projectId: process.env.REACT_APP_PROJECT_ID as string,
+    clientKey: process.env.REACT_APP_CLIENT_KEY as string,
+    appId: process.env.REACT_APP_APP_ID as string,
+    chainName: "Ethereum",
+    chainId: 1,
+    authUrl: process.env.REACT_APP_AUTH_URL as string, // use for demo internal test, developer can delete it.
 });
 
-//set rpcUrl for internal test
-const providerProvider = new ParticleProvider(particle.auth, process.env.REACT_APP_BASE_URL as string);
+particle.setAuthTheme({
+    displayWallet: true,
+    uiMode: "light",
+});
 
+//rpcUrl used fot demo internal test, developer can delete it.
+//set rpcUrl for internal test
+const particleProvider = new ParticleProvider(particle.auth, process.env.REACT_APP_BASE_URL as string);
+
+//set rpcUrl for internal test
 const evmProvider = new EVMProvider(particle.auth, process.env.REACT_APP_BASE_URL as string);
 
 //set rpcUrl for internal test
 const solanaWallet = new SolanaWallet(particle.auth, process.env.REACT_APP_BASE_URL as string);
 
 //@ts-ignore
-window.web3 = new Web3(providerProvider);
+window.web3 = new Web3(particleProvider);
 
-export { particle, providerProvider, evmProvider, solanaWallet };
+const ethersProvider = new ethers.providers.Web3Provider(particleProvider, "any");
+
+// The provider also allows signing transactions to
+// send ether and pay to change state within the blockchain.
+// For this, we need the account signer...
+const ethersSigner = ethersProvider.getSigner();
+
+export { particle, particleProvider, evmProvider, ethersProvider, ethersSigner, solanaWallet };

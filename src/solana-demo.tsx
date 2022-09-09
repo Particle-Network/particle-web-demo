@@ -1,8 +1,7 @@
-import { ChainInfo } from "@particle-network/auth";
+import { Chain, chains } from "@particle-network/common";
 import { message } from "antd";
 import { useEffect, useState } from "react";
 import "./App.css";
-import { chainSymbols } from "./chain-info";
 import { particle, solanaWallet } from "./particle";
 
 function SolanaDemo(props: any) {
@@ -21,8 +20,8 @@ function SolanaDemo(props: any) {
       getBalance();
     }
 
-    particle.auth.on("chainChanged", (info: ChainInfo) => {
-      if (info.name === "solana") {
+    particle.auth.on("chainChanged", (info: Chain) => {
+      if (info.name === "Solana") {
         getBalance();
       }
     });
@@ -81,7 +80,7 @@ function SolanaDemo(props: any) {
   return (
     <div>
       <div className="native-balance">
-        Balance: {nativeBalance} {chainSymbols[chainName]}
+        Balance: {nativeBalance} {chains.getChainSymbol(chainName)}
       </div>
 
       <div className="App-header">

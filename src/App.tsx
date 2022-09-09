@@ -2,27 +2,31 @@ import "./App.css";
 import { useState } from "react";
 import { chainNames } from "./chain-info";
 import { particle } from "./particle";
-import { ChainName, supportChains } from "@particle-network/auth";
 import EVMDemo from "./evm-demo";
 import SolanaDemo from "./solana-demo";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Switch } from "antd";
+import { ChainId, ChainName, supportChains } from "@particle-network/common";
 
 function App() {
   const [loginState, setLoginState] = useState(false);
-  const [chainId, setChainId] = useState(42);
+  const [chainId, setChainId] = useState<ChainId>(1);
   const [loginFormMode, setLoginFormMode] = useState(!!localStorage.getItem("loginFormMode"));
-  const [chainName, setChainName] = useState<ChainName>("ethereum");
+  const [chainName, setChainName] = useState<ChainName>("Ethereum");
 
   useEffect(() => {
+    particle.setChainInfo({
+      name: chainName,
+      id: chainId,
+    });
     setLoginState(particle.auth.isLogin());
   }, []);
 
   const changeChainName = async (e) => {
     const name = e.target.value;
 
-    const id = supportChains[name][0];
+    const id = Number(Object.keys(supportChains[name].chainIds)[0]) as ChainId;
     try {
       await particle.auth.setChainInfo({
         name: name,
@@ -40,9 +44,9 @@ function App() {
     try {
       await particle.auth.setChainInfo({
         name: chainName,
-        id: Number(id),
+        id: Number(id) as ChainId,
       });
-      setChainId(Number(id));
+      setChainId(Number(id) as ChainId);
     } catch (error) {
       console.log(error);
     }
@@ -70,6 +74,10 @@ function App() {
       classList.remove("mini-login-form");
     }
   }, [loginFormMode]);
+
+  const openWallet = () => {
+    particle.openWallet();
+  };
 
   return (
     <div className="App">
@@ -126,7 +134,7 @@ function App() {
         <div className="chain-id">
           ChainId:
           <select className="selector-container" defaultValue={chainId} onChange={changeChainId} disabled={!loginState}>
-            {supportChains[chainName].map((item) => (
+            {Object.keys(supportChains[chainName].chainIds).map((item) => (
               <option value={item} key={item}>
                 {item}
               </option>
@@ -134,10 +142,17 @@ function App() {
           </select>
         </div>
       </div>
-      {chainName === "solana" ? (
+      {chainName === "Solana" ? (
         <SolanaDemo chainName={chainName} loginFormMode={loginFormMode} setLoginState={setLoginState} />
       ) : (
         <EVMDemo chainName={chainName} loginFormMode={loginFormMode} setLoginState={setLoginState} />
+      )}
+
+      {loginState && (
+        <div className="wallet-button" onClick={openWallet}>
+          <img className="image-button" src={require(`./common/images/wallet_icon.png`)} alt="" />
+          <div className="mgt"> Particle Wallet</div>
+        </div>
       )}
     </div>
   );

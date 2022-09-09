@@ -199,3 +199,17 @@ button[disabled] {
 .mini-login-form [name="particle-network-iframe"][src*="/login"] {
   height: 300px !important;
 }
+
+.wallet-button {
+  position: fixed;
+  color: #4285f4;
+  font-weight: bold;
+  z-index: 9999;
+  bottom: 100px;
+  right: 100px;
+}
+
+.image-button {
+  height: 70px;
+  width: 70px;
+}
