@@ -6,6 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import "./particle";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Web3ModalDemo from "./web3Modal-demo";
+import ConnectDemo from "./connect/ConnectDemo";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 
@@ -14,6 +15,7 @@ root.render(
     <Router>
       <Routes>
         <Route path="/web3Modal" element={<Web3ModalDemo />}></Route>
+        <Route path="/connect" element={<ConnectDemo />}></Route>
         <Route path="/" element={<App />}></Route>
       </Routes>
     </Router>

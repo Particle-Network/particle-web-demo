@@ -9,7 +9,7 @@ import {
   recoverTypedSignature_v4,
 } from "eth-sig-util";
 import { useEffect, useState } from "react";
-import { ethersSigner, ethersProvider, particle } from "./particle";
+import { particle } from "./particle";
 import { message, Card, Input } from "antd";
 import { AuthType } from "@particle-network/auth";
 import { chains } from "@particle-network/common";
@@ -48,56 +48,51 @@ function EVMDemo(props: any) {
   }, []);
 
   const connectWallet = (type: AuthType) => {
-    let input_content = "";
+    let input_content;
     if (type === "email") {
       const regularExpression =
         /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      input_content = loginAccount && regularExpression.test(loginAccount.toLowerCase()) ? loginAccount : null;
-      particle.auth
-        .login({
-          preferredAuthType: type,
-          emailOrPhoneAccount: input_content,
-          supportAuthTypes: "all",
-          loginFormMode: loginFormMode,
-        })
-        .then((accounts) => {
-          setConnect(true);
-          getBalance();
-          setLoginState(true);
-        })
-        .catch((error: any) => {
-          if (error.code !== 4011) {
-            message.error(error.message);
-          }
-        });
-    } else {
-      if (type === "phone") {
-        const regularExpression = /^\+?\d{8,14}$/;
-        input_content = loginAccount && regularExpression.test(loginAccount.toLowerCase()) ? loginAccount : null;
+      input_content = loginAccount && regularExpression.test(loginAccount.toLowerCase()) ? loginAccount : undefined;
+    } else if (type === "phone") {
+      const regularExpression = /^\+?\d{8,14}$/;
+      input_content = loginAccount && regularExpression.test(loginAccount.toLowerCase()) ? loginAccount : undefined;
+    } else if (type === "jwt") {
+      input_content = loginAccount ? loginAccount.trim() : undefined;
+      if (!input_content) {
+        message.error("JWT can not empty!");
+      } else {
+        message.loading("custom loading...");
       }
-      particle.auth
-        .login({
-          preferredAuthType: type,
-          emailOrPhoneAccount: input_content,
-          supportAuthTypes: "all",
-          loginFormMode: loginFormMode,
-        })
-        .then((accounts) => {
-          setConnect(true);
-          getBalance();
-          setLoginState(true);
-        })
-        .catch((error: any) => {
-          if (error.code !== 4011) {
-            message.error(error.message);
-          }
-        });
     }
+
+    particle.auth
+      .login({
+        preferredAuthType: type,
+        account: input_content,
+        supportAuthTypes: "all",
+        socialLoginPrompt: "consent",
+        loginFormMode: loginFormMode,
+        hideLoading: type === "jwt",
+      })
+      .then((accounts) => {
+        setConnect(true);
+        getBalance();
+        setLoginState(true);
+      })
+      .catch((error: any) => {
+        if (error.code !== 4011) {
+          message.error(error.message);
+        }
+      });
   };
 
   const logout = () => {
+    const hideLoading = !!particle.auth.userInfo()?.jwt_id;
+    if (hideLoading) {
+      message.loading("custom loading...");
+    }
     particle.auth
-      .logout()
+      .logout(hideLoading)
       .then(() => {
         console.log("logout success");
         setConnect(false);
@@ -599,7 +594,7 @@ function EVMDemo(props: any) {
                     CONNECT
                   </button>
                   <Input
-                    placeholder="optional: login email account or  mobile number"
+                    placeholder="optional: login account (email/E.164 phone/JWT)"
                     className="input_text mgt"
                     onChange={onLoginAccountChange}
                   />
@@ -633,6 +628,8 @@ function EVMDemo(props: any) {
                       alt=""
                       onClick={() => connectWallet("apple")}
                     />
+
+                    <img src={require(`./common/images/jwt_icon.png`)} alt="" onClick={() => connectWallet("jwt")} />
                   </div>
                 </>
               )}

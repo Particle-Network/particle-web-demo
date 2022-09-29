@@ -16,10 +16,12 @@ function App() {
   const [chainName, setChainName] = useState<ChainName>("Ethereum");
 
   useEffect(() => {
-    particle.setChainInfo({
-      name: chainName,
-      id: chainId,
-    });
+    if (particle.auth.isLogin()) {
+      particle.setChainInfo({
+        name: chainName,
+        id: chainId,
+      });
+    }
     setLoginState(particle.auth.isLogin());
   }, []);
 
@@ -28,10 +30,13 @@ function App() {
 
     const id = Number(Object.keys(supportChains[name].chainIds)[0]) as ChainId;
     try {
-      await particle.auth.setChainInfo({
-        name: name,
-        id: id,
-      });
+      await particle.auth.setChainInfo(
+        {
+          name: name,
+          id: id,
+        },
+        !!particle.auth.userInfo()?.jwt_id
+      );
       setChainName(name);
       setChainId(id);
     } catch (error) {
@@ -42,10 +47,13 @@ function App() {
   const changeChainId = async (e) => {
     const id = e.target.value;
     try {
-      await particle.auth.setChainInfo({
-        name: chainName,
-        id: Number(id) as ChainId,
-      });
+      await particle.auth.setChainInfo(
+        {
+          name: chainName,
+          id: Number(id) as ChainId,
+        },
+        !!particle.auth.userInfo()?.jwt_id
+      );
       setChainId(Number(id) as ChainId);
     } catch (error) {
       console.log(error);
@@ -95,6 +103,10 @@ function App() {
         </a>
         <Link className="App-link" to="/web3Modal">
           Web3Modal Sample
+        </Link>
+
+        <Link className="App-link" to="/connect">
+          ConnectKit Sample
         </Link>
 
         <Switch
