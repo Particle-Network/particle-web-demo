@@ -1,15 +1,16 @@
 {
   "private": true,
-  "name": "dapp-demo",
-  "version": "0.7.0",
+  "name": "@particle-network/dapp-demo",
+  "version": "0.7.15",
   "license": "Apache-2.0",
   "dependencies": {
     "@ethereumjs/tx": "^3.5.2",
-    "@particle-network/auth": "^0.7.11",
-    "@particle-network/connect-react-ui": "^0.2.3",
-    "@particle-network/local-provider": "^0.7.12",
-    "@particle-network/provider": "^0.7.14",
-    "@particle-network/solana-wallet": "^0.7.11",
+    "@particle-network/auth": "^0.7.14",
+    "@particle-network/connect-react-ui": "^0.2.5",
+    "@particle-network/local-provider": "^0.7.15",
+    "@particle-network/provider": "^0.7.17",
+    "@particle-network/rainbowkit-ext": "^0.1.1",
+    "@particle-network/solana-wallet": "^0.7.14",
     "@solana/web3.js": "^1.50.1",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
@@ -50,12 +51,14 @@
     "uuid": "^8.3.2",
     "web-vitals": "^2.1.4",
     "web3": "^1.7.3",
-    "web3modal": "^1.9.8"
+    "web3modal": "^1.9.8",
+    "@rainbow-me/rainbowkit": "^0.7.1",
+    "wagmi": "^0.6.8"
   },
   "scripts": {
-    "start": "react-app-rewired start",
-    "build": "source .env.local && dotenv -e .env.local react-app-rewired build",
-    "build:production": "source .env.production.local && dotenv -e .env.production.local react-app-rewired build",
+    "start": "dotenv -e .env.dev react-app-rewired start",
+    "build": "dotenv -e .env.dev react-app-rewired build",
+    "build:production": "dotenv -e .env.pro react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject"
   },

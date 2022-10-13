@@ -74,7 +74,7 @@ function EVMDemo(props: any) {
         loginFormMode: loginFormMode,
         hideLoading: type === "jwt",
       })
-      .then((accounts) => {
+      .then((userInfo) => {
         setConnect(true);
         getBalance();
         setLoginState(true);

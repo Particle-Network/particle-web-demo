@@ -64,8 +64,10 @@ function App() {
     console.log("onThemeChange", checked);
     if (checked) {
       particle.setAuthTheme({ uiMode: "light" });
+      localStorage.setItem("dapp_particle_theme", "light");
     } else {
       particle.setAuthTheme({ uiMode: "dark" });
+      localStorage.setItem("dapp_particle_theme", "dark");
     }
   };
 
@@ -105,6 +107,10 @@ function App() {
           Web3Modal Sample
         </Link>
 
+        <Link className="App-link" to="/rainbowkit">
+          RainbowKit Sample
+        </Link>
+
         <Link className="App-link" to="/connect">
           ConnectKit Sample
         </Link>
@@ -114,7 +120,7 @@ function App() {
           checkedChildren="light"
           unCheckedChildren="dark"
           onChange={onThemeChange}
-          defaultChecked
+          defaultChecked={localStorage.getItem("dapp_particle_theme") === "light"}
         />
 
         <Switch

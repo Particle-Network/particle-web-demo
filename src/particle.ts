@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import { ParticleNetwork } from "@particle-network/auth";
+import { ParticleNetwork, UIMode } from "@particle-network/auth";
 import { ParticleProvider } from "@particle-network/provider";
 import { EVMProvider } from "@particle-network/local-provider";
 import { SolanaWallet } from "@particle-network/solana-wallet";
@@ -15,28 +15,32 @@ const particle = new ParticleNetwork({
   authUrl: process.env.REACT_APP_AUTH_URL as string, // use for demo internal test, developer can delete it.
 });
 
+let theme = localStorage.getItem("dapp_particle_theme");
+if (!theme) {
+  theme = "light";
+}
 particle.setAuthTheme({
   displayWallet: true,
-  uiMode: "light",
+  uiMode: theme as UIMode,
 });
 
 //rpcUrl used fot demo internal test, developer can delete it.
 //set rpcUrl for internal test
 const particleProvider = new ParticleProvider(
   particle.auth,
-  process.env.REACT_APP_BASE_URL ? process.env.REACT_APP_BASE_URL + "/evm-chain" : undefined
+  process.env.REACT_APP_RPC_URL ? process.env.REACT_APP_RPC_URL + "/evm-chain" : undefined
 );
 
 //set rpcUrl for internal test
 const evmProvider = new EVMProvider(
   particle.auth,
-  process.env.REACT_APP_BASE_URL ? process.env.REACT_APP_BASE_URL + "/evm-chain" : undefined
+  process.env.REACT_APP_RPC_URL ? process.env.REACT_APP_RPC_URL + "/evm-chain" : undefined
 );
 
 //set rpcUrl for internal test
 const solanaWallet = new SolanaWallet(
   particle.auth,
-  process.env.REACT_APP_BASE_URL ? process.env.REACT_APP_BASE_URL + "/solana" : undefined
+  process.env.REACT_APP_RPC_URL ? process.env.REACT_APP_RPC_URL + "/solana" : undefined
 );
 
 window.web3 = new Web3(particleProvider as any);

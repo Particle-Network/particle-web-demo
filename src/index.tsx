@@ -7,6 +7,7 @@ import "./particle";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Web3ModalDemo from "./web3Modal-demo";
 import ConnectDemo from "./connect/ConnectDemo";
+import RainbowKitDemo from "./rainbowkit/rainbowkit-demo";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 
@@ -16,6 +17,7 @@ root.render(
       <Routes>
         <Route path="/web3Modal" element={<Web3ModalDemo />}></Route>
         <Route path="/connect" element={<ConnectDemo />}></Route>
+        <Route path="/rainbowkit" element={<RainbowKitDemo />}></Route>
         <Route path="/" element={<App />}></Route>
       </Routes>
     </Router>

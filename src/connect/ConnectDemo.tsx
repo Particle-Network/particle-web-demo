@@ -2,6 +2,7 @@ import { ModalProvider, ConnectButton, useAccount } from "@particle-network/conn
 import { evmWallets } from "@particle-network/connect";
 import "./ConnectDemo.css";
 import EvmDemo from "./connect-evm-demo";
+import "@particle-network/connect-react-ui/dist/index.css";
 
 export default function ConnectDemo() {
     return (
@@ -16,6 +17,7 @@ export default function ConnectDemo() {
                 },
                 wallets: evmWallets({ qrcode: false }),
             }}
+            theme={localStorage.getItem("dapp_particle_theme") ?? "light"}
         >
             <ConnectContent></ConnectContent>
         </ModalProvider>
