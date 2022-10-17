@@ -677,7 +677,7 @@ function EVMDemo(props: any) {
         </div>
 
         <div className="card-zero">
-          <div className="title">Person Sign</div>
+          <div className="title">Personal Sign</div>
           <div>
             <button className="blue-btn" onClick={personalSign} disabled={!connect}>
               SIGN
