@@ -18,8 +18,8 @@ const pn = new ParticleNetwork({
   projectId: process.env.REACT_APP_PROJECT_ID as string,
   clientKey: process.env.REACT_APP_CLIENT_KEY as string,
   appId: process.env.REACT_APP_APP_ID as string,
-  chainName: "ethereum",
-  chainId: 42,
+  chainName: "Ethereum",
+  chainId: 1,
 });
 ```
 
