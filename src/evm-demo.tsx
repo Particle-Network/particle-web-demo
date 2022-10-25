@@ -2,12 +2,7 @@ import "./App.css";
 import "./evm-demo.css";
 import { Buffer } from "buffer";
 import { addHexPrefix, bufferToHex, intToHex, toChecksumAddress } from "ethereumjs-util";
-import {
-  recoverPersonalSignature,
-  recoverTypedSignature,
-  recoverTypedSignatureLegacy,
-  recoverTypedSignature_v4,
-} from "eth-sig-util";
+import { recoverPersonalSignature, recoverTypedSignature, SignTypedDataVersion } from "@metamask/eth-sig-util";
 import { useEffect, useState } from "react";
 import { particle } from "./particle";
 import { message, Card, Input } from "antd";
@@ -378,9 +373,10 @@ function EVMDemo(props: any) {
       return;
     }
 
-    const data = recoverTypedSignatureLegacy({
+    const data = recoverTypedSignature({
       data: msgV1,
-      sig: signTypedDataV1Result,
+      signature: signTypedDataV1Result,
+      version: SignTypedDataVersion.V1,
     });
     setSignTypedDataV1RecoveryResult(toChecksumAddress(data));
   };
@@ -447,9 +443,9 @@ function EVMDemo(props: any) {
       return;
     }
     const data = recoverTypedSignature({
-      //@ts-ignore
-      data: payloadV3,
-      sig: signTypedDataV3Result,
+      data: payloadV3 as any,
+      signature: signTypedDataV3Result,
+      version: SignTypedDataVersion.V3,
     });
     setSignTypedDataV3RecoveryResult(toChecksumAddress(data));
   };
@@ -476,6 +472,8 @@ function EVMDemo(props: any) {
           ],
         },
       ],
+      calldata:
+        "0xf242432a0000000000000000000000002ced4f9bbfcd178f7cf0f949249cd1c3b649bdb70000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000025b378602000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000a00000000000000000000000000000000000000000000000000000000000000000",
     },
     primaryType: "Mail",
     types: {
@@ -492,6 +490,10 @@ function EVMDemo(props: any) {
         { name: "from", type: "Person" },
         { name: "to", type: "Person[]" },
         { name: "contents", type: "string" },
+        {
+          name: "calldata",
+          type: "bytes",
+        },
       ],
       Person: [
         { name: "name", type: "string" },
@@ -527,17 +529,17 @@ function EVMDemo(props: any) {
       return;
     }
 
-    const data = recoverTypedSignature_v4({
-      //@ts-ignore
-      data: payloadV4,
-      sig: signTypedDataV4Result,
+    const data = recoverTypedSignature({
+      data: payloadV4 as any,
+      signature: signTypedDataV4Result,
+      version: SignTypedDataVersion.V4,
     });
     setSignTypedDataV4RecoveryResult(toChecksumAddress(data));
   };
 
   const personalSign = async () => {
     // Personal Sign
-    const text = "Hello Particle Network!";
+    const text = "Hello Particle Network!💰💰💰";
     const accounts = await window.web3.eth.getAccounts();
     const from = accounts[0];
     const msg = bufferToHex(Buffer.from(text, "utf8"));
@@ -563,10 +565,10 @@ function EVMDemo(props: any) {
       return;
     }
 
-    const text = "Hello Particle Network!";
+    const text = "Hello Particle Network!💰💰💰";
     const data = recoverPersonalSignature({
       data: text,
-      sig: personalSignResult,
+      signature: personalSignResult,
     });
     setPersonalSignRecoveryResult(toChecksumAddress(data));
   };

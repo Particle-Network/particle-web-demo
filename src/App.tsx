@@ -85,10 +85,6 @@ function App() {
     }
   }, [loginFormMode]);
 
-  const openWallet = () => {
-    particle.openWallet();
-  };
-
   return (
     <div className="App">
       <header className="App-header">
@@ -164,13 +160,6 @@ function App() {
         <SolanaDemo chainName={chainName} loginFormMode={loginFormMode} setLoginState={setLoginState} />
       ) : (
         <EVMDemo chainName={chainName} loginFormMode={loginFormMode} setLoginState={setLoginState} />
-      )}
-
-      {loginState && (
-        <div className="wallet-button" onClick={openWallet}>
-          <img className="image-button" src={require(`./common/images/wallet_icon.png`)} alt="" />
-          <div className="mgt"> Particle Wallet</div>
-        </div>
       )}
     </div>
   );

@@ -1,9 +1,8 @@
 import { ethers } from "ethers";
-import { ParticleNetwork, UIMode } from "@particle-network/auth";
+import { ParticleNetwork, UIMode, WalletEntryPosition } from "@particle-network/auth";
 import { ParticleProvider } from "@particle-network/provider";
 import { EVMProvider } from "@particle-network/local-provider";
 import { SolanaWallet } from "@particle-network/solana-wallet";
-
 import Web3 from "web3";
 
 const particle = new ParticleNetwork({
@@ -13,6 +12,20 @@ const particle = new ParticleNetwork({
   chainName: "Ethereum",
   chainId: 1,
   authUrl: process.env.REACT_APP_AUTH_URL as string, // use for demo internal test, developer can delete it.
+  wallet: {
+    displayWalletEntry: true,
+    defaultWalletEntryPosition: WalletEntryPosition.BR,
+    // supportChains: [
+    //   {
+    //     id: 1,
+    //     name: "Ethereum",
+    //   },
+    //   // {
+    //   //   id: 101,
+    //   //   name: "Solana",
+    //   // },
+    // ],
+  },
 });
 
 let theme = localStorage.getItem("dapp_particle_theme");
