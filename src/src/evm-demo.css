@@ -1,0 +1,28 @@
+.change-social {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.change-social .first-way {
+  margin: 5px 18px;
+}
+.change-social img {
+  margin: 5px 18px;
+  width: 43px;
+  height: 43px;
+  border: 1px solid #d3d7de;
+  border-radius: 22px;
+}
+@media screen and (max-width: 800px) {
+  .change-social img {
+    margin: 5px 9px;
+  }
+}
+.input_text {
+  height: 40px;
+  line-height: 40px;
+  border-radius: 5px;
+}

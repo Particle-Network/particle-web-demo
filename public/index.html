@@ -3,12 +3,14 @@
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta
-      name="description"
-      content="Particle Network Demo"
+      name="viewport"
+      content="width=device-width, initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
+    <meta name="theme-color" content="#000000" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Particle Network Demo" />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
@@ -25,10 +27,88 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>Particle Network Demo</title>
+    <link data-cfasync="false" rel="stylesheet" href="./loading.css" />
   </head>
+
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+    <div id="root">
+      <!-- <div class="pnl-loading-content">
+      <div class="pnl-circle pnl-circle-1">
+        <div class="pnl-dot"></div>
+        <div class="pnl-dot"></div>
+        <div class="pnl-dot"></div>
+        <div class="pnl-dot"></div>
+        <div class="pnl-dot"></div>
+        <div class="pnl-dot"></div>
+        <div class="pnl-dot"></div>
+        <div class="pnl-dot"></div>
+        <div class="pnl-dot"></div>
+        <div class="pnl-dot"></div>
+        <div class="pnl-dot"></div>
+        <div class="pnl-dot"></div>
+        <div class="pnl-dot"></div>
+        <div class="pnl-dot"></div>
+        <div class="pnl-dot"></div>
+        <div class="pnl-dot"></div>
+        <div class="pnl-dot"></div>
+      </div>
+      <div class="pnl-circle pnl-circle-2">
+        <div class="pnl-dot"></div>
+        <div class="pnl-dot"></div>
+        <div class="pnl-dot"></div>
+        <div class="pnl-dot"></div>
+        <div class="pnl-dot"></div>
+        <div class="pnl-dot"></div>
+        <div class="pnl-dot"></div>
+        <div class="pnl-dot"></div>
+        <div class="pnl-dot"></div>
+        <div class="pnl-dot"></div>
+        <div class="pnl-dot"></div>
+        <div class="pnl-dot"></div>
+        <div class="pnl-dot"></div>
+        <div class="pnl-dot"></div>
+        <div class="pnl-dot"></div>
+        <div class="pnl-dot"></div>
+        <div class="pnl-dot"></div>
+      </div>
+      <div class="pnl-circle pnl-circle-3">
+        <div class="pnl-dot"></div>
+        <div class="pnl-dot"></div>
+        <div class="pnl-dot"></div>
+        <div class="pnl-dot"></div>
+        <div class="pnl-dot"></div>
+        <div class="pnl-dot"></div>
+        <div class="pnl-dot"></div>
+        <div class="pnl-dot"></div>
+        <div class="pnl-dot"></div>
+        <div class="pnl-dot"></div>
+        <div class="pnl-dot"></div>
+        <div class="pnl-dot"></div>
+        <div class="pnl-dot"></div>
+        <div class="pnl-dot"></div>
+        <div class="pnl-dot"></div>
+        <div class="pnl-dot"></div>
+        <div class="pnl-dot"></div>
+      </div>
+    </div> -->
+    <div className="loading-box">
+      <div class="lds-default">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+      
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
