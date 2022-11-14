@@ -26,3 +26,6 @@ dev_deploy
 staging_deploy
 production_deploy
 ali_upload_dir.py
+
+.env.dev
+.env.pro
