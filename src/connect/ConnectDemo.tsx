@@ -15,9 +15,9 @@ export default function ConnectDemo() {
   return (
     <ModalProvider
       options={{
-        projectId: "34c6b829-5b89-44e8-90a9-6d982787b9c9",
-        clientKey: "c6Z44Ml4TQeNhctvwYgdSv6DBzfjf6t6CB0JDscR",
-        appId: "64f36641-b68c-4b19-aa10-5c5304d0eab3",
+        projectId: process.env.REACT_APP_PROJECT_ID as string,
+        clientKey: process.env.REACT_APP_CLIENT_KEY as string,
+        appId: process.env.REACT_APP_APP_ID as string,
         chains: [
           {
             name: "Ethereum",
