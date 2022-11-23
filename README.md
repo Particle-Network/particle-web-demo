@@ -7,7 +7,7 @@ Currently hosted [here](https://web-demo.particle.network).
 
 ## Getting Started
 
-* Install [Node.js](https://nodejs.org/).
+* Install [Node.js](https://nodejs.org/). and `npm install dotenv-cli -g`
 * Install [Yarn](https://classic.yarnpkg.com/en/docs/install#mac-stable)
 * Run `yarn start`
 
