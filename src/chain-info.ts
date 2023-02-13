@@ -1,3 +1,3 @@
-import { supportChains } from "@particle-network/common";
+import { ParticleChains } from '@particle-network/common';
 
-export const chainNames = Object.keys(supportChains);
+export const chainNames = Object.keys(ParticleChains);
