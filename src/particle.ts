@@ -6,9 +6,9 @@ import { SolanaWallet } from '@particle-network/solana-wallet';
 import Web3 from 'web3';
 
 const customStyle: WalletCustomStyle = {
-    // supportAddToken: false, // 是否显示import入口，默认显示
+    // supportAddToken: false, // whether to show import token，default true
     // supportChains: [
-    //   // 可切换链，必须包含chain，如果不包含chain，会默认添加
+    //   // whether can switch chains, must be non-empty, otherwise will display all supported chains
     //   {
     //     id: 1,
     //     name: "Ethereum",
@@ -18,24 +18,24 @@ const customStyle: WalletCustomStyle = {
     //     name: "Ethereum",
     //   },
     // ],
-    // displayTokenAddresses: ["0x326C977E6efc84E512bB9C30f76E30c160eD06FB"], // 显示特定的token，如果不设置，会显示所有的token
-    // displayNFTContractAddresses: ["0x4135a7B077871a2DaAA06ae0971FbFb443E866C0"], // 显示特定的NFT合约，如果不设置，会显示所有的NFT合约
-    // fiatCoin: "JPY", // 默认显示的法币，如果定义了隐藏setting
-    // evmSupportWalletConnect: false, // 是否支持wallet connect
-    // supportUIModeSwitch: true, // 是否支持切换dark/light模式
-    // supportLanguageSwitch: false, // 是否支持切换语言
+    // displayTokenAddresses: ["0x326C977E6efc84E512bB9C30f76E30c160eD06FB"], // whether to show specific token address, if not specified, will display all available tokens
+    // displayNFTContractAddresses: ["0x4135a7B077871a2DaAA06ae0971FbFb443E866C0"], // whether to show specific NFT contract address, if not specified, will display all available ones
+    // fiatCoin: "JPY", // display the fiat by default, if specified will hide the setting
+    // evmSupportWalletConnect: false, // whether support WalletConnect
+    // supportUIModeSwitch: true, // whether allow switching between dark/light mode
+    // supportLanguageSwitch: false, // whether support language switching
     //@ts-ignore
     priorityTokenAddresses: [''],
     //@ts-ignore
     priorityNFTContractAddresses: [''],
     light: {
-        colorAccent: '#386ef2', // 高光颜色
-        colorPrimary: '#ffffff', // 主要内容背景颜色  例：页面内容背景色
-        colorOnPrimary: '#ffffff', // 信息面板背景颜色  例：首页信息块背景色 , switch chain list 背景色
-        primaryButtonBackgroundColors: ['#000000', '#000000'], // 主要按钮颜色
-        primaryButtonTextColor: '#ffffff', // 主要按钮字体颜色
-        primaryIconButtonBackgroundColors: ['#dfe9fd', '#dfe9fd'], // 高光Icon按钮颜色
-        cancelButtonBackgroundColor: '#666666', // 取消按钮颜色
+        colorAccent: '#386ef2', // highlight color
+        colorPrimary: '#ffffff', // background color for the primary content
+        colorOnPrimary: '#ffffff', // background color for the information interface, such as the information block in the home page or component for switching chain
+        primaryButtonBackgroundColors: ['#000000', '#000000'], //  colors for the primary button background
+        primaryButtonTextColor: '#ffffff', // color for the primary button text
+        primaryIconButtonBackgroundColors: ['#dfe9fd', '#dfe9fd'], // colors for the highlighted icon background
+        cancelButtonBackgroundColor: '#666666', // color for the cancel button background
         backgroundColors: [
             '#e5e5e5',
             [
@@ -43,18 +43,18 @@ const customStyle: WalletCustomStyle = {
                 ['#ffffff00', '#ffffff00'],
             ],
         ],
-        messageColors: ['#7DD5F9', '#ed5d51'], // 消息背景颜色 [0:成功消息, 1:错误消息]
-        borderGlowColors: ['#7bd5f940', '#323233'], // 边框发光颜色 [0:亮色, 1:主色,]
-        modalMaskBackgroundColor: '#141430b3', // 模态框遮罩层背景颜色
+        messageColors: ['#7DD5F9', '#ed5d51'], // background color for the message background [0: success message, 1: error message]
+        borderGlowColors: ['#7bd5f940', '#323233'], // border glow colors [0: highlight, 1: primary]
+        modalMaskBackgroundColor: '#141430b3', // background color for the modal mask
     },
     dark: {
-        colorAccent: '#7DD5F9', // 高光颜色  例：dark模式的粉色，
-        colorPrimary: '#21213a', // 主要内容背景颜色  例：页面内容背景色
-        colorOnPrimary: '#171728', // 信息面板背景颜色  例：首页信息块背景色 , switch chain list 背景色
-        primaryButtonBackgroundColors: ['#5ED7FF', '#E89DE7'], // 主要按钮颜色
-        primaryIconButtonBackgroundColors: ['#5ED7FF', '#E89DE7'], // 高光Icon按钮颜色
-        primaryButtonTextColor: '#0A1161', // 主要按钮字体颜色
-        cancelButtonBackgroundColor: '#666666', // 取消按钮颜色
+        colorAccent: '#7DD5F9', // highlight color
+        colorPrimary: '#21213a', // background color for the primary content
+        colorOnPrimary: '#171728', // background color for the information interface, such as the information block in the home page or component for switching chain
+        primaryButtonBackgroundColors: ['#5ED7FF', '#E89DE7'], //  colors for the primary button background
+        primaryIconButtonBackgroundColors: ['#5ED7FF', '#E89DE7'], // colors for the highlighted icon background
+        primaryButtonTextColor: '#0A1161', // color for the primary button text
+        cancelButtonBackgroundColor: '#666666', // color for the cancel button background
         backgroundColors: [
             '#14152e',
             [
@@ -62,9 +62,9 @@ const customStyle: WalletCustomStyle = {
                 ['#7dd5f94d', '#7dd5f900'],
             ],
         ],
-        messageColors: ['#7DD5F9', '#ed5d51'], // 消息背景颜色 [0:成功消息, 1:错误消息]
-        borderGlowColors: ['#7bd5f940', '#323233'], // 边框发光颜色 [0:亮色, 1:主色,]
-        modalMaskBackgroundColor: '#141430b3', // 模态框遮罩层背景颜色
+        messageColors: ['#7DD5F9', '#ed5d51'], // background color for the message background [0: success message, 1: error message]
+        borderGlowColors: ['#7bd5f940', '#323233'], // border glow colors [0: highlight, 1: primary]
+        modalMaskBackgroundColor: '#141430b3', // background color for the modal mask
     },
 };
 
@@ -86,7 +86,7 @@ const particle = new ParticleNetwork({
     },
     wallet: {
         displayWalletEntry: true,
-        preload: true, // preload设置true时，会在登录成功后，用link[rel=preload]的方式加载 Wab Wallet 网站所需要的 css，js资源，此方式不会影响和阻塞页面正常访问
+        preload: true, // when preload is true, after login, will use link[rel=preload] to load the CSS, JS resources for the Web Wallet, this method will not affect or block page access
         defaultWalletEntryPosition: WalletEntryPosition.BR,
         customStyle: isCustomStyle ? customStyle : undefined,
         // supportChains: [
