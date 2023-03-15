@@ -1,0 +1,25 @@
+{
+    "name": "next-connect-starter",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint"
+    },
+    "dependencies": {
+        "@particle-network/auth": "^0.11.3",
+        "@particle-network/connect-react-ui": "^0.11.4",
+        "@particle-network/provider": "^0.11.3",
+        "@particle-network/solana-wallet": "^0.11.3",
+        "@walletconnect/ethereum-provider": "^1.8.0",
+        "next": "13.0.6",
+        "react": "18.2.0",
+        "react-dom": "18.2.0"
+    },
+    "devDependencies": {
+        "eslint": "8.29.0",
+        "eslint-config-next": "13.0.6"
+    }
+}

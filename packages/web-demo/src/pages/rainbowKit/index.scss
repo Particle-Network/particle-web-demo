@@ -1,0 +1,21 @@
+.rainbowkit-box {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .rainbowkit-connect-btn {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
+
+    .rainbowkit-developer-docs {
+        font-size: 30px;
+        font-weight: bold;
+        padding: 0 20px;
+        text-align: center;
+    }
+}

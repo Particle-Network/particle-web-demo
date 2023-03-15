@@ -1,0 +1,53 @@
+{
+    "name": "root",
+    "private": true,
+    "license": "Apache-2.0",
+    "workspaces": {
+        "packages": [
+            "packages/*"
+        ]
+    },
+    "engines": {
+        "node": ">= 10"
+    },
+    "devDependencies": {
+        "@types/eslint-plugin-prettier": "^3.1.0",
+        "@types/jest": "^27.5.1",
+        "@types/node": "^17.0.35",
+        "@typescript-eslint/eslint-plugin": "^5.26.0",
+        "@typescript-eslint/parser": "^5.26.0",
+        "esbuild": "^0.15.10",
+        "eslint": "^8.16.0",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-config-react-app": "^7.0.0",
+        "eslint-plugin-prettier": "^4.0.0",
+        "jest": "^28.1.0",
+        "lerna": "^5.1.1",
+        "lint-staged": "11.2.3",
+        "prettier": "^2.6.2",
+        "shx": "^0.3.3",
+        "ts-jest": "^28.0.3",
+        "ts-node": "^10.8.0",
+        "typescript": "^4.7.2"
+    },
+    "scripts": {
+        "clean": "lerna run clean",
+        "bootstrap": "lerna bootstrap",
+        "build": "lerna run build",
+        "start:web3-react": "lerna run start --scope=web3-react-starter",
+        "start:web-demo": "lerna run start --scope=web-demo",
+        "deploy:web-demo": "./packages/web-demo/dev_deploy.sh",
+        "deploy:production:web-demo": "./packages/web-demo/production_deploy.sh",
+        "test": "lerna run test",
+        "lint": "eslint packages/**/src --no-error-on-unmatched-pattern --ext .ts,.tsx -c .eslintrc.json",
+        "ts-node": "ts-node",
+        "prettier": "prettier --write 'packages/*/src/**/*.{js,ts,tsx,css,less}' 'packages/*/pages/**/*.{js,ts,tsx,css,less}' 'packages/*/*.{json,js}'",
+        "upgrade:particle": "node updateVersion.js"
+    },
+    "lint-staged": {
+        "packages/**/*.{js,jsx,ts,tsx,json,css,scss}": [
+            "prettier --write",
+            "git add"
+        ]
+    }
+}

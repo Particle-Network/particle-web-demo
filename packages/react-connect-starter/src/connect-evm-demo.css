@@ -1,0 +1,24 @@
+.demo-content {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 50px;
+}
+
+.function-item {
+    margin-top: 12px;
+    width: 400px;
+    max-width: 90vw;
+    height: 50px;
+    font-size: 16px;
+}
+
+h4 {
+    background-color: rgba(111, 111, 111, 0.1);
+    width: 100%;
+    margin: 20px 0;
+    padding: 10px;
+    box-sizing: border-box;
+    word-break: break-all;
+    text-align: left;
+}

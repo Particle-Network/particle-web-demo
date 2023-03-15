@@ -1,0 +1,15 @@
+.chain-option {
+    display: flex;
+    align-items: center;
+    .chain-icon {
+        width: 18px;
+        height: 18px;
+        margin-right: 4px;
+    }
+
+    div {
+        flex: 1;
+        text-align: right;
+        color: #ddd;
+    }
+}

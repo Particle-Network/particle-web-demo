@@ -1,0 +1,46 @@
+.connectkit-box {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    overflow: auto;
+    height: 100vh;
+
+    .developer-docs {
+        font-size: 30px;
+        margin-top: 50px;
+    }
+
+    .connect-btn {
+        margin-top: 50px;
+    }
+
+    .connectkit-divider {
+        width: 100%;
+        padding: 20px 30px;
+        color: black;
+        border-top-color: gray;
+    }
+
+    .connect-custom {
+        img {
+            height: 60px;
+            width: 60px;
+            cursor: pointer;
+        }
+        margin-bottom: 20px;
+    }
+
+    .chain-selecter {
+        margin-bottom: 20px;
+        width: 200px;
+    }
+
+    .language-box {
+        padding: 0 20px;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        flex-wrap: wrap;
+    }
+}

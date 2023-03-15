@@ -1,0 +1,30 @@
+{
+    "include": ["packages/*/src"],
+    "exclude": ["node_modules", "packages/*/node_modules"],
+    "compilerOptions": {
+        "target": "ES2015",
+        "lib": ["dom", "dom.iterable", "esnext"],
+        "module": "esnext",
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "noEmit": true,
+        "declaration": true,
+        "sourceMap": true,
+        "noEmitOnError": true,
+        "stripInternal": true,
+        "jsx": "react",
+        "strict": false,
+        "moduleResolution": "node",
+        "skipLibCheck": true,
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "allowSyntheticDefaultImports": true,
+        "typeRoots": ["node_modules/@types"]
+    },
+    "typedocOptions": {
+        "entryPoints": ".",
+        "entryPointStrategy": "packages",
+        "out": "docs",
+        "readme": "README.md"
+    }
+}

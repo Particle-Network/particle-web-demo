@@ -1,0 +1,17 @@
+.cache
+.idea
+.vscode/*
+typings
+CHANGELOG.md
+
+_cache
+cache
+
+.build
+_build
+build
+
+.dist
+_dist
+dist
+lib

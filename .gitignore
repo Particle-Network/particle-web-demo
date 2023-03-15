@@ -1,0 +1,14 @@
+node_modules
+build
+/lib/
+dist
+es
+/docs/
+.idea/*
+
+.DS_Store
+coverage
+*.log
+/.history
+.ossutil_checkpoint
+.vscode

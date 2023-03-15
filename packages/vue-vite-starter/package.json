@@ -1,0 +1,29 @@
+{
+    "name": "vue-vite-starter",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+        "start": "vite",
+        "build": "vue-tsc && vite build",
+        "preview": "vite preview"
+    },
+    "dependencies": {
+        "@particle-network/auth": "^0.11.3",
+        "@particle-network/provider": "^0.11.3",
+        "@particle-network/connect": "^0.11.3",
+        "buffer": "^6.0.3",
+        "events": "^3.3.0",
+        "process": "^0.11.10",
+        "vue": "^3.2.41"
+    },
+    "devDependencies": {
+        "@types/node": "^18.11.9",
+        "@vitejs/plugin-vue": "^3.2.0",
+        "sass": "^1.56.1",
+        "sass-loader": "^13.2.0",
+        "typescript": "^4.6.4",
+        "vite": "^3.2.3",
+        "vue-tsc": "^1.0.9"
+    }
+}

@@ -1,0 +1,56 @@
+.App {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 50px;
+}
+
+.selection-container {
+    margin-top: 50px;
+    width: 60%;
+    padding: 20px;
+    border: 1px solid #000000;
+    border-radius: 10px;
+}
+
+.selection-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.selection-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.item-left {
+    display: flex;
+}
+
+.item-icon {
+    width: 40px;
+    height: 40px;
+}
+
+.item-text {
+    text-align: left;
+    font-size: 16px;
+}
+
+.add-item {
+    font-size: 50px;
+    cursor: pointer;
+}
+
+.connect-btn {
+    align-self: flex-end;
+    border-radius: 10px;
+    width: 200px;
+}
+
+.del-btn {
+    border-radius: 10px;
+}

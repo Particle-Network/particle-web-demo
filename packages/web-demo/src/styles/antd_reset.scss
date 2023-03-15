@@ -1,0 +1,19 @@
+.ant-btn {
+    border-radius: 4px;
+    opacity: 1;
+    // font-family: Apercu Pro-Medium, Apercu Pro;
+    padding: 0px 20px;
+    font-weight: 500;
+    height: 40px !important;
+    font-size: 15px;
+}
+
+.ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
+    border-radius: 4px;
+    opacity: 1;
+    font-weight: 500;
+    // font-family: Apercu Pro-Medium, Apercu Pro;
+    span {
+        display: inline-block;
+    }
+}

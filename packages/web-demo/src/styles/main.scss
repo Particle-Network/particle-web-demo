@@ -1,0 +1,19 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    background-color: #f6f7f9;
+    color: #202224;
+    // overflow: hidden;
+}
+.mini-login-form [name='particle-network-iframe'][src*='/login'] {
+    height: 300px !important;
+    .login-container-box {
+        background-color: red;
+    }
+}
+.select-country {
+    margin-top: 53px !important;
+    height: 43% !important;
+}
