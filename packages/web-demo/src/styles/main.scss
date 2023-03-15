@@ -9,11 +9,4 @@ body {
 }
 .mini-login-form [name='particle-network-iframe'][src*='/login'] {
     height: 300px !important;
-    .login-container-box {
-        background-color: red;
-    }
-}
-.select-country {
-    margin-top: 53px !important;
-    height: 43% !important;
 }

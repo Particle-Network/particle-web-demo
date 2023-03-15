@@ -13,14 +13,22 @@ function PageQrCode() {
         }
     }, []);
 
-    useEffect(() => {
+    const open = () => {
         if (isIos) {
             window.location.href = 'https://apps.apple.com/us/app/particle-crypto-wallet/id1632425771x';
         } else {
             window.location.href = 'https://play.google.com/store/apps/details?id=network.particle.auth';
         }
+    };
+
+    useEffect(() => {
+        open();
     }, []);
-    return <div className="qrcode center-center">loading</div>;
+    return (
+        <div className="qrcode center-center" onClick={open}>
+            click open store!
+        </div>
+    );
 }
 
 export default PageQrCode;

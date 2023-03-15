@@ -63,7 +63,7 @@ function Home() {
         loginAccount: '',
         chainKey: loadChainKey(),
         language: localStorage.getItem('dapp_particle_language') || 'en',
-        loginFormMode: !!localStorage.getItem('dapp_particle_form_mode'),
+        loginFormMode: !!localStorage.getItem('dapp_particle_form_mode') ? 'true' : 'false',
         promptMasterPasswordSettingWhenLogin: Number(
             localStorage.getItem('promptMasterPasswordSettingWhenLogin') || '1'
         ),
@@ -182,7 +182,7 @@ function Home() {
                 account: input_content,
                 supportAuthTypes: 'all',
                 socialLoginPrompt: 'consent',
-                loginFormMode: demoSetting.loginFormMode,
+                loginFormMode: demoSetting.loginFormMode === 'true',
                 hideLoading: type === 'jwt',
             })
             .then((userInfo) => {
