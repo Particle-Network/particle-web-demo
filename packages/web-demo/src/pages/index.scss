@@ -6,7 +6,8 @@
     margin: 0;
     overflow-y: hidden;
     height: 100vh;
-    // touch-action: none;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 
     &::-webkit-scrollbar {
         display: none;
@@ -408,6 +409,8 @@
         max-height: calc(100vh - 70px);
         overflow: hidden;
         position: relative;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
 
         &::-webkit-scrollbar {
             display: none;
@@ -433,6 +436,8 @@
             overflow-x: hidden;
             padding-bottom: 20px;
             touch-action: pan-y;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
 
             &::-webkit-scrollbar {
                 display: none;
@@ -477,7 +482,8 @@
             right: 0;
             top: 20px;
             touch-action: pan-y;
-
+            scrollbar-width: none;
+            -ms-overflow-style: none;
             &::-webkit-scrollbar {
                 display: none;
             }

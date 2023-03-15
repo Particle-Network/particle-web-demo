@@ -67,6 +67,8 @@ function PnSelect(props: PnSelectProps) {
 
             <div className="pn-select-box">
                 <Picker
+                    confirmText={'Confirm'}
+                    cancelText={'Cancel'}
                     columns={columns}
                     visible={visible}
                     onClose={() => {
