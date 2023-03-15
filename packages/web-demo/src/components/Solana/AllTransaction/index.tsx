@@ -7,7 +7,7 @@ import { isValidSolanaAddress } from '../../../utils';
 
 function AllTranscation(props: { solanaWallet: SolanaWallet; address: string; demoSetting: any; loginState: boolean }) {
     const [loading, setLoading] = useState<number>(0);
-    const defReceiveAddress: string = 'DQnJV3hUbKo2PpqV8ugxM4nSikBGP9koNyyvoPuMvS3a';
+    const defReceiveAddress: string = 'F4FGwoBDM8HZJjGWnhqnh5xwNssbcPgQKD4mEK1r7rjo';
     const defAmount: string = '0.001';
     const [receiveAddress, setReceiveAddress] = useState<string>('');
     const [amount, setAmount] = useState<string>('');

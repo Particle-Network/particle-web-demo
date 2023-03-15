@@ -5,7 +5,7 @@ import { toWei, isValidEVMAddress } from '../../../utils';
 
 function SendERC20Approve(props: any) {
     const [loading, setLoading] = useState<number>(0);
-    const defReceiveAddress: string = '0x16380a03F21E5a5E339c15BA8eBE581d194e0DB3';
+    const defReceiveAddress: string = '0x6Bc8fd522354e4244531ce3D2B99f5dF2aAE335e';
     const defContractAddress: string = '0xFab46E002BbF0b4509813474841E0716E6730136';
     const defAmount: string = '0.001';
     const [receiveAddress, setReceiveAddress] = useState<string>('');
