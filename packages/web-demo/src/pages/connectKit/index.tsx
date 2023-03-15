@@ -11,7 +11,7 @@ import {
     useNetwork,
 } from '@particle-network/connect-react-ui';
 import { ParticleChains, chains } from '@particle-network/common';
-import { evmWallets, solanaWallets, isEVMProvider, web3Modal } from '@particle-network/connect';
+import { evmWallets, solanaWallets, isEVMProvider } from '@particle-network/connect';
 import './index.scss';
 
 // import connect react ui styles
@@ -35,6 +35,7 @@ const PageConnectKit = () => {
                 'microsoft',
                 'linkedin',
                 'github',
+                'twitch',
                 'discord',
             ]}
             options={{
@@ -46,7 +47,7 @@ const PageConnectKit = () => {
                     displayWalletEntry: true,
                     defaultWalletEntryPosition: WalletEntryPosition.BR,
                 },
-                wallets: [...evmWallets({ qrcode: false }), ...solanaWallets(), web3Modal()],
+                wallets: [...evmWallets({ qrcode: false }), ...solanaWallets()],
                 // @ts-ignore
                 securityAccount: {
                     promptSettingWhenSign: 1,
@@ -87,12 +88,6 @@ const ConnectContent = () => {
     const connectMetaMask = () => {
         connect({
             id: 'metamask',
-        });
-    };
-
-    const connectWalletConnect = () => {
-        connect({
-            id: 'web3Modal',
         });
     };
 
@@ -137,7 +132,6 @@ const ConnectContent = () => {
                 <Space className="connect-custom">
                     <img src={require('../../common/images/google_icon.png')} onClick={connectParticleWithGoogle}></img>
                     <img src={require('../../common/icons/metamask.png')} onClick={connectMetaMask}></img>
-                    <img src={require('../../common/icons/walletconnect.png')} onClick={connectWalletConnect}></img>
                 </Space>
             )}
 
