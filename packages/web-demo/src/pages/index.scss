@@ -6,6 +6,7 @@
     margin: 0;
     overflow-y: hidden;
     height: 100vh;
+    // touch-action: none;
 
     &::-webkit-scrollbar {
         display: none;
@@ -431,6 +432,7 @@
             overflow-y: auto;
             overflow-x: hidden;
             padding-bottom: 20px;
+            touch-action: pan-y;
 
             &::-webkit-scrollbar {
                 display: none;
@@ -465,7 +467,7 @@
             height: calc(100vh - 70px);
             max-width: calc(100vh - 70px);
             margin-left: 15px;
-            overflow-y: scroll;
+            overflow-y: auto;
             display: flex;
             align-items: center;
             justify-content: flex-start;
@@ -474,9 +476,9 @@
             position: absolute;
             right: 0;
             top: 20px;
+            touch-action: pan-y;
 
             &::-webkit-scrollbar {
-                opacity: 1;
                 display: none;
             }
 
@@ -513,11 +515,12 @@
                     margin-right: 10px;
                     font-size: 14px;
                     color: #86899d;
+                    position: relative;
                     .info {
                         font-size: 18px;
                         color: #1890ff;
                         position: absolute;
-                        right: 20px;
+                        right: 0px;
                     }
                 }
 

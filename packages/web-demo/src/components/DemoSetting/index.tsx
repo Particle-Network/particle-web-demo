@@ -5,7 +5,7 @@ import { InfoCircleOutlined } from '@ant-design/icons';
 import { ParticleChains as Chains } from '@particle-network/common';
 import { UIMode } from '@particle-network/auth';
 import { customStyle as defCustomStyle } from '../../types/customStyle';
-
+import PnSelect from '../PnSelect';
 import './index.scss';
 import { isJson } from '../../utils';
 const { TextArea } = Input;
@@ -58,7 +58,7 @@ function DemoSetting(props: any) {
     const [chainKey, setChainKey] = useState<string>(demoSetting.chainKey);
     const [modalBorderRadius, setModalBorderRadius] = useState<number>(demoSetting.modalBorderRadius || 10);
     const [language, setLanguage] = useState<string>(demoSetting.language);
-    const [loginFormMode, setLoginFormMode] = useState(!!localStorage.getItem('loginFormMode'));
+    const [loginFormMode, setLoginFormMode] = useState(!!localStorage.getItem('loginFormMode') ? 'true' : 'false');
     const [theme, setTheme] = useState<string>(demoSetting.theme);
 
     const [promptSettingWhenSign, setPromptSettingWhenSign] = useState(demoSetting.promptSettingWhenSign);
@@ -127,7 +127,7 @@ function DemoSetting(props: any) {
         localStorage.setItem('dapp_particle_form_mode', loginFormMode ? 'checked' : '');
         // @ts-ignore
         const classList = window.document.querySelector('body').classList;
-        if (loginFormMode) {
+        if (loginFormMode === 'true') {
             classList.add('mini-login-form');
         } else {
             classList.remove('mini-login-form');
@@ -155,84 +155,51 @@ function DemoSetting(props: any) {
                             }}
                         />
                     </div>
-                    <Select
-                        listItemHeight={10}
-                        listHeight={250}
-                        getPopupContainer={(triggerNode) => triggerNode.parentNode}
-                        className="filter-input"
-                        defaultValue={chainKey}
+                    <PnSelect
                         value={chainKey}
                         onChange={switchChain}
-                        onPopupScroll={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                        }}
-                    >
-                        {/* {ParticleChains.map((chainKey) => (
-                            <Option key={chainKey} value={chainKey} label={ParticleChains[chainKey].fullname}>
-                                <div className="chain-option">
-                                    <img src={ParticleChains[chainKey].icon} alt="" className="chain-icon" />
-                                    <span>{ParticleChains[chainKey].fullname}</span>
-                                    <div>{ParticleChains[chainKey].id}</div>
-                                </div>
-                            </Option>
-                        ))} */}
-
-                        {chainOptions.map((chain) => (
-                            <Option key={chain.key} value={chain.key} label={chain.fullname}>
-                                <div className="chain-option">
-                                    <img src={chain.icon} alt="" className="chain-icon" />
-                                    <span>{chain.fullname}</span>
-                                    <div>{chain.id}</div>
-                                </div>
-                            </Option>
-                        ))}
-                    </Select>
+                        options={chainOptions.map((item) => ({
+                            ...item,
+                            label: item.fullname,
+                            value: item.key,
+                        }))}
+                    ></PnSelect>
                 </div>
             )}
             <div className="filter-item">
                 <div className="filter-label">Language:</div>
-                <Select
-                    className="filter-input"
-                    defaultValue={language}
+                <PnSelect
+                    value={language}
                     onChange={setLanguage}
-                    getPopupContainer={(triggerNode) => triggerNode.parentNode}
-                >
-                    {LanguageOptions.map((lang, langIdx) => (
-                        <Option key={langIdx} value={lang}>
-                            {lang}
-                        </Option>
-                    ))}
-                </Select>
+                    options={LanguageOptions.map((item) => ({
+                        label: item,
+                        value: item,
+                    }))}
+                ></PnSelect>
             </div>
             <div className="filter-item">
                 <div className="filter-label">Theme:</div>
-                <Select
-                    className="filter-input"
+
+                <PnSelect
                     value={theme}
                     onChange={setTheme}
-                    getPopupContainer={(triggerNode) => triggerNode.parentNode}
-                >
-                    {ThemeOptions.map((theme, idx) => (
-                        <Option key={idx} value={theme} label={theme}>
-                            {theme}
-                        </Option>
-                    ))}
-                </Select>
+                    options={ThemeOptions.map((item) => ({
+                        label: item,
+                        value: item,
+                    }))}
+                ></PnSelect>
             </div>
             <div className="filter-item">
                 <div className="filter-label">Full / Form Mode:</div>
-                <Select
-                    className="filter-input"
-                    getPopupContainer={(triggerNode) => triggerNode.parentNode}
-                    defaultValue={loginFormMode}
+
+                <PnSelect
                     value={loginFormMode}
                     onChange={setLoginFormMode}
                     options={[
-                        { value: false, label: 'Full' },
-                        { value: true, label: 'Form mode' },
+                        { value: 'false', label: 'Full' },
+                        { value: 'true', label: 'Form mode' },
                     ]}
-                />
+                ></PnSelect>
             </div>
             <div className="filter-item">
                 <div className="filter-label">Modal Border Radius:</div>
@@ -248,30 +215,26 @@ function DemoSetting(props: any) {
             </div>
             <div className="filter-item">
                 <div className="filter-label">Prompt Master Password Setting When Login</div>
-                <Select
-                    className="filter-input"
-                    getPopupContainer={(triggerNode) => triggerNode.parentNode}
+                <PnSelect
                     value={promptMasterPasswordSettingWhenLogin}
                     onChange={(value) => {
                         localStorage.setItem('promptMasterPasswordSettingWhenLogin', value + '');
                         setPromptMasterPasswordSettingWhenLogin(value);
                     }}
                     options={SettingWhenLoginOption}
-                />
+                ></PnSelect>
             </div>
             <div className="filter-item">
                 <div className="filter-label">Prompt Security Setting When Sign</div>
-                <Select
-                    className="filter-input"
-                    getPopupContainer={(triggerNode) => triggerNode.parentNode}
+                <PnSelect
                     value={promptSettingWhenSign}
                     onChange={(value) => {
                         localStorage.setItem('promptSettingWhenSign', value + '');
                         setPromptSettingWhenSign(value);
                     }}
                     options={SettingWhenLoginOption}
-                />
-            </div>{' '}
+                ></PnSelect>
+            </div>
             <div className="filter-item">
                 <div className="filter-label">
                     Wallet Custom Style:
