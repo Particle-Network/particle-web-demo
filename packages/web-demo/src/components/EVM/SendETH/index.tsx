@@ -17,8 +17,8 @@ function SendETH(props: any) {
 
     const defReceiveAddress = useMemo(() => {
         return isTron()
-            ? toBase58Address('0x16380a03F21E5a5E339c15BA8eBE581d194e0DB3')
-            : '0x16380a03F21E5a5E339c15BA8eBE581d194e0DB3';
+            ? toBase58Address('0x6Bc8fd522354e4244531ce3D2B99f5dF2aAE335e')
+            : '0x6Bc8fd522354e4244531ce3D2B99f5dF2aAE335e';
     }, [chainKey]);
 
     const isSupportEIP1559 = () => {

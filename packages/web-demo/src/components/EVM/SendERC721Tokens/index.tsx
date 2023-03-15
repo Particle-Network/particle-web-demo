@@ -4,7 +4,7 @@ import { addHexPrefix, intToHex } from '@ethereumjs/util';
 import { isValidEVMAddress } from '../../../utils';
 
 function SendERC721Tokens(props: any) {
-    const defReceiveAddress: string = '0x16380a03F21E5a5E339c15BA8eBE581d194e0DB3';
+    const defReceiveAddress: string = '0x6Bc8fd522354e4244531ce3D2B99f5dF2aAE335e';
     const defContractAddress: string = '0xDF27A250c425Ba6721d399bf09259e6a089D6157';
     const defTokenId = '1';
 

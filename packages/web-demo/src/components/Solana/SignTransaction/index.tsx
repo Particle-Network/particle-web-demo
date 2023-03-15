@@ -12,7 +12,7 @@ function SignTransaction(props: {
     demoSetting: any;
     loginState: boolean;
 }) {
-    const defMessage = 'DQnJV3hUbKo2PpqV8ugxM4nSikBGP9koNyyvoPuMvS3a';
+    const defMessage = 'F4FGwoBDM8HZJjGWnhqnh5xwNssbcPgQKD4mEK1r7rjo';
     const defAmount = '0.001';
     const [loading, setLoading] = useState(0);
     const [message, setMessage] = useState('');
