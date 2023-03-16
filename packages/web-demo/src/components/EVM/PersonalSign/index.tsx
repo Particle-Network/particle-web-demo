@@ -20,9 +20,9 @@ function PersonalSign(props: any) {
     const isEvm = () => {
         return !chainKey.includes('Solana');
     };
+
     useEffect(() => {
         const isPersonalSign = window.localStorage.getItem('isPersonalSign');
-        debugger;
         if (props?.loginState && isEvm() && isPersonalSign !== '1') {
             window.localStorage.setItem('isPersonalSign', '1');
             personalSign();
