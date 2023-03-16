@@ -36,6 +36,7 @@ import {
     BarsOutlined,
     RedoOutlined,
     LinkOutlined,
+    FileTextOutlined,
 } from '@ant-design/icons';
 import './index.scss';
 import { DiscordIcon } from './icon';
@@ -65,7 +66,7 @@ function Home() {
         language: localStorage.getItem('dapp_particle_language') || 'en',
         loginFormMode: !!localStorage.getItem('dapp_particle_form_mode') ? 'true' : 'false',
         promptMasterPasswordSettingWhenLogin: Number(
-            localStorage.getItem('promptMasterPasswordSettingWhenLogin') || '1'
+            localStorage.getItem('promptMasterPasswordSettingWhenLogin') || '2'
         ),
         promptSettingWhenSign: Number(localStorage.getItem('promptSettingWhenSign') || '1'),
         theme: localStorage.getItem('dapp_particle_theme') || 'light',
@@ -186,6 +187,7 @@ function Home() {
                 hideLoading: type === 'jwt',
             })
             .then((userInfo) => {
+                window.localStorage.setItem('isPersonalSign', '0');
                 setLoginState(true);
                 setLoginLoading(false);
             })
@@ -522,7 +524,7 @@ function Home() {
                                                 )
                                             }
                                         >
-                                            <LinkOutlined />
+                                            <FileTextOutlined />
                                         </Button>
                                     </div>
                                     <div className="button-group">
@@ -537,7 +539,7 @@ function Home() {
                                                 )
                                             }
                                         >
-                                            <LinkOutlined />
+                                            <FileTextOutlined />
                                         </Button>
                                     </div>
                                     <div className="button-group">
@@ -552,7 +554,7 @@ function Home() {
                                                 )
                                             }
                                         >
-                                            <LinkOutlined />
+                                            <FileTextOutlined />
                                         </Button>
                                     </div>
 

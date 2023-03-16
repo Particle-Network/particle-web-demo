@@ -290,6 +290,7 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
+            user-select: none;
             @media screen and (max-width: 800px) {
                 margin: 0 10px 10px 10px;
             }
