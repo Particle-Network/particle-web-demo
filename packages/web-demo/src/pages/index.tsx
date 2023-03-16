@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useEffect } from 'react';
-import { Button, Menu, Space, Input, message, Tag, Dropdown, Popover } from 'antd';
+import { Button, Menu, Badge, Input, message, Tag, Dropdown, Popover } from 'antd';
 import type { MenuProps } from 'antd';
 import { SettingOption, toBase58Address } from '@particle-network/auth';
 import SendETH from '../components/EVM/SendETH/index';
@@ -115,11 +115,34 @@ function Home() {
         particle.auth.on('disconnect', disconnect);
 
         setLoginState(particle && particle.auth.isLogin());
+        if (particle && particle.auth.isLogin()) {
+            particle.auth.getUserSimpleInfo().catch((error: any) => {
+                if (error.code === 10005) {
+                    logout();
+                }
+            });
+        }
         const particleProvider = new ParticleProvider(particle.auth);
         window.web3 = new Web3(particleProvider as any | ParticleProvider);
         return particle;
     }, [demoSetting.promptSettingWhenSign, demoSetting.promptMasterPasswordSettingWhenLogin, demoSetting.customStyle]);
 
+    const [updateHasPassword, setUpdateHasPassword] = useState(1);
+    const hasPasswordDot = useMemo(() => {
+        try {
+            if (particle && loginState && updateHasPassword) {
+                // @ts-ignore
+                const has_set_payment_password = particle.auth.userInfo().security_account?.has_set_payment_password;
+                // @ts-ignore
+                const has_set_master_password = particle.auth.userInfo().security_account?.has_set_master_password;
+                return has_set_payment_password && has_set_master_password;
+            }
+        } catch (error) {
+            return false;
+        }
+
+        return false;
+    }, [particle, loginState, updateHasPassword]);
     const isTron = () => {
         return particle && particle?.auth?.chain()?.name?.toLowerCase() === 'tron';
     };
@@ -361,9 +384,15 @@ function Home() {
     };
     const accountSecurity = () => {
         if (particle) {
-            particle.auth.accountSecurity().catch((e) => {
-                //ignore
-            });
+            particle.auth
+                .accountSecurity()
+                .then((res) => {
+                    setUpdateHasPassword(updateHasPassword + 1);
+                })
+                .catch((e) => {
+                    setUpdateHasPassword(updateHasPassword + 1);
+                    //ignore
+                });
         }
     };
 
@@ -454,7 +483,7 @@ function Home() {
                                 icon={<AppleOutlined />}
                                 color="#000"
                                 onClick={() =>
-                                    openWindow('https://apps.apple.com/us/app/particle-crypto-wallet/id1632425771x')
+                                    openWindow('https://apps.apple.com/us/app/particle-crypto-wallet/id1632425771')
                                 }
                             >
                                 Apple Store
@@ -545,6 +574,7 @@ function Home() {
                                     <div className="button-group">
                                         <Button type="primary" className="login-button" onClick={accountSecurity}>
                                             Account Security
+                                            <Badge dot={!hasPasswordDot}></Badge>
                                         </Button>
                                         <Button
                                             className="button-doc"
