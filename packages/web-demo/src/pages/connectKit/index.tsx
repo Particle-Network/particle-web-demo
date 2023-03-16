@@ -11,7 +11,18 @@ import {
     useNetwork,
 } from '@particle-network/connect-react-ui';
 import { ParticleChains, chains } from '@particle-network/common';
-import { evmWallets, solanaWallets, isEVMProvider } from '@particle-network/connect';
+import {
+    isEVMProvider,
+    evmWallets,
+    solanaWallets,
+    metaMask,
+    walletconnect,
+    rainbow,
+    omni,
+    argent,
+    web3Modal,
+    phantom,
+} from '@particle-network/connect';
 import './index.scss';
 
 // import connect react ui styles
@@ -47,8 +58,8 @@ const PageConnectKit = () => {
                     displayWalletEntry: true,
                     defaultWalletEntryPosition: WalletEntryPosition.BR,
                 },
+                // wallets: [metaMask(), walletconnect({ qrcode: false }), rainbow(), omni(), argent()],
                 wallets: [...evmWallets({ qrcode: false }), ...solanaWallets()],
-                // @ts-ignore
                 securityAccount: {
                     promptSettingWhenSign: 1,
                     promptMasterPasswordSettingWhenLogin: 2,
