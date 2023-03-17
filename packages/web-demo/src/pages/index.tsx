@@ -116,11 +116,16 @@ function Home() {
 
         setLoginState(particle && particle.auth.isLogin());
         if (particle && particle.auth.isLogin()) {
-            particle.auth.getUserSimpleInfo().catch((error: any) => {
-                if (error.code === 10005) {
-                    logout();
-                }
-            });
+            particle.auth
+                .getUserSimpleInfo()
+                .catch((error: any) => {
+                    if (error.code === 10005) {
+                        logout();
+                    }
+                })
+                .finally(() => {
+                    setUpdateHasPassword(updateHasPassword + 1);
+                });
         }
         const particleProvider = new ParticleProvider(particle.auth);
         window.web3 = new Web3(particleProvider as any | ParticleProvider);
@@ -140,7 +145,6 @@ function Home() {
         } catch (error) {
             return false;
         }
-
         return false;
     }, [particle, loginState, updateHasPassword]);
     const isTron = () => {
