@@ -13,6 +13,7 @@ import {
 } from '@particle-network/connect-react-ui';
 
 import '@particle-network/connect-react-ui/dist/index.css';
+import { LoginOptions } from '@particle-network/auth';
 
 function App() {
     const account = useAccount();
@@ -81,7 +82,7 @@ function App() {
             </div>
             <br />
             <ConnectButton.Custom>
-                {({ account, chain, openAccountModal, openConnectModal, openChainModal }) => {
+                {({ account, accountLoading, chain, openAccountModal, openConnectModal, openChainModal }) => {
                     return (
                         <div>
                             <button onClick={openConnectModal} disabled={!!account}>

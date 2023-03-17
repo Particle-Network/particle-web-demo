@@ -297,6 +297,18 @@ function Home() {
             ),
             key: 'web3modal',
         },
+        {
+            label: (
+                <a
+                    href="https://static.particle.network/sdks/web/index.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    BrowserDemo
+                </a>
+            ),
+            key: 'BrowserDemo',
+        },
     ];
 
     const ConnectButtonFC = () => {
@@ -406,6 +418,7 @@ function Home() {
             <p onClick={() => openWindow('/connectKit')}>ConnectKit</p>
             <p onClick={() => openWindow('/rainbowKit')}>RainbowKit</p>
             <p onClick={() => openWindow('/web3Modal')}>Web3Modal</p>
+            <p onClick={() => openWindow('https://static.particle.network/sdks/web/index.html')}>BrowserDemo</p>
         </div>
     );
 
