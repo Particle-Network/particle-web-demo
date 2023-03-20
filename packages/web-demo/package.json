@@ -7,7 +7,7 @@
         "@ethereumjs/util": "^8.0.2",
         "@particle-network/analytics": "^0.11.1",
         "@particle-network/auth": "^0.11.4",
-        "@particle-network/connect-react-ui": "^0.11.4",
+        "@particle-network/connect-react-ui": "^0.11.5",
         "@metamask/eth-sig-util": "^5.0.2",
         "@particle-network/local-provider": "^0.11.4",
         "@particle-network/provider": "^0.11.4",

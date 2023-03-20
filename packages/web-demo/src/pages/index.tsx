@@ -140,6 +140,7 @@ function Home() {
                 const has_set_payment_password = particle.auth.userInfo().security_account?.has_set_payment_password;
                 // @ts-ignore
                 const has_set_master_password = particle.auth.userInfo().security_account?.has_set_master_password;
+
                 return has_set_payment_password && has_set_master_password;
             }
         } catch (error) {
@@ -514,7 +515,7 @@ function Home() {
                     <div className="right-container">
                         {loginState ? (
                             <div className="login-box card">
-                                <h2 className="login-box-title">Wallet Infomation</h2>
+                                <h2 className="login-box-title">Wallet Information</h2>
                                 <h3>
                                     <span className="login-label">Address:</span>
                                     <span
@@ -578,7 +579,7 @@ function Home() {
                                     <div className="button-group">
                                         <Button type="primary" className="login-button" onClick={accountSecurity}>
                                             Account Security
-                                            <Badge dot={!hasPasswordDot}></Badge>
+                                            {!hasPasswordDot && <Badge dot={true}></Badge>}
                                         </Button>
                                         <Button
                                             className="button-doc"
