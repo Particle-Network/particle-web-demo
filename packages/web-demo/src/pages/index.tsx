@@ -119,7 +119,7 @@ function Home() {
             particle.auth
                 .getUserSimpleInfo()
                 .catch((error: any) => {
-                    if (error.code === 10005) {
+                    if (error.code === 10005 || error.code === 8005) {
                         logout();
                     }
                 })
