@@ -1,13 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState, useRef, useMemo } from 'react';
-import { Select, Input, Button, Slider, message, notification } from 'antd';
-import { InfoCircleOutlined } from '@ant-design/icons';
+import { Select, Input, Button, Slider, message, notification, Tooltip } from 'antd';
+import { InfoCircleOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import { ParticleChains as Chains } from '@particle-network/common';
 import { UIMode } from '@particle-network/auth';
 import { customStyle as defCustomStyle } from '../../types/customStyle';
 import PnSelect from '../PnSelect';
 import './index.scss';
 import { isJson } from '../../utils';
+
 const { TextArea } = Input;
 const { Option } = Select;
 
@@ -190,7 +191,12 @@ function DemoSetting(props: any) {
                 ></PnSelect>
             </div>
             <div className="filter-item">
-                <div className="filter-label">Full / Form Mode:</div>
+                <div className="filter-label">
+                    Login Full / Form Mode:
+                    <Tooltip placement="topRight" title={'Form Mode only support email and phone login'}>
+                        <QuestionCircleOutlined className="text-icon" />
+                    </Tooltip>
+                </div>
 
                 <PnSelect
                     value={loginFormMode}
