@@ -14,7 +14,6 @@ import {
 } from '@rainbow-me/rainbowkit/wallets';
 
 import { configureChains, createClient, WagmiConfig } from 'wagmi';
-import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';
 import '@rainbow-me/rainbowkit/styles.css';
 
@@ -32,7 +31,7 @@ function DynamicWagmi(props: any) {
     });
     const { chains, provider, webSocketProvider } = configureChains(
         [mainnet, polygon, optimism, arbitrum],
-        [alchemyProvider({ apiKey: '_gg7wSSi0KMBsdKnGVfHDueq6xMB9EkC' }), publicProvider()]
+        [publicProvider()]
     );
     const popularWallets = {
         groupName: 'Popular',
