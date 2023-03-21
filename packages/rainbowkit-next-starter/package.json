@@ -2,6 +2,7 @@
     "name": "rainbowkit-next-starter",
     "version": "0.1.0",
     "private": true,
+    "type": "module",
     "scripts": {
         "start": "next dev",
         "build": "next build",

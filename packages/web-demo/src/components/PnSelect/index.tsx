@@ -26,7 +26,6 @@ function PnSelect(props: PnSelectProps) {
         const item = props.options.find((item) => item.value === value);
         return item;
     }, [value]);
-    console.log(props);
 
     useEffect(() => {
         if (props?.value) {

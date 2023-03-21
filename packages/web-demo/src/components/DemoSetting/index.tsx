@@ -140,7 +140,6 @@ function DemoSetting(props: any) {
             modalBorderRadius: Number(modalBorderRadius),
         });
         localStorage.setItem('dapp_particle_modal_border_radius', modalBorderRadius + '');
-        console.log('change modal border radius');
     }, [modalBorderRadius]);
     return (
         <div className="filter-box card" style={{ flex: 1 }}>
