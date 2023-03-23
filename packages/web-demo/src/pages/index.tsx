@@ -35,7 +35,7 @@ import {
     CopyOutlined,
     BarsOutlined,
     RedoOutlined,
-    LinkOutlined,
+    PlusSquareOutlined,
     FileTextOutlined,
 } from '@ant-design/icons';
 import './index.scss';
@@ -46,6 +46,7 @@ import Web3 from 'web3';
 import QRCode from 'qrcode.react';
 
 function Home() {
+    console.log(ParticleChains);
     const [loginLoading, setLoginLoading] = useState(false);
     const [logoutLoading, setLogoutLoading] = useState(false);
     const [loginState, setLoginState] = useState(false);
@@ -300,11 +301,7 @@ function Home() {
         },
         {
             label: (
-                <a
-                    href="https://static.particle.network/sdks/web/index.html"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
+                <a href="https://static.particle.network/sdks/web/index.html" target="_blank" rel="noopener noreferrer">
                     BrowserDemo
                 </a>
             ),
@@ -422,6 +419,10 @@ function Home() {
             <p onClick={() => openWindow('https://static.particle.network/sdks/web/index.html')}>BrowserDemo</p>
         </div>
     );
+
+    const currentChain = useMemo(() => {
+        return chainInfo(demoSetting.chainKey);
+    }, [demoSetting.chainKey]);
 
     return (
         <div className="app-demo">
@@ -550,6 +551,14 @@ function Home() {
                                             onClick={() => getBalance()}
                                             style={{ marginLeft: 4, color: '#1890ff', cursor: 'pointer' }}
                                         />
+                                        {/* @ts-ignore */}
+                                        {currentChain?.faucetUrl && (
+                                            <PlusSquareOutlined
+                                                // @ts-ignore
+                                                onClick={() => openWindow(currentChain?.faucetUrl)}
+                                                style={{ marginLeft: 4, color: '#1890ff', cursor: 'pointer' }}
+                                            />
+                                        )}
                                     </span>
                                 </h3>
 
