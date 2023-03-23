@@ -46,7 +46,6 @@ import Web3 from 'web3';
 import QRCode from 'qrcode.react';
 
 function Home() {
-    console.log(ParticleChains);
     const [loginLoading, setLoginLoading] = useState(false);
     const [logoutLoading, setLogoutLoading] = useState(false);
     const [loginState, setLoginState] = useState(false);
@@ -549,14 +548,14 @@ function Home() {
                                         {balance} {ParticleChains[demoSetting.chainKey].nativeCurrency.symbol}
                                         <RedoOutlined
                                             onClick={() => getBalance()}
-                                            style={{ marginLeft: 4, color: '#1890ff', cursor: 'pointer' }}
+                                            style={{ marginLeft: 5, color: '#1890ff', cursor: 'pointer' }}
                                         />
                                         {/* @ts-ignore */}
                                         {currentChain?.faucetUrl && (
                                             <PlusSquareOutlined
                                                 // @ts-ignore
                                                 onClick={() => openWindow(currentChain?.faucetUrl)}
-                                                style={{ marginLeft: 4, color: '#1890ff', cursor: 'pointer' }}
+                                                style={{ marginLeft: 10, color: '#1890ff', cursor: 'pointer' }}
                                             />
                                         )}
                                     </span>
