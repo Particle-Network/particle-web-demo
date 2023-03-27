@@ -45,7 +45,7 @@
         font-size: 24px;
         display: none;
 
-        @media screen and (max-width: 800px) {
+        @media screen and (max-width: 550px) {
             display: flex;
             align-items: center;
         }
@@ -57,7 +57,8 @@
         }
     }
     .menus {
-        min-width: 550px;
+        min-width: 200px;
+        max-width: 700px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -69,7 +70,7 @@
             font-size: 16px;
         }
 
-        @media screen and (max-width: 800px) {
+        @media screen and (max-width: 550px) {
             min-width: 50px;
             max-width: 50px;
             display: none;
@@ -336,7 +337,7 @@
             font-weight: 600;
         }
 
-        @media screen and (max-width: 800px) {
+        @media screen and (max-width: 550px) {
             img {
                 width: 24px;
             }

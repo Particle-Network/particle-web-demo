@@ -1,0 +1,115 @@
+.erc4337-box {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-bottom: 100px;
+
+    .header-content {
+        display: flex;
+        flex-direction: row-reverse;
+        width: 100%;
+        background-color: white;
+        align-items: center;
+        position: fixed;
+        z-index: 100;
+        padding: 16px;
+
+        .logo-title {
+            position: absolute;
+            left: 16px;
+            font-weight: bold;
+            font-size: 22px;
+            img {
+                height: 40px;
+                width: 35px;
+                margin-right: 10px;
+            }
+            @media screen and (max-width: 600px) {
+                display: none;
+            }
+        }
+
+        .connect-btn {
+            height: 40px;
+        }
+        .connect-chain {
+            height: 40px;
+            width: 150px;
+            margin-right: 16px;
+            .ant-select-selector {
+                height: 40px;
+                .ant-select-selection-item {
+                    line-height: 40px;
+                }
+            }
+        }
+    }
+
+    .content-body {
+        display: flex;
+        flex-direction: column;
+        margin-top: 88px;
+        min-width: 800px;
+        @media screen and (max-width: 800px) {
+            width: 100%;
+            min-width: unset;
+        }
+        .docs-card {
+            a {
+                font-size: 18px;
+            }
+        }
+
+        .account-info {
+            display: flex;
+            flex-direction: row;
+            font-size: 18px;
+            align-items: center;
+            .account-type {
+                font-weight: 500;
+            }
+            .account-address {
+                color: #1677ff;
+                margin-left: 6px;
+                cursor: pointer;
+            }
+        }
+
+        .spin-loading {
+            margin-top: 100px;
+        }
+
+        .tx-card {
+            margin-top: 16px;
+            .action-btn {
+                font-weight: 500;
+                color: #1677ff;
+                height: 40px;
+                width: 100%;
+            }
+        }
+    }
+}
+
+.payment_options {
+    .ant-modal-footer {
+        display: none;
+    }
+    .fee_option {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 10px 0;
+        cursor: pointer;
+        img {
+            height: 30px;
+            width: 30px;
+        }
+        .fee_token {
+            font-size: 16px;
+            margin-left: 10px;
+        }
+    }
+}
