@@ -283,7 +283,7 @@ function DemoSetting(props: any) {
                                     } else {
                                         setCustomStyle(JSON.stringify(defCustomStyle));
                                         setTextAreaStr(JSON.stringify(defCustomStyle));
-                                        localStorage.setItem('customStyle', JSON.stringify(defCustomStyle));
+                                        localStorage.removeItem('customStyle');
                                     }
                                 } catch (e) {
                                     message.error('JSON Parse error');

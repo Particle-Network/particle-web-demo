@@ -22,6 +22,8 @@ import { ParticleNetwork, WalletCustomStyle, WalletEntryPosition } from '@partic
 import { ParticleChains } from '@particle-network/common';
 import { AuthType, AuthTypes } from '@particle-network/auth';
 import { fromSunFormat } from '../utils/number-utils';
+import { customStyle as defCustomStyle } from '../types/customStyle';
+
 import {
     DesktopOutlined,
     ContainerOutlined,
@@ -70,7 +72,7 @@ function Home() {
         ),
         promptSettingWhenSign: Number(localStorage.getItem('promptSettingWhenSign') || '1'),
         theme: localStorage.getItem('dapp_particle_theme') || 'light',
-        customStyle: localStorage.getItem('customStyle'),
+        customStyle: localStorage.getItem('customStyle') || JSON.stringify(defCustomStyle),
         modalBorderRadius: Number(localStorage.getItem('dapp_particle_modal_border_radius') || 10),
     });
 
