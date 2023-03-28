@@ -2,16 +2,17 @@ import './index.scss';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { ParticleNetwork } from '@particle-network/auth';
 import { Button, Card, Input, message, Modal, notification, Select, Space, Spin } from 'antd';
-import { LinkOutlined } from '@ant-design/icons';
+import { LinkOutlined, RedoOutlined, DeploymentUnitOutlined } from '@ant-design/icons';
 import { ParticleProvider } from '@particle-network/provider';
 import { ChainId, FeeQuote, Transaction } from '@biconomy/core-types';
+import { BalancesDto, IBalances } from '@biconomy/node-client';
 import SmartAccount from '@biconomy/smart-account';
 import { ethers } from 'ethers';
 import { chains } from '@particle-network/common';
-import { shortString } from '../../utils';
+import { DecimalUnitMap, fromWei, shortString } from '../../utils';
 
 const PageERC4337 = () => {
-    const [provider, setProvider] = useState<any>();
+    const [provider, setProvider] = useState<ethers.providers.Web3Provider>();
     const [account, setAccount] = useState<string>();
     const [smartAccount, setSmartAccount] = useState<SmartAccount>();
 
@@ -31,6 +32,15 @@ const PageERC4337 = () => {
 
     const [sendLoading, setSendLoading] = useState(false);
 
+    const [eoaBalance, setEoaBalance] = useState('0');
+    const [scaBalance, setScaBalance] = useState<IBalances[]>([]);
+
+    const [eoaBalanceLoading, setEoaBalanceLoading] = useState(false);
+    const [scaBalanceLoading, setScaBalanceLoading] = useState(false);
+
+    const [walletDeploy, setWalletDeploy] = useState<boolean>();
+    const [deployLoading, setDeployLoading] = useState<boolean>(false);
+
     const particle = useMemo(() => {
         const pn = new ParticleNetwork({
             projectId: process.env.REACT_APP_PROJECT_ID as string,
@@ -44,7 +54,7 @@ const PageERC4337 = () => {
 
     useEffect(() => {
         if (particle) {
-            const provider = new ethers.providers.Web3Provider(new ParticleProvider(particle.auth), 5);
+            const provider = new ethers.providers.Web3Provider(new ParticleProvider(particle.auth), 'any');
             setProvider(provider);
             if (particle.auth.isLogin()) {
                 setAccount(particle.auth.wallet()?.public_address);
@@ -54,9 +64,17 @@ const PageERC4337 = () => {
 
     useEffect(() => {
         if (particle && account) {
+            getEOABalance();
             initSmartAccount();
         }
     }, [particle, account]);
+
+    useEffect(() => {
+        if (smartAccount) {
+            getSCABalance();
+            checkWalletIsDeploy();
+        }
+    }, [smartAccount]);
 
     const initSmartAccount = async () => {
         if (provider && account) {
@@ -117,7 +135,14 @@ const PageERC4337 = () => {
             });
 
             setSmartAccount(smartAccount);
-            console.log('smartAccount.chainConfig', smartAccount.chainConfig);
+        }
+    };
+
+    const checkWalletIsDeploy = async () => {
+        if (provider && smartAccount) {
+            const deployed = await smartAccount.isDeployed(particle.auth.chainId());
+            console.log('checkWalletIsDeploy', deployed);
+            setWalletDeploy(deployed);
         }
     };
 
@@ -159,6 +184,7 @@ const PageERC4337 = () => {
             try {
                 if (gasless) {
                     const txResponse = await smartAccount?.sendGaslessTransaction({ transaction: tx });
+                    checkWalletIsDeploy();
                     console.log('sendGaslessTransaction', txResponse);
                 } else {
                     await prepareRefundTransaction(tx);
@@ -192,6 +218,7 @@ const PageERC4337 = () => {
             try {
                 if (gasless) {
                     const txResponse = await smartAccount?.sendGaslessTransaction({ transaction: tx });
+                    checkWalletIsDeploy();
                     console.log('sendERC20GaslessTransaction', txResponse);
                 } else {
                     await prepareRefundTransaction(tx);
@@ -224,6 +251,7 @@ const PageERC4337 = () => {
             try {
                 if (gasless) {
                     const txResponse = await smartAccount?.sendGaslessTransaction({ transaction: tx });
+                    checkWalletIsDeploy();
                     console.log('sendERC721GaslessTransaction', txResponse);
                 } else {
                     await prepareRefundTransaction(tx);
@@ -268,6 +296,7 @@ const PageERC4337 = () => {
             try {
                 if (gasless) {
                     const txResponse = await smartAccount?.sendGaslessTransaction({ transaction: tx });
+                    checkWalletIsDeploy();
                     console.log('sendERC1155GaslessTransaction', txResponse);
                 } else {
                     await prepareRefundTransaction(tx);
@@ -286,10 +315,12 @@ const PageERC4337 = () => {
         setSwitchChainLoading(true);
         const chainId = Number(value);
         const chainInfo = chains.getEVMChainInfoById(chainId);
-        if (chainInfo) {
+        if (chainInfo && provider) {
             await particle.auth.switchChain(chainInfo, true);
             await smartAccount?.setActiveChain(chainId);
         }
+        getEOABalance();
+        getSCABalance();
         setSwitchChainLoading(false);
     };
 
@@ -301,19 +332,109 @@ const PageERC4337 = () => {
     };
 
     const sendTransactionWithFeeQuote = async (feeQuote: FeeQuote) => {
+        setSendLoading(true);
         setOpenPaymentOptions({ open: false });
         if (openPaymentOptions.transaction && smartAccount) {
-            const transaction = await smartAccount.createRefundTransaction({
-                transaction: openPaymentOptions.transaction,
-                feeQuote: feeQuote,
-            });
-            const txId = await smartAccount.sendTransaction({
-                tx: transaction,
-            });
-            notification.success({
-                message: 'Send Transaction Success',
-                description: txId,
-            });
+            try {
+                const transaction = await smartAccount.createRefundTransaction({
+                    transaction: openPaymentOptions.transaction,
+                    feeQuote: feeQuote,
+                });
+                const txId = await smartAccount.sendTransaction({
+                    tx: transaction,
+                });
+                checkWalletIsDeploy();
+                notification.success({
+                    message: 'Send Transaction Success',
+                    description: txId,
+                });
+            } catch (error) {
+                console.error('sendTransactionWithFeeQuote', error);
+            } finally {
+                setSendLoading(false);
+            }
+        }
+    };
+
+    const getSCABalance = async () => {
+        if (smartAccount) {
+            setScaBalanceLoading(true);
+            const balanceParams: BalancesDto = {
+                // if no chainId is supplied, SDK will automatically pick active one that
+                // is being supplied for initialization
+                chainId: particle.auth.chainId(), // chainId of your choice
+                eoaAddress: smartAccount?.address || '',
+                // If empty string you receive balances of all tokens watched by Indexer
+                // you can only whitelist token addresses that are listed in token respostory
+                // specified above ^
+                tokenAddresses: [],
+            };
+            const balFromSdk = await smartAccount?.getAlltokenBalances(balanceParams);
+
+            setScaBalance(balFromSdk.data);
+            console.info('getAlltokenBalances', balFromSdk);
+            setScaBalanceLoading(false);
+        }
+    };
+
+    const formatScaBalance = (scaBalance: IBalances[]) => {
+        const chain = chains.getEVMChainInfoById(particle.auth.chainId());
+        if (scaBalance) {
+            const nativeBalance = scaBalance.find((item: any) => item.native_token);
+            if (nativeBalance) {
+                return `${ethers.utils.formatEther(nativeBalance.balance)} ${chain?.nativeCurrency.symbol}`;
+            }
+        }
+        return `0.0 ${chain?.nativeCurrency.symbol}`;
+    };
+
+    const getEOABalance = async () => {
+        if (account && provider) {
+            setEoaBalanceLoading(true);
+            const balance = await provider.getBalance(account);
+            const chain = chains.getEVMChainInfoById(particle.auth.chainId());
+            setEoaBalance(`${ethers.utils.formatEther(balance)} ${chain?.nativeCurrency.symbol}`);
+            setEoaBalanceLoading(false);
+        }
+    };
+
+    const openExplorer = (address: string) => {
+        const chain = chains.getEVMChainInfoById(particle.auth.chainId());
+        if (chain) {
+            const explorerUrl = `${chain.blockExplorerUrls[0]}/address/${address}`;
+            window.open(explorerUrl);
+        }
+    };
+
+    const feeTokenBalance = (feeQuote: FeeQuote) => {
+        if (feeQuote.address === '0x0000000000000000000000000000000000000000') {
+            const nativeBalance = scaBalance.find((item: any) => item.native_token);
+            if (nativeBalance) {
+                return `${ethers.utils.formatEther(nativeBalance.balance)}`;
+            }
+        }
+        const tokenBalance = scaBalance.find((item) => item.contract_address === feeQuote.address);
+        if (tokenBalance) {
+            return `${fromWei(tokenBalance.balance, DecimalUnitMap[tokenBalance.contract_decimals])}`;
+        }
+        return `0.0`;
+    };
+
+    const formatFeeQuote = (feeQuote: FeeQuote) => {
+        return `-${fromWei(feeQuote.payment, DecimalUnitMap[feeQuote.decimal])}`;
+    };
+
+    const deployWalletContract = async () => {
+        if (smartAccount) {
+            setDeployLoading(true);
+            try {
+                await smartAccount.deployWalletUsingPaymaster();
+                message.success('Smart Contract Wallet Deployed Successfully');
+            } catch (error) {
+                console.error('deployWalletContract', error);
+            } finally {
+                setDeployLoading(false);
+            }
         }
     };
 
@@ -364,7 +485,7 @@ const PageERC4337 = () => {
                 </Card>
 
                 {account && (
-                    <Card title="Account">
+                    <Card className="account-card" title="Account">
                         <Space direction="vertical">
                             <div className="account-info">
                                 <div className="account-type">EOA:</div>
@@ -377,40 +498,62 @@ const PageERC4337 = () => {
                                 >
                                     {shortString(account)}
                                 </div>
-                                <LinkOutlined
+                                <LinkOutlined style={{ marginLeft: 10 }} onClick={() => openExplorer(account)} />
+                            </div>
+
+                            <div className="balance-info">
+                                EOA Balance:&nbsp;
+                                <div>{`${eoaBalance}`}</div>
+                                <RedoOutlined
+                                    spin={eoaBalanceLoading}
                                     style={{ marginLeft: 10 }}
-                                    onClick={() => {
-                                        const chain = chains.getEVMChainInfoById(particle.auth.chainId());
-                                        if (chain) {
-                                            const explorerUrl = `${chain.blockExplorerUrls[0]}/address/${account}`;
-                                            window.open(explorerUrl);
-                                        }
-                                    }}
+                                    onClick={getEOABalance}
                                 />
                             </div>
+
                             {smartAccount?.address && (
-                                <div className="account-info">
-                                    <div className="account-type">Smart Account:</div>
-                                    <div
-                                        className="account-address"
-                                        onClick={() => {
-                                            navigator.clipboard.writeText(smartAccount?.address);
-                                            message.success('copy success');
-                                        }}
-                                    >
-                                        {shortString(smartAccount?.address)}
+                                <>
+                                    <div className="account-info">
+                                        <div className="account-type">SCA:</div>
+                                        <div
+                                            className="account-address"
+                                            onClick={() => {
+                                                navigator.clipboard.writeText(smartAccount?.address);
+                                                message.success('copy success');
+                                            }}
+                                        >
+                                            {shortString(smartAccount?.address)}
+                                        </div>
+                                        <LinkOutlined
+                                            style={{ marginLeft: 10 }}
+                                            onClick={() => openExplorer(smartAccount?.address)}
+                                        />
+
+                                        {walletDeploy !== undefined && (
+                                            <Button
+                                                className="btn_deploy"
+                                                type="primary"
+                                                disabled={walletDeploy}
+                                                icon={<DeploymentUnitOutlined />}
+                                                onClick={deployWalletContract}
+                                                loading={deployLoading}
+                                                danger
+                                            >
+                                                {walletDeploy ? 'Deployed' : 'Deploy'}
+                                            </Button>
+                                        )}
                                     </div>
-                                    <LinkOutlined
-                                        style={{ marginLeft: 10 }}
-                                        onClick={() => {
-                                            const chain = chains.getEVMChainInfoById(particle.auth.chainId());
-                                            if (chain) {
-                                                const explorerUrl = `${chain.blockExplorerUrls[0]}/address/${smartAccount?.address}`;
-                                                window.open(explorerUrl);
-                                            }
-                                        }}
-                                    />
-                                </div>
+
+                                    <div className="balance-info">
+                                        SCA Balance:&nbsp;
+                                        <div>{`${formatScaBalance(scaBalance)}`}</div>
+                                        <RedoOutlined
+                                            spin={scaBalanceLoading}
+                                            style={{ marginLeft: 10 }}
+                                            onClick={getSCABalance}
+                                        />
+                                    </div>
+                                </>
                             )}
                         </Space>
                     </Card>
@@ -428,7 +571,7 @@ const PageERC4337 = () => {
                                     type="text"
                                     loading={sendLoading}
                                     className="action-btn"
-                                    onClick={() => sendNativeTransaction(true)}
+                                    onClick={() => sendNativeTransaction(false)}
                                 >
                                     Send
                                 </Button>,
@@ -607,9 +750,30 @@ const PageERC4337 = () => {
             >
                 <Space direction="vertical" style={{ width: '100%' }}>
                     {feeQuotes?.map((option) => (
-                        <div className="fee_option" onClick={() => sendTransactionWithFeeQuote(option)}>
+                        <div
+                            className="fee_option"
+                            key={option.address}
+                            onClick={() => sendTransactionWithFeeQuote(option)}
+                        >
                             <img src={option.logoUrl} />
-                            <div className="fee_token">{option.symbol}</div>
+
+                            <div className="fee_token_info">
+                                <div className="fee_token">{option.symbol}</div>
+                                <div
+                                    className="fee_token_address"
+                                    onClick={(e) => {
+                                        openExplorer(option.address);
+                                        e.stopPropagation();
+                                    }}
+                                >
+                                    {shortString(option.address)}
+                                </div>
+                            </div>
+
+                            <div className="fee_token_balance">
+                                <div className="balance">{feeTokenBalance(option)}</div>
+                                <div className="payment">{formatFeeQuote(option)}</div>
+                            </div>
                         </div>
                     ))}
                 </Space>

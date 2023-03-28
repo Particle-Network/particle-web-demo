@@ -62,18 +62,36 @@
             }
         }
 
-        .account-info {
-            display: flex;
-            flex-direction: row;
-            font-size: 18px;
-            align-items: center;
-            .account-type {
-                font-weight: 500;
+        .account-card {
+            margin-top: 16px;
+            .account-info {
+                display: flex;
+                flex-direction: row;
+                font-size: 18px;
+                align-items: center;
+                .account-type {
+                    font-weight: 500;
+                }
+                .account-address {
+                    color: #1677ff;
+                    margin-left: 6px;
+                    cursor: pointer;
+                }
+                .btn_deploy {
+                    height: 28px !important;
+                    margin-left: 16px;
+                }
             }
-            .account-address {
-                color: #1677ff;
-                margin-left: 6px;
-                cursor: pointer;
+            .balance-info {
+                display: flex;
+                flex-direction: row;
+                font-size: 18px;
+                align-items: center;
+                font-weight: 500;
+                flex-wrap: wrap;
+                div {
+                    font-weight: normal;
+                }
             }
         }
 
@@ -102,14 +120,45 @@
         flex-direction: row;
         align-items: center;
         padding: 10px 0;
+        width: 100%;
         cursor: pointer;
         img {
-            height: 30px;
-            width: 30px;
+            height: 40px;
+            width: 40px;
         }
-        .fee_token {
-            font-size: 16px;
+        .fee_token_info {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-start;
             margin-left: 10px;
+
+            .fee_token {
+                font-size: 16px;
+                font-weight: 500;
+            }
+            .fee_token_address {
+                font-size: 14px;
+                font-weight: normal;
+                color: #1677ff;
+                cursor: pointer;
+            }
+        }
+        .fee_token_balance {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-grow: 2;
+            font-size: 14px;
+
+            .balance {
+                font-weight: 500;
+            }
+
+            .payment {
+                color: red;
+            }
         }
     }
 }
