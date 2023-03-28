@@ -41,6 +41,21 @@ const PageERC4337 = () => {
     const [walletDeploy, setWalletDeploy] = useState<boolean>();
     const [deployLoading, setDeployLoading] = useState<boolean>(false);
 
+    const resetConnectState = () => {
+        setAccount(undefined);
+        setSmartAccount(undefined);
+        setSwitchChainLoading(false);
+        setOpenPaymentOptions({ open: false });
+        setFeeQuotes([]);
+        setSendLoading(false);
+        setEoaBalance('0');
+        setScaBalance([]);
+        setEoaBalanceLoading(false);
+        setScaBalanceLoading(false);
+        setWalletDeploy(undefined);
+        setDeployLoading(false);
+    };
+
     const particle = useMemo(() => {
         const pn = new ParticleNetwork({
             projectId: process.env.REACT_APP_PROJECT_ID as string,
@@ -59,6 +74,7 @@ const PageERC4337 = () => {
             if (particle.auth.isLogin()) {
                 setAccount(particle.auth.wallet()?.public_address);
             }
+            particle.auth.on('disconnect', resetConnectState);
         }
     }, [particle]);
 
@@ -161,10 +177,7 @@ const PageERC4337 = () => {
     const disconnect = () => {
         particle.auth
             .logout(true)
-            .then(() => {
-                setAccount(undefined);
-                setSmartAccount(undefined);
-            })
+            .then(resetConnectState)
             .catch((error) => {
                 message.error(error.message);
             });
