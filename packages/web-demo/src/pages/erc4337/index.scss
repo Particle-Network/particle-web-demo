@@ -55,6 +55,7 @@
         @media screen and (max-width: 800px) {
             width: 100%;
             min-width: unset;
+            padding: 0 12px;
         }
         .docs-card {
             a {
@@ -80,6 +81,7 @@
                 .btn_deploy {
                     height: 28px !important;
                     margin-left: 16px;
+                    padding: 0 10px;
                 }
             }
             .balance-info {

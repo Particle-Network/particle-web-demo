@@ -290,7 +290,7 @@ function Home() {
                     ERC-4337
                 </a>
             ),
-            key: 'BrowserDemo',
+            key: 'erc4337',
         },
         {
             label: (

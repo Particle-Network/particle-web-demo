@@ -511,7 +511,10 @@ const PageERC4337 = () => {
                                 >
                                     {shortString(account)}
                                 </div>
-                                <LinkOutlined style={{ marginLeft: 10 }} onClick={() => openExplorer(account)} />
+                                <LinkOutlined
+                                    style={{ marginLeft: 10, color: '#1677ff' }}
+                                    onClick={() => openExplorer(account)}
+                                />
                             </div>
 
                             <div className="balance-info">
@@ -519,7 +522,7 @@ const PageERC4337 = () => {
                                 <div>{`${eoaBalance}`}</div>
                                 <RedoOutlined
                                     spin={eoaBalanceLoading}
-                                    style={{ marginLeft: 10 }}
+                                    style={{ marginLeft: 10, color: '#1677ff' }}
                                     onClick={getEOABalance}
                                 />
                             </div>
@@ -538,7 +541,7 @@ const PageERC4337 = () => {
                                             {shortString(smartAccount?.address)}
                                         </div>
                                         <LinkOutlined
-                                            style={{ marginLeft: 10 }}
+                                            style={{ marginLeft: 10, color: '#1677ff' }}
                                             onClick={() => openExplorer(smartAccount?.address)}
                                         />
 
@@ -562,7 +565,7 @@ const PageERC4337 = () => {
                                         <div>{`${formatScaBalance(scaBalance)}`}</div>
                                         <RedoOutlined
                                             spin={scaBalanceLoading}
-                                            style={{ marginLeft: 10 }}
+                                            style={{ marginLeft: 10, color: '#1677ff' }}
                                             onClick={getSCABalance}
                                         />
                                     </div>
