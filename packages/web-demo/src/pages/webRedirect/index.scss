@@ -1,0 +1,20 @@
+.redirect-box {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .input-card {
+        min-width: 500px;
+        margin: 12px;
+        @media screen and (max-width: 500px) {
+            min-width: unset;
+            width: 100%;
+        }
+
+        .btn-connect {
+            width: 100%;
+        }
+    }
+}

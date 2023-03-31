@@ -8,6 +8,7 @@ import PageQrcode from './pages/qrcode';
 import Page404 from './pages/404';
 import React from 'react';
 import PageERC4337 from './pages/erc4337';
+import PageWebRedirect from './pages/webRedirect';
 
 // TODO:set debug for internal test, developer must remove it.
 if (process.env.REACT_APP_PARTICLE_ENV === 'development') {
@@ -24,6 +25,7 @@ function App() {
                 <Route path="/connectKit" element={<PageConnectKit />} />
                 <Route path="/qrcode" element={<PageQrcode />} />
                 <Route path="/erc4337" element={<PageERC4337 />} />
+                <Route path="/webRedirect" element={<PageWebRedirect />} />
                 <Route path="*" element={<Page404 />} />
             </Routes>
         </BrowserRouter>
