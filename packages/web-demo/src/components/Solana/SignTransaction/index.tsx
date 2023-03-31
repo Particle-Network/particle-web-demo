@@ -72,6 +72,9 @@ function SignTransaction(props: {
                             style={{ backgroundColor: '#fff' }}
                         ></Input>
                     </div>
+                </label>
+
+                <label>
                     <div>
                         <p>Amount</p>
                         <InputNumber
