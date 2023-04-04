@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState, useRef, useMemo } from 'react';
-import { Select, Input, Button, Slider, message, notification, Tooltip } from 'antd';
+import { Select, Input, Button, Slider, message, notification, Tooltip, Switch } from 'antd';
 import { InfoCircleOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import { ParticleChains as Chains } from '@particle-network/common';
 import { UIMode } from '@particle-network/auth';
@@ -61,6 +61,8 @@ function DemoSetting(props: any) {
     const [language, setLanguage] = useState<string>(demoSetting.language);
     const [loginFormMode, setLoginFormMode] = useState(!!localStorage.getItem('loginFormMode') ? 'true' : 'false');
     const [theme, setTheme] = useState<string>(demoSetting.theme);
+    const [walletTheme, setWalletTheme] = useState<string>(demoSetting.walletTheme);
+    const [walletEntrance, setWalletEntrance] = useState<boolean>(demoSetting.walletEntrance);
 
     const [promptSettingWhenSign, setPromptSettingWhenSign] = useState(demoSetting.promptSettingWhenSign);
     const [promptMasterPasswordSettingWhenLogin, setPromptMasterPasswordSettingWhenLogin] = useState<string>(
@@ -102,6 +104,8 @@ function DemoSetting(props: any) {
         promptSettingWhenSign,
         promptMasterPasswordSettingWhenLogin,
         customStyle,
+        walletTheme,
+        walletEntrance,
     ]);
 
     useEffect(() => {
@@ -178,8 +182,7 @@ function DemoSetting(props: any) {
                 ></PnSelect>
             </div>
             <div className="filter-item">
-                <div className="filter-label">Theme:</div>
-
+                <div className="filter-label">Auth Theme:</div>
                 <PnSelect
                     value={theme}
                     onChange={setTheme}
@@ -189,6 +192,32 @@ function DemoSetting(props: any) {
                     }))}
                 ></PnSelect>
             </div>
+            <div className="filter-item">
+                <div className="filter-label">
+                    Wallet Entrance:{' '}
+                    <div style={{ display: 'inline-block' }}>
+                        <Switch
+                            defaultChecked={walletEntrance}
+                            checked={walletEntrance}
+                            onChange={setWalletEntrance}
+                        ></Switch>
+                    </div>
+                </div>
+            </div>
+            {walletEntrance && (
+                <div className="filter-item">
+                    <div className="filter-label">Wallet Theme:</div>
+                    <PnSelect
+                        value={walletTheme}
+                        onChange={setWalletTheme}
+                        options={ThemeOptions.map((item) => ({
+                            label: item,
+                            value: item,
+                        }))}
+                    ></PnSelect>
+                </div>
+            )}
+
             <div className="filter-item">
                 <div className="filter-label">
                     Login Full / Form Mode:

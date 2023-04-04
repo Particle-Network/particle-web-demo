@@ -74,6 +74,8 @@ function Home() {
         theme: localStorage.getItem('dapp_particle_theme') || 'light',
         customStyle: localStorage.getItem('customStyle') || JSON.stringify(defCustomStyle),
         modalBorderRadius: Number(localStorage.getItem('dapp_particle_modal_border_radius') || 10),
+        walletEntrance: localStorage.getItem('WALLETENTRANCE') === 'true' || true,
+        walletTheme: localStorage.getItem('WALLETTHEME') || 'light',
     });
 
     useEffect(() => {
@@ -83,7 +85,13 @@ function Home() {
     }, [loginState, demoSetting.chainKey]);
 
     const particle = useMemo(() => {
-        const { promptSettingWhenSign, promptMasterPasswordSettingWhenLogin, customStyle } = demoSetting;
+        const {
+            promptSettingWhenSign,
+            promptMasterPasswordSettingWhenLogin,
+            customStyle,
+            walletEntrance,
+            walletTheme,
+        } = demoSetting;
         const chainChanged = (chain: any) => {
             initAccount();
         };
@@ -107,7 +115,9 @@ function Home() {
                 promptMasterPasswordSettingWhenLogin: promptMasterPasswordSettingWhenLogin as SettingOption,
             },
             wallet: {
-                displayWalletEntry: true,
+                displayWalletEntry: walletEntrance,
+                // @ts-ignore
+                uiMode: walletEntrance ? walletTheme : 'light',
                 defaultWalletEntryPosition: WalletEntryPosition.BR,
                 customStyle: customStyle ? (JSON.parse(customStyle) as WalletCustomStyle) : undefined,
             },
@@ -132,7 +142,13 @@ function Home() {
         const particleProvider = new ParticleProvider(particle.auth);
         window.web3 = new Web3(particleProvider as any | ParticleProvider);
         return particle;
-    }, [demoSetting.promptSettingWhenSign, demoSetting.promptMasterPasswordSettingWhenLogin, demoSetting.customStyle]);
+    }, [
+        demoSetting.promptSettingWhenSign,
+        demoSetting.promptMasterPasswordSettingWhenLogin,
+        demoSetting.customStyle,
+        demoSetting.walletEntrance,
+        demoSetting.walletTheme,
+    ]);
 
     const [updateHasPassword, setUpdateHasPassword] = useState(1);
     const hasPasswordDot = useMemo(() => {
