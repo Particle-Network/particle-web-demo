@@ -1143,7 +1143,7 @@
   resolved "https://registry.yarnpkg.com/@babel/regjsgen/-/regjsgen-0.8.0.tgz#f0ba69b075e1f05fb2825b7fad991e7adbb18310"
   integrity sha512-x/rqGMdzj+fWZvCOYForTghzbtqPDZ5gPwaoNGHdgDfF2QA/XZbCBp4Moo5scrkAMPhB7z26XM/AaHuIJdgauA==
 
-"@babel/runtime@^7.10.1", "@babel/runtime@^7.10.4", "@babel/runtime@^7.11.1", "@babel/runtime@^7.11.2", "@babel/runtime@^7.12.5", "@babel/runtime@^7.16.3", "@babel/runtime@^7.16.7", "@babel/runtime@^7.17.2", "@babel/runtime@^7.18.0", "@babel/runtime@^7.18.3", "@babel/runtime@^7.20.0", "@babel/runtime@^7.20.6", "@babel/runtime@^7.20.7", "@babel/runtime@^7.5.5", "@babel/runtime@^7.8.4", "@babel/runtime@^7.9.2":
+"@babel/runtime@^7.10.1", "@babel/runtime@^7.10.4", "@babel/runtime@^7.11.1", "@babel/runtime@^7.11.2", "@babel/runtime@^7.12.5", "@babel/runtime@^7.16.3", "@babel/runtime@^7.16.7", "@babel/runtime@^7.17.2", "@babel/runtime@^7.18.0", "@babel/runtime@^7.18.3", "@babel/runtime@^7.20.0", "@babel/runtime@^7.20.6", "@babel/runtime@^7.20.7", "@babel/runtime@^7.21.0", "@babel/runtime@^7.5.5", "@babel/runtime@^7.8.4", "@babel/runtime@^7.9.2":
   version "7.21.0"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.21.0.tgz#5b55c9d394e5fcf304909a8b00c07dc217b56673"
   integrity sha512-xwII0//EObnq89Ji5AKYQaRYiW/nZ3llSv29d49IuxPhKbtJoLP+9QUUZ4nVragQVtaVGeZrpB+ZtG/Pdy/POw==
@@ -4072,51 +4072,59 @@
     node-addon-api "^3.2.1"
     node-gyp-build "^4.3.0"
 
-"@particle-network/analytics@^0.11.1":
-  version "0.11.1"
-  resolved "https://registry.yarnpkg.com/@particle-network/analytics/-/analytics-0.11.1.tgz#8011f201edbfb31310fd1fde3db720dffaa0941f"
-  integrity sha512-sieEmIHq0NRnavvZThApOP6p6RGYwCTTtRik+gN6SDLHhggG2wBW2vOIWmZUi+cIyGRnvErWmfzkkA0iYy/BRg==
+"@particle-network/analytics@^0.12.0":
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/@particle-network/analytics/-/analytics-0.12.0.tgz#d68ce7e207bbdf13a87a193de97610c882618c88"
+  integrity sha512-vu0D+XFmoyUnlV+DxwOCeGETLeCKB6hfPGHtQTusAczTf6Z/PLaWR5151nIOaRbukkSYmhwlwutheyvkXrn2BA==
   dependencies:
     hash.js "^1.1.7"
     uuidv4 "^6.2.13"
 
-"@particle-network/auth@^0.11.6":
-  version "0.11.6"
-  resolved "https://registry.yarnpkg.com/@particle-network/auth/-/auth-0.11.6.tgz#bf4d60ba350713d297144cc3e611c9caea71df3d"
-  integrity sha512-s5EbkJKg0TKfabCjLpdTEEBrCSNO35AZIg+qSME3m9tmLxcjmSj5ixVT9nCWPBcWlHbtivv5v8dHn7ZdaM1jSg==
+"@particle-network/auth@^0.12.0":
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/@particle-network/auth/-/auth-0.12.0.tgz#ed6b93fead09c526760cc4fa882b2b7e1f5be493"
+  integrity sha512-mYajN/Ar2sWnGJrmH117IRKoTQItcM8S9+wXH/yS0d3Lg7wyvHKuSMr/bpnzW7J3PB5cOpWMG8kfXGdYqxzDbg==
   dependencies:
-    "@particle-network/analytics" "^0.11.1"
-    "@particle-network/common" "^0.11.2"
-    "@particle-network/crypto" "^0.11.1"
+    "@particle-network/analytics" "^0.12.0"
+    "@particle-network/common" "^0.12.0"
+    "@particle-network/crypto" "^0.12.0"
     draggabilly "^3.0.0"
     qs "^6.11.0"
 
-"@particle-network/common@^0.11.2":
-  version "0.11.2"
-  resolved "https://registry.yarnpkg.com/@particle-network/common/-/common-0.11.2.tgz#af56b8eaa388bed0b00b55894dab77d1a0d1c9c8"
-  integrity sha512-NCo5sngR8dmUpGPww6qp0iMk1MHxpJyJWe0wO2nvn2zjaZ42UpMsbLhvP/f9Df54SZwauBAaYDgaOkZ49G/oTg==
+"@particle-network/common@^0.12.0":
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/@particle-network/common/-/common-0.12.0.tgz#08927fd7cdd0dcb287a9dbac9982371f64ccca7d"
+  integrity sha512-PAwbAGgMiM6ZIoW7NeZGz/VIVEnrWgEF3Nzyy7ac4BBAzX76ytPWydwzxu3Uea5i5GEoQZd2SA/1Q6vjQ6PNmw==
 
-"@particle-network/connect-react-ui@^0.11.6":
-  version "0.11.6"
-  resolved "https://registry.yarnpkg.com/@particle-network/connect-react-ui/-/connect-react-ui-0.11.6.tgz#e69d75535e727198e37791062593cc580ecdfae8"
-  integrity sha512-27Sdb9GPle7VNuny2tXLGdfe+TAg7wjyUSeykfKA49Eqx3lw4RA+7hRPPwyzzuoz5skAwIXGGeVH20sZHeCvdQ==
+"@particle-network/connect-react-ui@^0.12.0":
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/@particle-network/connect-react-ui/-/connect-react-ui-0.12.0.tgz#3a61bf6ba40d37a7109ce0a8db1b9c28ffca9983"
+  integrity sha512-faQqaJf7MO/cZ8gENDnWtCbAgzIv/B6KzQ8/wYiSctQGL3VN1iw2xencCnPmmXryq0EDmzuFeSAUIyn9aAEKFw==
   dependencies:
-    "@particle-network/connect" "^0.11.5"
+    "@particle-network/connect" "^0.12.0"
     i18next "^22.0.6"
     qrcode "^1.5.1"
     react-i18next "^12.0.0"
+    react-svg "^16.1.6"
 
-"@particle-network/connect@^0.11.5":
-  version "0.11.5"
-  resolved "https://registry.yarnpkg.com/@particle-network/connect/-/connect-0.11.5.tgz#e9657ffdd3ed9a1a59b12e68c6406a8b4e5e5bff"
-  integrity sha512-r9fik3bnClwphalYDbxdCJ41Ujx3ogdCGkJxqHmw+3iZllKiSBA8aedq2eiipAJf8ZW+9ghmwiWx0+WOrVnZQw==
+"@particle-network/connect@^0.12.0":
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/@particle-network/connect/-/connect-0.12.0.tgz#a30fc6a6aea471bc077b3abd67edc28b657a2677"
+  integrity sha512-vnHWeBYLKEZF6+OgPBICyFE6jeug/efuMz+6NS8w57Z7abekMW9/+199ae7bV2Bl6Vp8ycJ7UoKjmlWOARzCzQ==
   dependencies:
     eventemitter3 "^4.0.0"
 
-"@particle-network/crypto@^0.11.1":
-  version "0.11.1"
-  resolved "https://registry.yarnpkg.com/@particle-network/crypto/-/crypto-0.11.1.tgz#888a66f5b7e9827d2e6a9b48486ef399c0b73252"
-  integrity sha512-wahg2zhNhhTZSHSIOeFDlvFxWBqZQi6rntkp81j5c05ZjQbBfY4zTY9cYz+WvBT4nWzvyoOy9Zxl0yscTU2yIA==
+"@particle-network/connect@^0.12.1":
+  version "0.12.1"
+  resolved "https://registry.yarnpkg.com/@particle-network/connect/-/connect-0.12.1.tgz#1e1a626eb6891c0c604ea97998b96036da19c2c7"
+  integrity sha512-u1aZiu+VHLUHxF+whrGgWQjllcyzbRwdhekfut/47NBiPk3OzoFKJGVVoN9HSIDIfC3sr4z5ijaudFku52NHrA==
+  dependencies:
+    eventemitter3 "^4.0.0"
+
+"@particle-network/crypto@^0.12.0":
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/@particle-network/crypto/-/crypto-0.12.0.tgz#81a69ef2d364723fbb37818ee3ca84052229840e"
+  integrity sha512-W3VD3vwLP61ctfbJ0sLGu7lmgY9diygwwHxN2oeYGCB9tqBZ1D3iGUNoioTZiDwOAkb7P1aPitpCiYnzgX5Xmg==
   dependencies:
     crypto-js "^4.1.1"
     uuidv4 "^6.2.13"
@@ -4133,10 +4141,10 @@
     tweetnacl "^1.0.3"
     tweetnacl-util "^0.15.1"
 
-"@particle-network/local-provider@^0.11.6":
-  version "0.11.6"
-  resolved "https://registry.yarnpkg.com/@particle-network/local-provider/-/local-provider-0.11.6.tgz#f09a731e51a36439d93c1b79cab50ceb060f68dc"
-  integrity sha512-pdpATPk+A6JBCJvM5DIP6YEAQt6lB6rr95EP4QPWIWsXxmZP9zleuB2EhNzpMriqMOTFHOGNsn3XomTdBPeESg==
+"@particle-network/local-provider@^0.12.0":
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/@particle-network/local-provider/-/local-provider-0.12.0.tgz#4630013eee3cec5a6b46294db31a04c3d9e7fc2f"
+  integrity sha512-qbujdtV+79nnVqiOHpdfIyBp7GOtufuZkKUqyqI68VwVyzd6UAJR/Q+tAOtUEzFx8sex6k01sAY4pbruR53pKg==
   dependencies:
     "@ethereumjs/tx" "^3.5.2"
     "@ethereumjs/util" "^8.0.2"
@@ -4147,26 +4155,26 @@
     ethereumjs-wallet "^1.0.2"
     uuid "^8.3.2"
 
-"@particle-network/provider@^0.11.6":
-  version "0.11.6"
-  resolved "https://registry.yarnpkg.com/@particle-network/provider/-/provider-0.11.6.tgz#dd0611026c21b4085e9771876e97c0f423af7452"
-  integrity sha512-QtcbiuBNNFExiipmuCRtkwKnv10Tf4rkd8ysDrHsWz0UNanoCEtjffYuX4smWtxOKAWzX5pfkclmeJ3PNqbmNA==
+"@particle-network/provider@^0.12.0":
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/@particle-network/provider/-/provider-0.12.0.tgz#b26bc9fa5225f6b2ac277d51e6aa8e6680645763"
+  integrity sha512-32NBuwochiT0lFLmk6EcdysQDsPdL5mZlbgL3cxRhtqVvMeEkmHty8KwUZVCUVpl9anS3KjYg8i/Nh6j04VzAw==
   dependencies:
     axios "^0.27.2"
     uuid "^8.3.2"
 
-"@particle-network/rainbowkit-ext@^0.11.7":
-  version "0.11.7"
-  resolved "https://registry.yarnpkg.com/@particle-network/rainbowkit-ext/-/rainbowkit-ext-0.11.7.tgz#52702675afaf5b97e698444a70aa1988300d2dab"
-  integrity sha512-jQC5dBdEoUwoQzims4tuj9hLt+i3BgZxJ8X98txAbic6lV8+Fu4cmYWLi4zE9e/e22NTAqHYJIbIHtwvOkBqEw==
+"@particle-network/rainbowkit-ext@^0.12.0":
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/@particle-network/rainbowkit-ext/-/rainbowkit-ext-0.12.0.tgz#5a770c69fc9a99ae98dc45b9450b42ccd16318c4"
+  integrity sha512-5gEOmBdANhOpQKYMSg0VjpNUXERItHXfgeLv7Dl9mKTx0yhhoxTkeAWDqdPE1BxgnZnUkJcPf0a8dAKj4v0c+g==
   dependencies:
-    "@particle-network/auth" "^0.11.6"
-    "@particle-network/provider" "^0.11.6"
+    "@particle-network/auth" "^0.12.0"
+    "@particle-network/provider" "^0.12.0"
 
-"@particle-network/solana-wallet@^0.11.6":
-  version "0.11.6"
-  resolved "https://registry.yarnpkg.com/@particle-network/solana-wallet/-/solana-wallet-0.11.6.tgz#a29fd01d351b9eded6b09bc99004d8ba1639a7e4"
-  integrity sha512-shjoETQNcFZXqkek/krFfMmF/x3/6YhFcZwTtc8i7ArHP5FEvtaB9GLePkY2pEStWYXXO5pKPrOkDvJalgDqzQ==
+"@particle-network/solana-wallet@^0.12.0":
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/@particle-network/solana-wallet/-/solana-wallet-0.12.0.tgz#57226110dbc3e105b36ea3f80d59401ce6977311"
+  integrity sha512-zpQIud81RVpSuOaXemAvroRXatAekpB2pZIUA+Ukr7Yrr0k4XXJX5O1UIW8VsHvT8awQw7bOY7uC2UMgjNFFUA==
 
 "@pedrouid/environment@^1.0.1":
   version "1.0.1"
@@ -4894,6 +4902,15 @@
   dependencies:
     defer-to-connect "^2.0.1"
 
+"@tanem/svg-injector@^10.1.50":
+  version "10.1.51"
+  resolved "https://registry.yarnpkg.com/@tanem/svg-injector/-/svg-injector-10.1.51.tgz#2e7d26765b25cfed5924f3c49d28355c3736f7fc"
+  integrity sha512-r3elML4rNyKu1sNfhPJ601HuSWyO0bVzX1KcQuaf7pOLI8n+IPOT4RTOyVBp2G+D9GbHes6jvc3z8JMonDOBAw==
+  dependencies:
+    "@babel/runtime" "^7.21.0"
+    content-type "^1.0.5"
+    tslib "^2.5.0"
+
 "@tanstack/query-core@4.26.1":
   version "4.26.1"
   resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-4.26.1.tgz#7a441086c4d3d79e1d156c0a355bd3567213626e"
@@ -5461,7 +5478,7 @@
   resolved "https://registry.yarnpkg.com/@types/prettier/-/prettier-2.7.2.tgz#6c2324641cc4ba050a8c710b2b251b377581fbf0"
   integrity sha512-KufADq8uQqo1pYKVIYzfKbJfBAc0sOeXqGbFaSpv8MRmC/zXgowNZmFcbngndGk922QDmOASEXUZCaY48gs4cg==
 
-"@types/prop-types@*":
+"@types/prop-types@*", "@types/prop-types@^15.7.5":
   version "15.7.5"
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.5.tgz#5f19d2b85a98e9558036f6a3cacc8819420f05cf"
   integrity sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==
@@ -8725,7 +8742,7 @@ content-hash@^2.5.2:
     multicodec "^0.5.5"
     multihashes "^0.4.15"
 
-content-type@~1.0.4, content-type@~1.0.5:
+content-type@^1.0.5, content-type@~1.0.4, content-type@~1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/content-type/-/content-type-1.0.5.tgz#8b773162656d1d1086784c8f23a54ce6d73d7918"
   integrity sha512-nTjqfcBFEipKdXCv4YDQWCfmcLZKm81ldF0pAopTvyrFGVbcR6P/VAAd5G7N+0tTr8QqiU0tFadD6FK4NtJwOA==
@@ -18394,6 +18411,16 @@ react-style-singleton@^2.2.1:
     get-nonce "^1.0.0"
     invariant "^2.2.4"
     tslib "^2.0.0"
+
+react-svg@^16.1.6:
+  version "16.1.7"
+  resolved "https://registry.yarnpkg.com/react-svg/-/react-svg-16.1.7.tgz#37137222c9e19d76f625de96a51d447c023e405c"
+  integrity sha512-wLiI1bCezoqw6tBuzxc27ObyJymd+WWUT8lgVooqrpPgXmV7wXSGIQAkLOV4stFbukCiLyl2lYTvkxnmtpIeQQ==
+  dependencies:
+    "@babel/runtime" "^7.21.0"
+    "@tanem/svg-injector" "^10.1.50"
+    "@types/prop-types" "^15.7.5"
+    prop-types "^15.8.1"
 
 react@18.2.0, react@^18.2.0:
   version "18.2.0"

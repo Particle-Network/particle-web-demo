@@ -9,10 +9,10 @@
         "lint": "next lint"
     },
     "dependencies": {
-        "@particle-network/auth": "^0.11.6",
-        "@particle-network/connect-react-ui": "^0.11.6",
-        "@particle-network/provider": "^0.11.6",
-        "@particle-network/solana-wallet": "^0.11.6",
+        "@particle-network/auth": "^0.12.0",
+        "@particle-network/connect-react-ui": "^0.12.0",
+        "@particle-network/provider": "^0.12.0",
+        "@particle-network/solana-wallet": "^0.12.0",
         "@walletconnect/ethereum-provider": "^1.8.0",
         "next": "13.0.6",
         "react": "18.2.0",
