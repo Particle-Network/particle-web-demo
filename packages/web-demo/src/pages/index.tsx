@@ -1,7 +1,7 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { Button, Menu, Badge, Input, message, Tag, Dropdown, Popover } from 'antd';
 import type { MenuProps } from 'antd';
-import { SettingOption, toBase58Address } from '@particle-network/auth';
+import { isNullish, SettingOption, toBase58Address } from '@particle-network/auth';
 import SendETH from '../components/EVM/SendETH/index';
 import SendERC20Tokens from '../components/EVM/SendERC20Tokens/index';
 import SendERC721Tokens from '../components/EVM/SendERC721Tokens/index';
@@ -74,8 +74,10 @@ function Home() {
         theme: localStorage.getItem('dapp_particle_theme') || 'light',
         customStyle: localStorage.getItem('customStyle') || JSON.stringify(defCustomStyle),
         modalBorderRadius: Number(localStorage.getItem('dapp_particle_modal_border_radius') || 10),
-        walletEntrance: localStorage.getItem('WALLETENTRANCE') === 'true' || true,
-        walletTheme: localStorage.getItem('WALLETTHEME') || 'light',
+        walletEntrance:
+            localStorage.getItem('dapp_particle_walletentrance') === 'true' ||
+            isNullish(localStorage.getItem('dapp_particle_walletentrance')),
+        walletTheme: localStorage.getItem('dapp_particle_wallettheme') || 'light',
     });
 
     useEffect(() => {
@@ -101,6 +103,7 @@ function Home() {
         if (window.particle) {
             window.particle.auth.off('chainChanged', chainChanged);
             window.particle.auth.off('disconnect', disconnect);
+            window.particle.walletEntryDestroy();
         }
         const chainKey = localStorage.getItem('dapp_particle_chain_key') || 'Ethereum';
         const chain = ParticleChains[chainKey];
@@ -116,13 +119,12 @@ function Home() {
             },
             wallet: {
                 displayWalletEntry: walletEntrance,
-                // @ts-ignore
-                uiMode: walletEntrance ? walletTheme : 'light',
+                uiMode: walletTheme as any,
                 defaultWalletEntryPosition: WalletEntryPosition.BR,
                 customStyle: customStyle ? (JSON.parse(customStyle) as WalletCustomStyle) : undefined,
             },
         });
-
+        
         particle.auth.on('chainChanged', chainChanged);
         particle.auth.on('disconnect', disconnect);
 

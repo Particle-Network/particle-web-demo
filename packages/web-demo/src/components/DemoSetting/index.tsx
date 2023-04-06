@@ -86,11 +86,13 @@ function DemoSetting(props: any) {
             chainKey,
             language,
             theme,
-            customStyle,
-            promptMasterPasswordSettingWhenLogin,
-            promptSettingWhenSign,
             loginFormMode,
             modalBorderRadius,
+            promptSettingWhenSign,
+            promptMasterPasswordSettingWhenLogin,
+            customStyle,
+            walletTheme,
+            walletEntrance,
         };
         if (onChange && JSON.stringify(demoSetting) !== JSON.stringify(newSetting)) {
             onChange({ ...newSetting });
@@ -111,7 +113,6 @@ function DemoSetting(props: any) {
     useEffect(() => {
         localStorage.setItem('dapp_particle_theme', theme);
         particle.setAuthTheme({
-            displayWallet: true,
             uiMode: theme as UIMode,
         });
     }, [theme]);
@@ -120,6 +121,14 @@ function DemoSetting(props: any) {
         localStorage.setItem('dapp_particle_language', language);
         particle.setLanguage(language);
     }, [language]);
+
+    useEffect(() => {
+        localStorage.setItem('dapp_particle_wallettheme', walletTheme);
+    }, [walletTheme]);
+
+    useEffect(() => {
+        localStorage.setItem('dapp_particle_walletentrance', walletEntrance.toString());
+    }, [walletEntrance]);
 
     const switchChain = async (key) => {
         await particle.switchChain(ParticleChains[key]);
