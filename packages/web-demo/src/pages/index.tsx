@@ -88,6 +88,9 @@ function Home() {
 
     const particle = useMemo(() => {
         const {
+            theme,
+            modalBorderRadius,
+            language,
             promptSettingWhenSign,
             promptMasterPasswordSettingWhenLogin,
             customStyle,
@@ -124,7 +127,12 @@ function Home() {
                 customStyle: customStyle ? (JSON.parse(customStyle) as WalletCustomStyle) : undefined,
             },
         });
-        
+        particle.setAuthTheme({
+            uiMode: theme as any,
+            modalBorderRadius,
+        });
+        particle.setLanguage(language);
+
         particle.auth.on('chainChanged', chainChanged);
         particle.auth.on('disconnect', disconnect);
 
