@@ -4,9 +4,9 @@ import { ParticleNetwork } from '@particle-network/auth';
 import { Button, Card, Input, message, Modal, notification, Select, Space, Spin } from 'antd';
 import { LinkOutlined, RedoOutlined, DeploymentUnitOutlined } from '@ant-design/icons';
 import { ParticleProvider } from '@particle-network/provider';
-import { ChainId, FeeQuote, Transaction, ZERO_ADDRESS } from '@biconomy-sdk-dev/core-types';
-import { BalancesDto, IBalances } from '@biconomy-sdk-dev/node-client';
-import SmartAccount from '@biconomy-sdk-dev/smart-account';
+import { ChainId, FeeQuote, Transaction, ZERO_ADDRESS } from '@biconomy-devx/core-types';
+import { BalancesDto, IBalances } from '@biconomy-devx/node-client';
+import SmartAccount from '@biconomy-devx/smart-account';
 import { ethers } from 'ethers';
 import { chains } from '@particle-network/common';
 import { DecimalUnitMap, fromWei, shortString } from '../../utils';
@@ -199,7 +199,7 @@ const PageERC4337 = () => {
 
             try {
                 if (gasless) {
-                    const txResponse = await smartAccount?.sendGaslessTransaction({ transaction: tx });
+                    const txResponse = await smartAccount?.sendTransaction({ transaction: tx });
                     notification.success({
                         message: 'Send Transaction Success',
                         description: txResponse?.hash,
@@ -237,7 +237,7 @@ const PageERC4337 = () => {
             };
             try {
                 if (gasless) {
-                    const txResponse = await smartAccount?.sendGaslessTransaction({ transaction: tx });
+                    const txResponse = await smartAccount?.sendTransaction({ transaction: tx });
                     notification.success({
                         message: 'Send Transaction Success',
                         description: txResponse?.hash,
@@ -274,7 +274,7 @@ const PageERC4337 = () => {
             };
             try {
                 if (gasless) {
-                    const txResponse = await smartAccount?.sendGaslessTransaction({ transaction: tx });
+                    const txResponse = await smartAccount?.sendTransaction({ transaction: tx });
                     notification.success({
                         message: 'Send Transaction Success',
                         description: txResponse?.hash,
@@ -323,7 +323,7 @@ const PageERC4337 = () => {
 
             try {
                 if (gasless) {
-                    const txResponse = await smartAccount?.sendGaslessTransaction({ transaction: tx });
+                    const txResponse = await smartAccount?.sendTransaction({ transaction: tx });
                     notification.success({
                         message: 'Send Transaction Success',
                         description: txResponse?.hash,
@@ -358,7 +358,7 @@ const PageERC4337 = () => {
     };
 
     const prepareRefundTransaction = async (transaction: Transaction) => {
-        const feeQuotes = await smartAccount?.prepareRefundTransaction({ transaction });
+        const feeQuotes = await smartAccount?.getFeeQuotes({ transaction });
         console.log('prepareRefundTransaction', feeQuotes);
         setFeeQuotes(feeQuotes);
         setOpenPaymentOptions({ open: true, transaction });
@@ -369,12 +369,16 @@ const PageERC4337 = () => {
         setOpenPaymentOptions({ open: false });
         if (openPaymentOptions.transaction && smartAccount) {
             try {
-                const transaction = await smartAccount.createRefundTransaction({
+                const transaction = await smartAccount.createUserPaidTransaction({
                     transaction: openPaymentOptions.transaction,
                     feeQuote: feeQuote,
                 });
-                const txId = await smartAccount.sendTransaction({
+                const txId = await smartAccount.sendUserPaidTransaction({
                     tx: transaction,
+                    gasLimit: {
+                        hex: '0xC3500',
+                        type: 'hex',
+                    },
                 });
                 checkWalletIsDeploy();
                 notification.success({
@@ -461,7 +465,7 @@ const PageERC4337 = () => {
         if (smartAccount) {
             setDeployLoading(true);
             try {
-                await smartAccount.sendGaslessTransaction({ transaction: { to: ZERO_ADDRESS, data: '0x' } });
+                await smartAccount.sendTransaction({ transaction: { to: ZERO_ADDRESS, data: '0x' } });
                 message.success('Smart Contract Wallet Deployed Successfully');
             } catch (error) {
                 console.error('deployWalletContract', error);
