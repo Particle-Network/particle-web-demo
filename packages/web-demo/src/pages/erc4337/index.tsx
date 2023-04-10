@@ -37,6 +37,7 @@ const PageERC4337 = () => {
 
     const [eoaBalanceLoading, setEoaBalanceLoading] = useState(false);
     const [scaBalanceLoading, setScaBalanceLoading] = useState(false);
+    const [scaDeployLoading, setScaDeployLoading] = useState(false);
 
     const [walletDeploy, setWalletDeploy] = useState<boolean>();
     const [deployLoading, setDeployLoading] = useState<boolean>(false);
@@ -156,9 +157,11 @@ const PageERC4337 = () => {
 
     const checkWalletIsDeploy = async () => {
         if (provider && smartAccount) {
+            setScaDeployLoading(true);
             const deployed = await smartAccount.isDeployed(particle.auth.chainId());
             console.log('checkWalletIsDeploy', deployed);
             setWalletDeploy(deployed);
+            setScaDeployLoading(false);
         }
     };
 
@@ -197,6 +200,10 @@ const PageERC4337 = () => {
             try {
                 if (gasless) {
                     const txResponse = await smartAccount?.sendGaslessTransaction({ transaction: tx });
+                    notification.success({
+                        message: 'Send Transaction Success',
+                        description: txResponse?.hash,
+                    });
                     checkWalletIsDeploy();
                     console.log('sendGaslessTransaction', txResponse);
                 } else {
@@ -231,6 +238,10 @@ const PageERC4337 = () => {
             try {
                 if (gasless) {
                     const txResponse = await smartAccount?.sendGaslessTransaction({ transaction: tx });
+                    notification.success({
+                        message: 'Send Transaction Success',
+                        description: txResponse?.hash,
+                    });
                     checkWalletIsDeploy();
                     console.log('sendERC20GaslessTransaction', txResponse);
                 } else {
@@ -264,6 +275,10 @@ const PageERC4337 = () => {
             try {
                 if (gasless) {
                     const txResponse = await smartAccount?.sendGaslessTransaction({ transaction: tx });
+                    notification.success({
+                        message: 'Send Transaction Success',
+                        description: txResponse?.hash,
+                    });
                     checkWalletIsDeploy();
                     console.log('sendERC721GaslessTransaction', txResponse);
                 } else {
@@ -309,6 +324,10 @@ const PageERC4337 = () => {
             try {
                 if (gasless) {
                     const txResponse = await smartAccount?.sendGaslessTransaction({ transaction: tx });
+                    notification.success({
+                        message: 'Send Transaction Success',
+                        description: txResponse?.hash,
+                    });
                     checkWalletIsDeploy();
                     console.log('sendERC1155GaslessTransaction', txResponse);
                 } else {
@@ -558,6 +577,14 @@ const PageERC4337 = () => {
                                             >
                                                 {walletDeploy ? 'Deployed' : 'Deploy'}
                                             </Button>
+                                        )}
+
+                                        {walletDeploy === false && (
+                                            <RedoOutlined
+                                                spin={scaDeployLoading}
+                                                style={{ marginLeft: 10, color: '#1677ff' }}
+                                                onClick={checkWalletIsDeploy}
+                                            />
                                         )}
                                     </div>
 
