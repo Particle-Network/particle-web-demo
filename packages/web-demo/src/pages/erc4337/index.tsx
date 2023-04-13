@@ -4,9 +4,9 @@ import { ParticleNetwork } from '@particle-network/auth';
 import { Button, Card, Input, message, Modal, notification, Select, Space, Spin } from 'antd';
 import { LinkOutlined, RedoOutlined, DeploymentUnitOutlined } from '@ant-design/icons';
 import { ParticleProvider } from '@particle-network/provider';
-import { ChainId, FeeQuote, Transaction, ZERO_ADDRESS } from '@biconomy-devx/core-types';
-import { BalancesDto, IBalances } from '@biconomy-devx/node-client';
-import SmartAccount from '@biconomy-devx/smart-account';
+import { ChainId, FeeQuote, Transaction, ZERO_ADDRESS } from '@biconomy/core-types';
+import { BalancesDto, IBalances } from '@biconomy/node-client';
+import SmartAccount from '@biconomy/smart-account';
 import { ethers } from 'ethers';
 import { chains } from '@particle-network/common';
 import { DecimalUnitMap, fromWei, shortString } from '../../utils';
@@ -375,10 +375,6 @@ const PageERC4337 = () => {
                 });
                 const txId = await smartAccount.sendUserPaidTransaction({
                     tx: transaction,
-                    gasLimit: {
-                        hex: '0xC3500',
-                        type: 'hex',
-                    },
                 });
                 checkWalletIsDeploy();
                 notification.success({
