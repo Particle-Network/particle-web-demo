@@ -99,28 +99,48 @@ const PageERC4337 = () => {
             // All values are optional except networkConfig only in the case of gasless dappAPIKey is required
             const options = {
                 activeNetworkId: ChainId.GOERLI,
-                supportedNetworksIds: [ChainId.GOERLI, ChainId.POLYGON_MUMBAI, ChainId.BSC_TESTNET],
+                supportedNetworksIds: [
+                    ChainId.MAINNET,
+                    ChainId.GOERLI,
+                    ChainId.POLYGON_MAINNET,
+                    ChainId.POLYGON_MUMBAI,
+                    ChainId.BSC_TESTNET,
+                ],
                 networkConfig: [
+                    {
+                        chainId: ChainId.MAINNET,
+                        // Dapp API Key you will get from new Biconomy dashboard that will be live soon
+                        // Meanwhile you can use the test dapp api key mentioned above
+                        dappAPIKey: process.env.REACT_APP_BICONOMY_ETHEREUM,
+                        providerUrl: `${process.env.REACT_APP_RPC_DOMAIN}/evm-chain?chainId=1&projectUuid=${process.env.REACT_APP_PROJECT_ID}&projectKey=${process.env.REACT_APP_CLIENT_KEY}`,
+                    },
                     {
                         chainId: ChainId.GOERLI,
                         // Dapp API Key you will get from new Biconomy dashboard that will be live soon
                         // Meanwhile you can use the test dapp api key mentioned above
                         dappAPIKey: process.env.REACT_APP_BICONOMY_GOERLIAPI,
-                        // providerUrl: '',
+                        providerUrl: `${process.env.REACT_APP_RPC_DOMAIN}/evm-chain?chainId=5&projectUuid=${process.env.REACT_APP_PROJECT_ID}&projectKey=${process.env.REACT_APP_CLIENT_KEY}`,
+                    },
+                    {
+                        chainId: ChainId.POLYGON_MAINNET,
+                        // Dapp API Key you will get from new Biconomy dashboard that will be live soon
+                        // Meanwhile you can use the test dapp api key mentioned above
+                        dappAPIKey: process.env.REACT_APP_BICONOMY_POLYGON,
+                        providerUrl: `${process.env.REACT_APP_RPC_DOMAIN}/evm-chain?chainId=137&projectUuid=${process.env.REACT_APP_PROJECT_ID}&projectKey=${process.env.REACT_APP_CLIENT_KEY}`,
                     },
                     {
                         chainId: ChainId.POLYGON_MUMBAI,
                         // Dapp API Key you will get from new Biconomy dashboard that will be live soon
                         // Meanwhile you can use the test dapp api key mentioned above
                         dappAPIKey: process.env.REACT_APP_BICONOMY_POLYGON_MUMBAI,
-                        // providerUrl: '',
+                        providerUrl: `${process.env.REACT_APP_RPC_DOMAIN}/evm-chain?chainId=80001&projectUuid=${process.env.REACT_APP_PROJECT_ID}&projectKey=${process.env.REACT_APP_CLIENT_KEY}`,
                     },
                     {
                         chainId: ChainId.BSC_TESTNET,
                         // Dapp API Key you will get from new Biconomy dashboard that will be live soon
                         // Meanwhile you can use the test dapp api key mentioned above
                         dappAPIKey: process.env.REACT_APP_BICONOMY_BSC_TESTNET,
-                        // providerUrl: '',
+                        providerUrl: `${process.env.REACT_APP_RPC_DOMAIN}/evm-chain?chainId=97&projectUuid=${process.env.REACT_APP_PROJECT_ID}&projectKey=${process.env.REACT_APP_CLIENT_KEY}`,
                     },
                 ],
             };
@@ -490,7 +510,9 @@ const PageERC4337 = () => {
                         onChange={handleSwitchChain}
                         loading={switchChainLoading}
                         options={[
+                            { value: '1', label: 'Ethereum Mainnet' },
                             { value: '5', label: 'Ethereum Goerli' },
+                            { value: '137', label: 'Polygon Mainnet' },
                             { value: '80001', label: 'Polygon Mumbai' },
                             { value: '97', label: 'BSC Testnet' },
                         ]}
@@ -605,7 +627,7 @@ const PageERC4337 = () => {
 
                 {account && !smartAccount?.address && <Spin className="spin-loading" size="large" />}
 
-                {smartAccount?.address && (
+                {account && smartAccount?.address && (
                     <>
                         <Card
                             className="tx-card"
