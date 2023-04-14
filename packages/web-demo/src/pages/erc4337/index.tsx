@@ -105,21 +105,21 @@ const PageERC4337 = () => {
                         chainId: ChainId.GOERLI,
                         // Dapp API Key you will get from new Biconomy dashboard that will be live soon
                         // Meanwhile you can use the test dapp api key mentioned above
-                        dappAPIKey: '6IvoT_AN0.3af5da8e-6cae-40d7-8f14-b5dcdf2588ba',
+                        dappAPIKey: process.env.REACT_APP_BICONOMY_GOERLIAPI,
                         // providerUrl: '',
                     },
                     {
                         chainId: ChainId.POLYGON_MUMBAI,
                         // Dapp API Key you will get from new Biconomy dashboard that will be live soon
                         // Meanwhile you can use the test dapp api key mentioned above
-                        dappAPIKey: 'mjYgSaEN4.22ba75b6-b7cb-46d2-96fc-36aabcb83e65',
+                        dappAPIKey: process.env.REACT_APP_BICONOMY_POLYGON_MUMBAI,
                         // providerUrl: '',
                     },
                     {
                         chainId: ChainId.BSC_TESTNET,
                         // Dapp API Key you will get from new Biconomy dashboard that will be live soon
                         // Meanwhile you can use the test dapp api key mentioned above
-                        dappAPIKey: '2aobR5EKP.260da429-fb73-4199-873c-a0c907bfbd59',
+                        dappAPIKey: process.env.REACT_APP_BICONOMY_BSC_TESTNET,
                         // providerUrl: '',
                     },
                 ],
