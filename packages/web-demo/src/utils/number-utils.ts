@@ -22,16 +22,15 @@ const unitMap = {
 };
 
 export const DecimalUnitMap = {
-    1: 'ether',
+    1: 'wei',
     6: 'mwei',
     9: 'gwei',
-    18: 'wei',
+    18: 'ether',
 };
 
-export function fromWei(amount: string | number | BigNumber, unit: EthereumUnit = 'wei'): string {
+export function fromWei(amount: string | number | BigNumber, unit: EthereumUnit = 'ether'): string {
     const bn = toBigNumber(amount);
-    const base = new BigNumber(10).pow(18).div(new BigNumber(unitMap[unit]));
-    const value = bn.div(base);
+    const value = bn.div(new BigNumber(unitMap[unit]));
     return value.toString();
 }
 

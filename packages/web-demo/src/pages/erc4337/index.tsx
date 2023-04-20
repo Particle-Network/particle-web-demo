@@ -4,7 +4,7 @@ import { ParticleNetwork } from '@particle-network/auth';
 import { Button, Card, Input, message, Modal, notification, Select, Space, Spin } from 'antd';
 import { LinkOutlined, RedoOutlined, DeploymentUnitOutlined } from '@ant-design/icons';
 import { ParticleProvider } from '@particle-network/provider';
-import { ChainId, FeeQuote, Transaction, ZERO_ADDRESS } from '@biconomy/core-types';
+import { ChainId, FeeQuote, Transaction, ZERO_ADDRESS, SignTypeMethod } from '@biconomy/core-types';
 import { BalancesDto, IBalances } from '@biconomy/node-client';
 import SmartAccount from '@biconomy/smart-account';
 import { ethers } from 'ethers';
@@ -98,6 +98,7 @@ const PageERC4337 = () => {
             // Initialize the Smart Account
             // All values are optional except networkConfig only in the case of gasless dappAPIKey is required
             const options = {
+                signType: SignTypeMethod.EIP712_SIGN,
                 activeNetworkId: ChainId.GOERLI,
                 supportedNetworksIds: [
                     ChainId.MAINNET,
@@ -466,7 +467,9 @@ const PageERC4337 = () => {
                 return `${ethers.utils.formatEther(nativeBalance.balance)}`;
             }
         }
-        const tokenBalance = scaBalance.find((item) => item.contract_address === feeQuote.address);
+        const tokenBalance = scaBalance.find(
+            (item) => item.contract_address.toLowerCase() === feeQuote.address.toLowerCase()
+        );
         if (tokenBalance) {
             return `${fromWei(tokenBalance.balance, DecimalUnitMap[tokenBalance.contract_decimals])}`;
         }
