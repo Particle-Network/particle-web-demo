@@ -10,7 +10,7 @@ function ContractCall(props: any) {
     const [methodParams, setMethodParams] = useState<string>();
     const [contractABI, setContractABI] = useState<string>();
 
-    const callContract = async () => {
+    const callContract = async (read: boolean = false) => {
         if (!contractAddress || !contractMethod || !methodParams || !contractABI) {
             message.warning('Please input contract address, contract method, method params and contract ABI');
             return;
@@ -32,26 +32,40 @@ function ContractCall(props: any) {
             });
         }
         const methodCall = contract.methods[contractMethod];
-        //@ts-ignore
-        methodCall.call(this, ...params).send(
-            {
-                from: accounts[0],
-                gas: 23000,
-            },
-            (error: any, hash: any) => {
-                if (error) {
-                    if (error.code !== 4011) {
-                        message.error(error.message);
-                    }
-                } else {
+        if (read) {
+            methodCall(...params)
+                .call()
+                .then((result) => {
                     notification.success({
-                        message: 'Contract Call Success',
-                        description: hash,
+                        message: 'Read Contract Success',
+                        description: result,
                     });
+                })
+                .catch((error) => {
+                    message.error(error.message || 'Read Contract Error');
+                });
+        } else {
+            //@ts-ignore
+            methodCall.call(this, ...params).send(
+                {
+                    from: accounts[0],
+                    gas: 23000,
+                },
+                (error: any, hash: any) => {
+                    if (error) {
+                        if (error.code !== 4011) {
+                            message.error(error.message);
+                        }
+                    } else {
+                        notification.success({
+                            message: 'Contract Call Success',
+                            description: hash,
+                        });
+                    }
+                    setLoading(0);
                 }
-                setLoading(0);
-            }
-        );
+            );
+        }
     };
 
     return (
@@ -93,8 +107,21 @@ function ContractCall(props: any) {
             </div>
 
             <div className="form-submit">
-                <Button type="primary" loading={loading === 1} onClick={callContract} disabled={!props.loginState}>
-                    SEND
+                <Button
+                    type="primary"
+                    loading={loading === 1}
+                    onClick={() => callContract(true)}
+                    disabled={!props.loginState}
+                >
+                    READ CONTRACT
+                </Button>
+                <Button
+                    type="primary"
+                    loading={loading === 1}
+                    onClick={() => callContract(false)}
+                    disabled={!props.loginState}
+                >
+                    WRITE CONTRACT
                 </Button>
             </div>
         </div>
