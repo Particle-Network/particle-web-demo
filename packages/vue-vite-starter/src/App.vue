@@ -12,7 +12,7 @@ const config: ConnectConfig = {
   clientKey: import.meta.env.VITE_APP_CLIENT_KEY,
   appId: import.meta.env.VITE_APP_APP_ID,
   chains: [Ethereum as Chain, EthereumGoerli as Chain],
-  wallets: [metaMask(), web3Modal()],
+  wallets: [metaMask({qrcode: window.ethereum === undefined}), web3Modal()],
 }
 
 const connectKit = new ParticleConnect(config);

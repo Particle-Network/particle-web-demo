@@ -133,6 +133,8 @@ function Home() {
         });
         particle.setLanguage(language);
 
+        particle.setFiatCoin(localStorage.getItem('web_demo_fiat_coin') as any || 'USD');
+
         particle.auth.on('chainChanged', chainChanged);
         particle.auth.on('disconnect', disconnect);
 

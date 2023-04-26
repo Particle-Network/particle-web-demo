@@ -2,7 +2,6 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Picker } from 'antd-mobile';
 import { Select } from 'antd';
 import { DownOutline } from 'antd-mobile-icons';
-import type { PickerColumn, PickerValue } from 'antd-mobile/es/components/picker';
 import './index.scss';
 const Option = Select.Option;
 

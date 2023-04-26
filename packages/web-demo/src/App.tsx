@@ -11,9 +11,8 @@ import PageERC4337 from './pages/erc4337';
 import PageWebRedirect from './pages/webRedirect';
 
 // TODO:set debug for internal test, developer must remove it.
-if (process.env.REACT_APP_PARTICLE_ENV === 'development') {
-    window.__PARTICLE_DEVELOPMENT__ = true;
-}
+window.__PARTICLE_DEVELOPMENT__ = process.env.REACT_APP_PARTICLE_ENV === 'development';
+window.__PARTICLE_AUTH_LOCALHOST__ = process.env.REACT_APP_AUTH_LOCALHOST;
 
 function App() {
     return (

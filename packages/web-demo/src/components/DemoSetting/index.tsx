@@ -10,7 +10,6 @@ import './index.scss';
 import { isJson } from '../../utils';
 
 const { TextArea } = Input;
-const { Option } = Select;
 
 function DemoSetting(props: any) {
     const { onChange, value: demoSetting, particle, isLogin } = props;
@@ -71,9 +70,12 @@ function DemoSetting(props: any) {
     const [customStyle, setCustomStyle] = useState<string>(demoSetting.customStyle);
     const [textAreaStr, setTextAreaStr] = useState<string>(customStyle);
 
+    const [fiatCoin, setFiatCoin] = useState<string>(localStorage.getItem('web_demo_fiat_coin') || 'USD');
+
     // options
     const LanguageOptions = ['en', 'zh-CN', 'zh-TW', 'ja', 'ko'];
     const ThemeOptions = ['light', 'dark'];
+    const FiatCoinOptions = ['USD', 'CNY', 'JPY', 'HKD', 'INR', 'KRW'];
     const SettingWhenLoginOption = [
         { value: 0, label: 'None' },
         { value: 1, label: 'Once' },
@@ -196,6 +198,21 @@ function DemoSetting(props: any) {
                     value={theme}
                     onChange={setTheme}
                     options={ThemeOptions.map((item) => ({
+                        label: item,
+                        value: item,
+                    }))}
+                ></PnSelect>
+            </div>
+            <div className="filter-item">
+                <div className="filter-label">Fiat Coin:</div>
+                <PnSelect
+                    value={fiatCoin}
+                    onChange={(value) => {
+                        setFiatCoin(value);
+                        localStorage.setItem('web_demo_fiat_coin', value);
+                        particle.setFiatCoin(value);
+                    }}
+                    options={FiatCoinOptions.map((item) => ({
                         label: item,
                         value: item,
                     }))}
