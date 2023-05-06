@@ -4071,52 +4071,52 @@
     node-addon-api "^3.2.1"
     node-gyp-build "^4.3.0"
 
-"@particle-network/analytics@^0.12.0":
-  version "0.12.0"
-  resolved "https://registry.yarnpkg.com/@particle-network/analytics/-/analytics-0.12.0.tgz#d68ce7e207bbdf13a87a193de97610c882618c88"
-  integrity sha512-vu0D+XFmoyUnlV+DxwOCeGETLeCKB6hfPGHtQTusAczTf6Z/PLaWR5151nIOaRbukkSYmhwlwutheyvkXrn2BA==
+"@particle-network/analytics@^0.13.0":
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/@particle-network/analytics/-/analytics-0.13.0.tgz#926cfcac0d1e60300b5c697ce6932d3b6a33fdee"
+  integrity sha512-5Y+nCMWSl1c1vXF+VjSurjW2YSNV0lBWN9DKWnCeaWRzFy1vwt4VsdsGL9rfwlm5T+GC0wtixmiGPhxqmkTSWg==
   dependencies:
     hash.js "^1.1.7"
     uuidv4 "^6.2.13"
 
-"@particle-network/auth@^0.12.2":
-  version "0.12.2"
-  resolved "https://registry.yarnpkg.com/@particle-network/auth/-/auth-0.12.2.tgz#9a6fc952aff90b0d34fa79b5483e5833bdc599c3"
-  integrity sha512-YgGtqMXmwLwzp9Byasv7Wy47znNv0U0B0FaqeusMF6rKw3U0AbfEOJgX8gk68RsAdYg28JmkVc21/B9BRs5Ebg==
+"@particle-network/auth@^0.13.0":
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/@particle-network/auth/-/auth-0.13.0.tgz#da1cf76fdf2c519dd2b3ec7e7e63ee9e1edfcbb1"
+  integrity sha512-ZDTHxDGzqzZU9KPnUCGWSIJ2SWckcNbenw74S9FRpuXmGrPN/gtlU+YHH0mXEboewq/utol+gqOvHwDx9UbEJQ==
   dependencies:
-    "@particle-network/analytics" "^0.12.0"
-    "@particle-network/common" "^0.12.1"
-    "@particle-network/crypto" "^0.12.0"
+    "@particle-network/analytics" "^0.13.0"
+    "@particle-network/common" "^0.13.0"
+    "@particle-network/crypto" "^0.13.0"
     draggabilly "^3.0.0"
     qs "^6.11.0"
 
-"@particle-network/common@^0.12.1":
-  version "0.12.1"
-  resolved "https://registry.yarnpkg.com/@particle-network/common/-/common-0.12.1.tgz#4a8330e5dd1baf761cdd4a6ae3568d96dcd68a44"
-  integrity sha512-Stokz1hFZTW9stBnDnQkHoFPLZehJSqZ44XY7EjB4eDywviDHSQG8aRw4tYXtck0RGwiFvGET6Zl7cZd8Bw1jg==
+"@particle-network/common@^0.13.0":
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/@particle-network/common/-/common-0.13.0.tgz#8f7eac6636c2541262f8f594a51957b51d776438"
+  integrity sha512-kVZ1ykiN9Oovs/qJXEgWPusHIUl7SEih5pJAPgQVggyzPyjpreVA/y6uvZi4hlq6uJAq6LuaqTSGxQLaUIM9PQ==
 
-"@particle-network/connect-react-ui@^0.12.2":
-  version "0.12.2"
-  resolved "https://registry.yarnpkg.com/@particle-network/connect-react-ui/-/connect-react-ui-0.12.2.tgz#74dca2a610e6bd04cfdb15686a925b8b203b6977"
-  integrity sha512-SghFMP3A4qOIdjNbjHfc4hTILa2A7lnTj6sAn2cLTuurURJTGmFJ+kMB5zT0ym3DNOyPuUlJLQB/r31T2UHNcA==
+"@particle-network/connect-react-ui@^0.13.0":
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/@particle-network/connect-react-ui/-/connect-react-ui-0.13.0.tgz#bfd117ee50f933243483e46e948bbc51cd87f644"
+  integrity sha512-Og44q3byUZB7wxT0qreJLOsvwNkK57L5vPHRBqLzUr9rTvAEpoKptAGOR7NZ5IMAzsNpBxOWA3UBKdsJgL2viQ==
   dependencies:
-    "@particle-network/connect" "^0.12.2"
+    "@particle-network/connect" "^0.13.0"
     i18next "^22.0.6"
     qrcode "^1.5.1"
     react-i18next "^12.0.0"
     react-svg "^16.1.6"
 
-"@particle-network/connect@^0.12.2":
-  version "0.12.2"
-  resolved "https://registry.yarnpkg.com/@particle-network/connect/-/connect-0.12.2.tgz#4e35591aafca81637fcc877da4fc4b287784356e"
-  integrity sha512-xoQbKYJDpIGaQo5NV21mxo4JRsux2Ygba6hPYzkYBd5t2yRBcZpZSPaN0WHcdP5Rb6uR3bRcuG4v+BXQwzvWgQ==
+"@particle-network/connect@^0.13.0":
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/@particle-network/connect/-/connect-0.13.0.tgz#303d4220e1b8ac923cf1852c149559b1a8174a78"
+  integrity sha512-5hGO5+fokYyOBVyXpeU+nCJXHiQMTZXU7VvzYX9xWIwVGaSs6OO513uadUT8L9xcfd2FJzFQjhLaPhlnaTErIw==
   dependencies:
     eventemitter3 "^4.0.0"
 
-"@particle-network/crypto@^0.12.0":
-  version "0.12.0"
-  resolved "https://registry.yarnpkg.com/@particle-network/crypto/-/crypto-0.12.0.tgz#81a69ef2d364723fbb37818ee3ca84052229840e"
-  integrity sha512-W3VD3vwLP61ctfbJ0sLGu7lmgY9diygwwHxN2oeYGCB9tqBZ1D3iGUNoioTZiDwOAkb7P1aPitpCiYnzgX5Xmg==
+"@particle-network/crypto@^0.13.0":
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/@particle-network/crypto/-/crypto-0.13.0.tgz#e94c02027dcf644b539d217b491c08977fd16f41"
+  integrity sha512-APD/YEuk6fSiUV0HxyQ/Kkixcbu1Qb9cRrPUdpPw4BXZ5aucUarRuEHd61xizEJusb6w5XLhdQLZnC9KcBTqYQ==
   dependencies:
     crypto-js "^4.1.1"
     uuidv4 "^6.2.13"
@@ -4133,40 +4133,40 @@
     tweetnacl "^1.0.3"
     tweetnacl-util "^0.15.1"
 
-"@particle-network/local-provider@^0.12.2":
-  version "0.12.2"
-  resolved "https://registry.yarnpkg.com/@particle-network/local-provider/-/local-provider-0.12.2.tgz#72a494c3e2834899f9f5ca6b1e416706277bc608"
-  integrity sha512-fIfT4XwQ56MgLHEfAwXwTNUT5VTlQ39RYUbI55aUZx0MgOw+hM/9niSpMDrxv6aG0f3Pn1f9ieL/GHE986s/Ng==
+"@particle-network/local-provider@^0.13.0":
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/@particle-network/local-provider/-/local-provider-0.13.0.tgz#c2e859c337792aebc741107c035aebd0b0351cee"
+  integrity sha512-VX+MjXoopirBur8Hik7Bysn+Y2RSpSiIxr4fVaugIEJ4I4ABh+/idd7zSE7TLPqr9B4IUdGCetlCa08giDs5Ww==
   dependencies:
     "@ethereumjs/tx" "^3.5.2"
     "@ethereumjs/util" "^8.0.2"
     "@particle-network/eth-sig-util" "^5.0.1"
-    axios "^0.27.2"
+    axios "^1.3.6"
     bip39 "^3.0.4"
     ethereumjs-abi "^0.6.8"
     ethereumjs-wallet "^1.0.2"
     uuid "^8.3.2"
 
-"@particle-network/provider@^0.12.2":
-  version "0.12.2"
-  resolved "https://registry.yarnpkg.com/@particle-network/provider/-/provider-0.12.2.tgz#4fada8bbcc1dcde5d45790eae686ec3f45cb9c21"
-  integrity sha512-HRfhRI9bpY7/T+PcpHPTXLZb2/95mnd6WFmFh5UNCNhbgb02Jx0niNLF8Z4Zp2H+/Ku3d0uaMu0lJYVYn6C1Ug==
+"@particle-network/provider@^0.13.0":
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/@particle-network/provider/-/provider-0.13.0.tgz#cbdb1f29a67f8b9790417949e7f098f02facff9c"
+  integrity sha512-nqJZMghvstye9SkPkdFLuPZRmfq0bDBUAmVMyyhJz72O6+lvtVOD3gGdrJFnrVu7pAkX1LmqfmFFELJqnNEosQ==
   dependencies:
-    axios "^0.27.2"
+    axios "^1.3.6"
     uuid "^8.3.2"
 
-"@particle-network/rainbowkit-ext@^0.12.3":
-  version "0.12.3"
-  resolved "https://registry.yarnpkg.com/@particle-network/rainbowkit-ext/-/rainbowkit-ext-0.12.3.tgz#4aa12897ff55eafdee382402b48564aebbbe115e"
-  integrity sha512-Sja+7giXvrYOLAjQ641I8sS3VmJ+7C6t+WMNaw4CNRk0E2Tc1D06G4jeNTjy+tBZwxR8oOydnkpJ+NVQK85YUg==
+"@particle-network/rainbowkit-ext@^0.13.0":
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/@particle-network/rainbowkit-ext/-/rainbowkit-ext-0.13.0.tgz#cea6ff734948a653879589989f23aad1314b428b"
+  integrity sha512-9Fq3+iQE+JXuycdXFpyCaa+NSlM5OhhS/AhyVpfR4P+Nad07EdDXoj4q52Rl4MkktoSwcfLYKxhnfTP970F25Q==
   dependencies:
-    "@particle-network/auth" "^0.12.2"
-    "@particle-network/provider" "^0.12.2"
+    "@particle-network/auth" "^0.13.0"
+    "@particle-network/provider" "^0.13.0"
 
-"@particle-network/solana-wallet@^0.12.2":
-  version "0.12.2"
-  resolved "https://registry.yarnpkg.com/@particle-network/solana-wallet/-/solana-wallet-0.12.2.tgz#e6fbd9f32c33a70f8113559613bcfd0ef259b571"
-  integrity sha512-tH+rlluhEZ4Y08eD69Og5DG4qZzNXNQdC76kDBJvfsh7osTaf/zP01OjqJG/7N8aGdwH/Zwxceu9eJ9SLrdEyA==
+"@particle-network/solana-wallet@^0.13.0":
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/@particle-network/solana-wallet/-/solana-wallet-0.13.0.tgz#71fbf385f9231cf580ae4db72289fc532e065efd"
+  integrity sha512-8NiQnmJJCKq44S5dfyTLdbv/l9yRjJSquQpyesqddH1iXgou2K76/fpGUU8rjwTHV2Ck0ARK/Z5aHaIUGt1KCw==
 
 "@pedrouid/environment@^1.0.1":
   version "1.0.1"
@@ -7395,18 +7395,19 @@ axios@^0.21.0, axios@^0.21.1:
   dependencies:
     follow-redirects "^1.14.0"
 
-axios@^0.27.2:
-  version "0.27.2"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-0.27.2.tgz#207658cc8621606e586c85db4b41a750e756d972"
-  integrity sha512-t+yRIyySRTp/wua5xEr+z1q60QmLq8ABsS5O9Me1AsE5dfKqgnCFzwiCZZ/cGNd1lq4/7akDWMxdhVlucjmnOQ==
-  dependencies:
-    follow-redirects "^1.14.9"
-    form-data "^4.0.0"
-
 axios@^1.0.0, axios@^1.3.4:
   version "1.3.4"
   resolved "https://registry.yarnpkg.com/axios/-/axios-1.3.4.tgz#f5760cefd9cfb51fd2481acf88c05f67c4523024"
   integrity sha512-toYm+Bsyl6VC5wSkfkbbNB6ROv7KY93PEBBL6xyDczaIHasAiv4wPqQ/c4RjoQzipxRD2W5g21cOqQulZ7rHwQ==
+  dependencies:
+    follow-redirects "^1.15.0"
+    form-data "^4.0.0"
+    proxy-from-env "^1.1.0"
+
+axios@^1.3.6:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-1.4.0.tgz#38a7bf1224cd308de271146038b551d725f0be1f"
+  integrity sha512-S4XCWMEmzvo64T9GfvQDOXgYRDJ/wsSZc7Jvdgx5u1sd0JwsuPLqb3SYmusag+edF6ziyMensPVqLTSc1PiSEA==
   dependencies:
     follow-redirects "^1.15.0"
     form-data "^4.0.0"
@@ -11610,7 +11611,7 @@ fmix@^0.1.0:
   dependencies:
     imul "^1.0.0"
 
-follow-redirects@^1.0.0, follow-redirects@^1.12.1, follow-redirects@^1.14.0, follow-redirects@^1.14.8, follow-redirects@^1.14.9, follow-redirects@^1.15.0:
+follow-redirects@^1.0.0, follow-redirects@^1.12.1, follow-redirects@^1.14.0, follow-redirects@^1.14.8, follow-redirects@^1.15.0:
   version "1.15.2"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.2.tgz#b460864144ba63f2681096f274c4e57026da2c13"
   integrity sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==
