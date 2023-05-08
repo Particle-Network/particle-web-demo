@@ -316,49 +316,39 @@ function Home() {
             ),
             key: 'ConnectKit',
         },
-    ];
-    if (process.env.REACT_APP_ERC4337) {
-        menus.push({
+        {
             label: (
                 <a href="/erc4337" target="_blank" rel="noopener noreferrer">
                     ERC-4337
                 </a>
             ),
             key: 'erc4337',
-        });
-    }
-    menus.push(
-        ...[
-            {
-                label: (
-                    <a href="/rainbowKit " target="_blank" rel="noopener noreferrer">
-                        RainbowKit
-                    </a>
-                ),
-                key: 'rainbowKit',
-            },
-            {
-                label: (
-                    <a href="/web3Modal " target="_blank" rel="noopener noreferrer">
-                        Web3Modal
-                    </a>
-                ),
-                key: 'web3modal',
-            },
-            {
-                label: (
-                    <a
-                        href="https://static.particle.network/sdks/web/index.html"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        BrowserDemo
-                    </a>
-                ),
-                key: 'BrowserDemo',
-            },
-        ]
-    );
+        },
+        {
+            label: (
+                <a href="/rainbowKit " target="_blank" rel="noopener noreferrer">
+                    RainbowKit
+                </a>
+            ),
+            key: 'rainbowKit',
+        },
+        {
+            label: (
+                <a href="/web3Modal " target="_blank" rel="noopener noreferrer">
+                    Web3Modal
+                </a>
+            ),
+            key: 'web3modal',
+        },
+        {
+            label: (
+                <a href="https://static.particle.network/sdks/web/index.html" target="_blank" rel="noopener noreferrer">
+                    BrowserDemo
+                </a>
+            ),
+            key: 'BrowserDemo',
+        },
+    ];
 
     const ConnectButtonFC = () => {
         if (loginState) {
@@ -465,7 +455,7 @@ function Home() {
     const contect2 = () => (
         <div className="menus-mobile-down">
             <p onClick={() => openWindow('/connectKit')}>ConnectKit</p>
-            {process.env.REACT_APP_ERC4337 && <p onClick={() => openWindow('/erc4337')}>ERC-4337</p>}
+            <p onClick={() => openWindow('/erc4337')}>ERC-4337</p>
             <p onClick={() => openWindow('/rainbowKit')}>RainbowKit</p>
             <p onClick={() => openWindow('/web3Modal')}>Web3Modal</p>
             <p onClick={() => openWindow('https://static.particle.network/sdks/web/index.html')}>BrowserDemo</p>
