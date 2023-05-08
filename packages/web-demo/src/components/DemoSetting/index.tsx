@@ -95,6 +95,7 @@ function DemoSetting(props: any) {
             customStyle,
             walletTheme,
             walletEntrance,
+            fiatCoin,
         };
         if (onChange && JSON.stringify(demoSetting) !== JSON.stringify(newSetting)) {
             onChange({ ...newSetting });
@@ -110,6 +111,7 @@ function DemoSetting(props: any) {
         customStyle,
         walletTheme,
         walletEntrance,
+        fiatCoin,
     ]);
 
     useEffect(() => {

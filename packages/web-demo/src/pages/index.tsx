@@ -78,6 +78,7 @@ function Home() {
             localStorage.getItem('dapp_particle_walletentrance') === 'true' ||
             isNullish(localStorage.getItem('dapp_particle_walletentrance')),
         walletTheme: localStorage.getItem('dapp_particle_wallettheme') || 'light',
+        fiatCoin: localStorage.getItem('web_demo_fiat_coin') || 'USD',
     });
 
     useEffect(() => {
@@ -96,6 +97,7 @@ function Home() {
             customStyle,
             walletEntrance,
             walletTheme,
+            fiatCoin,
         } = demoSetting;
         const chainChanged = (chain: any) => {
             initAccount();
@@ -133,7 +135,7 @@ function Home() {
         });
         particle.setLanguage(language);
 
-        particle.setFiatCoin(localStorage.getItem('web_demo_fiat_coin') as any || 'USD');
+        particle.setFiatCoin((fiatCoin as any) || 'USD');
 
         particle.auth.on('chainChanged', chainChanged);
         particle.auth.on('disconnect', disconnect);
@@ -160,6 +162,8 @@ function Home() {
         demoSetting.customStyle,
         demoSetting.walletEntrance,
         demoSetting.walletTheme,
+        demoSetting.theme,
+        demoSetting.fiatCoin,
     ]);
 
     const [updateHasPassword, setUpdateHasPassword] = useState(1);
