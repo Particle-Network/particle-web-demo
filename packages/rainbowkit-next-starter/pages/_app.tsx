@@ -1,12 +1,7 @@
 import '../styles/globals.css';
-import dynamic from 'next/dynamic';
 import DynamicWagmi from '../src/components/dynamicWagmi';
 
-// const DynamicWagmi = dynamic(() => import('../src/components/dynamicWagmi/index'), {
-//     ssr: false,
-// });
-
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps }: any) {
     return (
         <DynamicWagmi>
             <Component {...pageProps} />

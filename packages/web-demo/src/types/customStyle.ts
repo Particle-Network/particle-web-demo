@@ -24,7 +24,7 @@ export const customStyle: WalletCustomStyle = {
     ],
     // displayTokenAddresses: ["0x326C977E6efc84E512bB9C30f76E30c160eD06FB"], // whether to show specific token address, if not specified, will display all available tokens
     // displayNFTContractAddresses: ["0x4135a7B077871a2DaAA06ae0971FbFb443E866C0"], // whether to show specific NFT contract address, if not specified, will display all available ones
-    fiatCoin: 'JPY', // display the fiat by default, if specified will hide the setting
+    // fiatCoin: 'JPY', // display the fiat by default, if specified will hide the setting
     evmSupportWalletConnect: false, // EVM whether support WalletConnect
     supportUIModeSwitch: false, // whether allow switching between dark/light mode
     supportLanguageSwitch: false, // whether support language switching
