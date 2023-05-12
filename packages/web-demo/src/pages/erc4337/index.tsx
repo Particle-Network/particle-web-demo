@@ -20,6 +20,7 @@ const PageERC4337 = () => {
     const erc20Ref = useRef<any[]>([]);
     const erc721Ref = useRef<any[]>([]);
     const erc1155Ref = useRef<any[]>([]);
+    const writeContractRef = useRef<any[]>([]);
 
     const [switchChainLoading, setSwitchChainLoading] = useState(false);
     const [openPaymentOptions, setOpenPaymentOptions] = useState<{
@@ -361,6 +362,41 @@ const PageERC4337 = () => {
             }
         } else {
             message.warning('Please input Recipient Address, Contract Address, Token ID and Token Amount');
+        }
+    };
+
+    const sendWriteContractTransaction = async (gasless: boolean = true) => {
+        const to = writeContractRef.current[0].input.value;
+        const data = writeContractRef.current[1].input.value;
+        const value = writeContractRef.current[2].input.value || '0x0';
+
+        if (to && data && value) {
+            setSendLoading(true);
+            const tx = {
+                to,
+                data,
+                value,
+            };
+            console.log('sendWriteContractTransaction', tx);
+            try {
+                if (gasless) {
+                    const txResponse = await smartAccount?.sendTransaction({ transaction: tx });
+                    notification.success({
+                        message: 'Send Transaction Success',
+                        description: txResponse?.hash,
+                    });
+                    checkWalletIsDeploy();
+                    console.log('sendWriteContractTransaction', txResponse);
+                } else {
+                    await prepareRefundTransaction(tx);
+                }
+            } catch (error) {
+                console.error('sendWriteContractTransaction', error);
+            } finally {
+                setSendLoading(false);
+            }
+        } else {
+            message.warning('Please input to Address, data and value');
         }
     };
 
@@ -803,6 +839,49 @@ const PageERC4337 = () => {
                                     placeholder="Token Amount"
                                     ref={(ref) => {
                                         erc1155Ref.current[3] = ref;
+                                    }}
+                                ></Input>
+                            </Space>
+                        </Card>
+                        <Card
+                            className="tx-card"
+                            title="Write Contract"
+                            actions={[
+                                <Button
+                                    type="text"
+                                    loading={sendLoading}
+                                    className="action-btn"
+                                    onClick={() => sendWriteContractTransaction(false)}
+                                >
+                                    Send
+                                </Button>,
+                                <Button
+                                    type="text"
+                                    loading={sendLoading}
+                                    className="action-btn"
+                                    onClick={() => sendWriteContractTransaction()}
+                                >
+                                    Gasless Send
+                                </Button>,
+                            ]}
+                        >
+                            <Space direction="vertical" style={{ width: '100%' }}>
+                                <Input
+                                    placeholder="to"
+                                    ref={(ref) => {
+                                        writeContractRef.current[0] = ref;
+                                    }}
+                                ></Input>
+                                <Input
+                                    placeholder="data"
+                                    ref={(ref) => {
+                                        writeContractRef.current[1] = ref;
+                                    }}
+                                ></Input>
+                                <Input
+                                    placeholder="value(0x0)"
+                                    ref={(ref) => {
+                                        writeContractRef.current[2] = ref;
                                     }}
                                 ></Input>
                             </Space>
