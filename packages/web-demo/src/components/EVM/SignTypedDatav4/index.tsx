@@ -127,7 +127,7 @@ function SignTypedDatav4(props: any) {
         </div>
     );
 }
-const payloadV4 = {
+export const payloadV4 = {
     types: {
         EIP712Domain: [
             {

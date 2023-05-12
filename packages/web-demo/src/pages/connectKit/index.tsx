@@ -29,9 +29,10 @@ import './index.scss';
 import '@particle-network/connect-react-ui/dist/index.css';
 
 import { useEffect } from 'react';
-import { Button, Divider, Select, Space } from 'antd';
+import { Button, Divider, Select, Space, notification } from 'antd';
 import Web3 from 'web3';
 import { WalletEntryPosition } from '@particle-network/auth';
+import { payloadV4 } from '../../components/EVM/SignTypedDatav4';
 
 const PageConnectKit = () => {
     return (
@@ -123,6 +124,49 @@ const ConnectContent = () => {
         }
     };
 
+    const getBalance = async () => {
+        const accouts = await (window.web3 as Web3).eth.getAccounts();
+        const result = await (window.web3 as Web3).eth.getBalance(accouts[0]);
+        notification.success({
+            message: 'Get Balance Successful',
+            description: result,
+        });
+    };
+
+    const personalSign = async () => {
+        const accouts = await (window.web3 as Web3).eth.getAccounts();
+        const result = await (window.web3 as Web3).eth.personal.sign('Hello Particle!', accouts[0], '');
+        notification.success({
+            message: 'Personal Sign Successful',
+            description: result,
+        });
+    };
+
+    const signTypedData = async () => {
+        const accouts = await (window.web3 as Web3).eth.getAccounts();
+        const result = await window.web3.currentProvider.request({
+            method: 'eth_signTypedData_v4',
+            params: [accouts[0], JSON.stringify(payloadV4)],
+        });
+        notification.success({
+            message: 'Sign Typed Data Successful',
+            description: result,
+        });
+    };
+
+    const sendTransaction = async () => {
+        const accouts = await (window.web3 as Web3).eth.getAccounts();
+        const result = await (window.web3 as Web3).eth.sendTransaction({
+            from: accouts[0],
+            to: '0x6Bc8fd522354e4244531ce3D2B99f5dF2aAE335e',
+            value: window.web3.utils.toWei('0.001', chain?.name?.toLowerCase() === 'tron' ? 'mwei' : 'ether'),
+        });
+        notification.success({
+            message: 'Send Native Token Successful',
+            description: result.transactionHash,
+        });
+    };
+
     return (
         <div className="connectkit-box">
             <a
@@ -192,30 +236,46 @@ const ConnectContent = () => {
             <ConnectButton.Custom>
                 {({ account, openAccountModal, openConnectModal, openChainModal }) => {
                     return (
-                        <>
+                        <div className="modal-action">
                             <Button onClick={openConnectModal} disabled={!!account}>
                                 Open Connect Modal
                             </Button>
-                            <br />
-                            <Button onClick={openAccountModal} style={{ marginLeft: 10 }} disabled={!account}>
+                            <Button onClick={openAccountModal} disabled={!account}>
                                 Open Account Modal
                             </Button>
-                            <br />
-                            <Button
-                                onClick={openChainModal}
-                                style={{ marginLeft: 10, marginBottom: 20 }}
-                                disabled={!account || !isSwtichChain}
-                            >
+                            <Button onClick={openChainModal} disabled={!account || !isSwtichChain}>
                                 Open Switch Network
                             </Button>
-                        </>
+                        </div>
                     );
                 }}
             </ConnectButton.Custom>
             {account && (
-                <Button type="primary" onClick={onDisconnect} style={{ marginBottom: 20 }}>
-                    Disconnect
-                </Button>
+                <div className="connected-actions">
+                    {provider && isEVMProvider(provider) && chain?.name?.toLowerCase() !== 'solana' && (
+                        <>
+                            <Button type="primary" onClick={getBalance}>
+                                Get Balance
+                            </Button>
+
+                            <Button type="primary" onClick={personalSign}>
+                                Personal Sign
+                            </Button>
+
+                            <Button type="primary" onClick={signTypedData}>
+                                Sign Typed Data
+                            </Button>
+
+                            <Button type="primary" onClick={sendTransaction}>
+                                Send Native Token (0.001)
+                            </Button>
+                        </>
+                    )}
+
+                    <Button type="primary" onClick={onDisconnect}>
+                        Disconnect
+                    </Button>
+                </div>
             )}
         </div>
     );
