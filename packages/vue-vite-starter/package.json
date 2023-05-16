@@ -9,9 +9,9 @@
         "preview": "vite preview"
     },
     "dependencies": {
-        "@particle-network/auth": "^0.13.0",
-        "@particle-network/provider": "^0.13.0",
-        "@particle-network/connect": "^0.13.0",
+        "@particle-network/auth": "^0.13.1",
+        "@particle-network/provider": "^0.13.1",
+        "@particle-network/connect": "^0.13.1",
         "buffer": "^6.0.3",
         "events": "^3.3.0",
         "process": "^0.11.10",
