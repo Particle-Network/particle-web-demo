@@ -53,6 +53,7 @@
         "clean": "rm -rf build",
         "start": "dotenv -e .env.dev.local react-app-rewired start",
         "build": "dotenv -e .env.dev.local react-app-rewired build",
+        "build:staging": "dotenv -e .env.staging.local react-app-rewired build",
         "build:production": "dotenv -e .env.pro.local react-app-rewired build",
         "test": "react-scripts test",
         "eject": "react-scripts eject"

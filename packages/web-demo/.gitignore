@@ -19,6 +19,7 @@
 .env.production.local
 .env.dev.local
 .env.pro.local
+.env.staging.local
 
 npm-debug.log*
 yarn-debug.log*
@@ -26,3 +27,4 @@ yarn-error.log*
 
 dev_deploy.sh
 production_deploy.sh
+staging_deploy.sh
