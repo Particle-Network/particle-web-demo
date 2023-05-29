@@ -8,8 +8,8 @@ import type { ParticleProvider } from '@particle-network/provider';
 type Options = Config;
 
 export class ParticleAuthConnector extends Connector<ParticleProvider, Options, providers.JsonRpcSigner> {
-    readonly id = 'coinbaseWallet';
-    readonly name = 'Coinbase Wallet';
+    readonly id = 'particleAuth';
+    readonly name = 'Particle Auth';
     readonly ready = true;
 
     private client?: ParticleNetwork;
