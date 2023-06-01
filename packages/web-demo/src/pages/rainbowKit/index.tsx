@@ -13,7 +13,7 @@ import {
     walletConnectWallet,
 } from '@rainbow-me/rainbowkit/wallets';
 
-import { configureChains, createClient, WagmiConfig } from 'wagmi';
+import { configureChains, createConfig, WagmiConfig } from 'wagmi';
 import { mainnet, polygon, optimism, arbitrum } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
 import '@rainbow-me/rainbowkit/styles.css';
@@ -35,7 +35,10 @@ const PageRainbowKit = () => {
         });
     }, []);
 
-    const { chains, provider } = configureChains([mainnet, polygon, optimism, arbitrum], [publicProvider()]);
+    const { chains, publicClient, webSocketPublicClient } = configureChains(
+        [mainnet, polygon, optimism, arbitrum],
+        [publicProvider()]
+    );
 
     const popularWallets = useMemo(() => {
         return {
@@ -68,14 +71,15 @@ const PageRainbowKit = () => {
         },
     ]);
 
-    const wagmiClient = createClient({
+    const wagmiClient = createConfig({
         autoConnect: true,
         connectors,
-        provider,
+        publicClient,
+        webSocketPublicClient,
     });
 
     return (
-        <WagmiConfig client={wagmiClient}>
+        <WagmiConfig config={wagmiClient}>
             <RainbowKitProvider chains={chains}>
                 <div className="rainbowkit-box">
                     <div className="rainbowkit-connect-btn">

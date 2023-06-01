@@ -1,16 +1,23 @@
 import React from 'react';
-import { WagmiConfig, createClient } from 'wagmi';
-import { getDefaultProvider } from 'ethers';
+import { WagmiConfig, configureChains, createConfig } from 'wagmi';
+import { mainnet, polygon, optimism, arbitrum } from 'wagmi/chains';
+import { publicProvider } from 'wagmi/providers/public';
 import Profile from './profile';
 
-const client = createClient({
+const { publicClient, webSocketPublicClient } = configureChains(
+    [mainnet, polygon, optimism, arbitrum],
+    [publicProvider()]
+);
+
+const config = createConfig({
     autoConnect: true,
-    provider: getDefaultProvider(),
+    publicClient,
+    webSocketPublicClient,
 });
 
 function App() {
     return (
-        <WagmiConfig client={client}>
+        <WagmiConfig config={config}>
             <Profile />
         </WagmiConfig>
     );

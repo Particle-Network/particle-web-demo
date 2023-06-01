@@ -1,13 +1,13 @@
-import { Connector, UserRejectedRequestError, normalizeChainId } from '@wagmi/core';
+import { Connector } from '@wagmi/core';
 import type { Chain } from '@wagmi/core/chains';
-import { providers } from 'ethers';
-import { getAddress, hexValue } from 'ethers/lib/utils.js';
 import type { ParticleNetwork, Config } from '@particle-network/auth';
 import type { ParticleProvider } from '@particle-network/provider';
+import { Address, ConnectorData } from 'wagmi';
+import { UserRejectedRequestError, createWalletClient, custom, getAddress } from 'viem';
 
 type Options = Config;
 
-export class ParticleAuthConnector extends Connector<ParticleProvider, Options, providers.JsonRpcSigner> {
+export class ParticleAuthConnector extends Connector<ParticleProvider, Options> {
     readonly id = 'particleAuth';
     readonly name = 'Particle Auth';
     readonly ready = true;
@@ -22,7 +22,7 @@ export class ParticleAuthConnector extends Connector<ParticleProvider, Options, 
         });
     }
 
-    async connect({ chainId }: { chainId?: number } = {}) {
+    async connect({ chainId }: { chainId?: number } = {}): Promise<Required<ConnectorData>> {
         try {
             const provider = await this.getProvider();
             provider.on('accountsChanged', this.onAccountsChanged);
@@ -31,8 +31,6 @@ export class ParticleAuthConnector extends Connector<ParticleProvider, Options, 
 
             this.emit('message', { type: 'connecting' });
 
-            const accounts = await provider.enable();
-            const account = getAddress(accounts[0] as string);
             // Switch to chain if provided
             let id = await this.getChainId();
             let unsupported = this.isChainUnsupported(id);
@@ -42,13 +40,14 @@ export class ParticleAuthConnector extends Connector<ParticleProvider, Options, 
                 unsupported = this.isChainUnsupported(id);
             }
 
+            const account = await this.getAccount();
+
             return {
                 account,
                 chain: { id, unsupported },
-                provider: new providers.Web3Provider(provider as unknown as providers.ExternalProvider),
             };
         } catch (error) {
-            if ((error as any).code === 4011) throw new UserRejectedRequestError(error);
+            if ((error as any).code === 4011) throw new UserRejectedRequestError(error as Error);
             throw error;
         }
     }
@@ -63,7 +62,7 @@ export class ParticleAuthConnector extends Connector<ParticleProvider, Options, 
         provider.disconnect();
     }
 
-    async getAccount() {
+    async getAccount(): Promise<Address> {
         const provider = await this.getProvider();
         const accounts = await provider.request({
             method: 'eth_accounts',
@@ -72,9 +71,10 @@ export class ParticleAuthConnector extends Connector<ParticleProvider, Options, 
         return getAddress(accounts[0] as string);
     }
 
-    async getChainId() {
-        await this.getProvider();
-        return this.client!.auth.chainId();
+    async getChainId(): Promise<number> {
+        const provider = await this.getProvider();
+        const chainId = await provider.request({ method: 'eth_chainId' });
+        return Number(chainId);
     }
 
     async getProvider() {
@@ -89,17 +89,21 @@ export class ParticleAuthConnector extends Connector<ParticleProvider, Options, 
         return this.provider;
     }
 
-    async getSigner({ chainId }: { chainId?: number } = {}) {
+    async getWalletClient({ chainId }: { chainId?: number } = {}) {
         const [provider, account] = await Promise.all([this.getProvider(), this.getAccount()]);
-        return new providers.Web3Provider(provider as unknown as providers.ExternalProvider, chainId).getSigner(
-            account
-        );
+        const chain = this.chains.find((x) => x.id === chainId);
+        if (!provider) throw new Error('provider is required.');
+        return createWalletClient({
+            account,
+            chain,
+            transport: custom(provider),
+        });
     }
 
     async isAuthorized() {
         try {
-            const account = await this.getAccount();
-            return !!account;
+            await this.getProvider();
+            return this.client!!.auth.isLogin() && this.client!!.auth.walletExist();
         } catch {
             return false;
         }
@@ -107,7 +111,7 @@ export class ParticleAuthConnector extends Connector<ParticleProvider, Options, 
 
     async switchChain(chainId: number) {
         const provider = await this.getProvider();
-        const id = hexValue(chainId);
+        const id = `0x${chainId.toString(16)}`;
         await provider.request({
             method: 'wallet_switchEthereumChain',
             params: [{ chainId: id }],
@@ -129,7 +133,7 @@ export class ParticleAuthConnector extends Connector<ParticleProvider, Options, 
     };
 
     protected onChainChanged = (chainId: number | string) => {
-        const id = normalizeChainId(chainId);
+        const id = Number(chainId);
         const unsupported = this.isChainUnsupported(id);
         this.emit('change', { chain: { id, unsupported } });
     };

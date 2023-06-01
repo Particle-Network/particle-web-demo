@@ -1,11 +1,11 @@
+import WagmiProvider from '../src/wagmiProvider';
 import '../styles/globals.css';
-import DynamicWagmi from '../src/components/dynamicWagmi';
 
 function MyApp({ Component, pageProps }: any) {
     return (
-        <DynamicWagmi>
+        <WagmiProvider>
             <Component {...pageProps} />
-        </DynamicWagmi>
+        </WagmiProvider>
     );
 }
 

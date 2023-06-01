@@ -14,7 +14,7 @@
         "@particle-network/provider": "^0.13.1",
         "@particle-network/rainbowkit-ext": "^0.13.1",
         "@particle-network/solana-wallet": "^0.13.1",
-        "@rainbow-me/rainbowkit": "^0.12.0",
+        "@rainbow-me/rainbowkit": "^1.0.1",
         "@solana/web3.js": "1.50.1",
         "@testing-library/jest-dom": "^5.14.1",
         "@testing-library/react": "^13.0.0",
@@ -44,7 +44,8 @@
         "tls": "^0.0.1",
         "typescript": "^4.4.2",
         "url": "^0.11.0",
-        "wagmi": "^0.12.0",
+        "viem": "^0.3.35",
+        "wagmi": "^1.0.5",
         "web-vitals": "^2.1.0",
         "web3": "^1.7.3",
         "web3modal": "^1.9.8"

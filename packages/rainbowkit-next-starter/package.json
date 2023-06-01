@@ -10,12 +10,13 @@
     },
     "dependencies": {
         "@particle-network/rainbowkit-ext": "^0.13.1",
-        "@rainbow-me/rainbowkit": "^0.12.0",
+        "@rainbow-me/rainbowkit": "^1.0.1",
         "ethers": "^5.7.2",
-        "next": "13.0.6",
-        "react": "18.2.0",
-        "react-dom": "18.2.0",
-        "wagmi": "^0.12.0"
+        "next": "^13.0.6",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "viem": "^0.3.35",
+        "wagmi": "^1.0.5"
     },
     "devDependencies": {
         "eslint": "8.29.0",
