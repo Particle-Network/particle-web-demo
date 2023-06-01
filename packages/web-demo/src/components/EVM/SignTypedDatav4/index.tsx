@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Input, notification } from 'antd';
 import { toChecksumAddress } from '@ethereumjs/util';
-import { recoverTypedSignature, SignTypedDataVersion } from '@metamask/eth-sig-util';
+import { SignTypedDataVersion, recoverTypedSignature } from '@metamask/eth-sig-util';
 import { toBase58Address } from '@particle-network/auth';
+import { Button, Checkbox, Input, notification } from 'antd';
+import { useEffect, useState } from 'react';
 import { isJson } from '../../../utils';
 function SignTypedDatav4(props: any) {
     const [loading, setLoading] = useState(0);
     const [result, setResult] = useState('');
     const [recoveryResult, setRecoveryResult] = useState('');
     const [msg, setMsg] = useState('');
+    const [unique, setUnique] = useState(false);
 
     const { demoSetting } = props;
     const { chainKey } = demoSetting;
@@ -31,7 +32,7 @@ function SignTypedDatav4(props: any) {
                 });
             }
             const params = [from, msg || JSON.stringify(payloadV4)];
-            const method = 'eth_signTypedData_v4';
+            const method = unique ? 'eth_signTypedData_v4_uniq' : 'eth_signTypedData_v4';
 
             //EIP712Domain and domain order: name, version, chainId, verifyingContract
 
@@ -43,6 +44,7 @@ function SignTypedDatav4(props: any) {
                 .then((result) => {
                     console.log('signTypedData_v4 result', result);
                     setResult(result);
+                    setLoading(0);
                 })
                 .catch((err) => {
                     console.log('signTypedData_v4 error', err);
@@ -66,7 +68,6 @@ function SignTypedDatav4(props: any) {
             signature: result,
             version: SignTypedDataVersion.V4,
         });
-        setLoading(0);
         if (isTron()) {
             setRecoveryResult(toBase58Address(data));
         } else {
@@ -91,9 +92,7 @@ function SignTypedDatav4(props: any) {
         <div className="form-item card">
             <h3>
                 Sign Typed Data v4
-                <Button loading={!!loading} type="primary" onClick={signTypedDataV4} disabled={!props.loginState}>
-                    SIGN
-                </Button>
+                <Checkbox onChange={(t) => setUnique(t.target.checked)}>Unique</Checkbox>
             </h3>
             <div className="form-input">
                 <label
@@ -124,6 +123,12 @@ function SignTypedDatav4(props: any) {
                     </label>
                 </div>
             )}
+
+            <div className="form-submit">
+                <Button loading={!!loading} type="primary" onClick={signTypedDataV4} disabled={!props.loginState}>
+                    SIGN
+                </Button>
+            </div>
         </div>
     );
 }

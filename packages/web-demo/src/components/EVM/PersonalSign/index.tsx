@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Input, notification } from 'antd';
 import { toChecksumAddress } from '@ethereumjs/util';
 import { recoverPersonalSignature } from '@metamask/eth-sig-util';
-import './index.scss';
 import { toBase58Address } from '@particle-network/auth';
+import { Button, Checkbox, Input, notification } from 'antd';
+import { useEffect, useState } from 'react';
+import './index.scss';
 function PersonalSign(props: any) {
     const [loading, setLoading] = useState(0);
     const [result, setResult] = useState('');
     const [recoveryResult, setRecoveryResult] = useState('');
     const [message, setMessage] = useState('');
+    const [unique, setUnique] = useState(false);
 
     const { demoSetting } = props;
     const { chainKey } = demoSetting;
@@ -43,11 +44,20 @@ function PersonalSign(props: any) {
             });
         }
 
-        window.web3.eth.personal
-            .sign(message || personalSignMessage, accounts[0])
+        let signPromise;
+        if (unique) {
+            signPromise = window.web3.currentProvider.request({
+                method: 'personal_sign_uniq',
+                params: [message || personalSignMessage, accounts[0]],
+            });
+        } else {
+            signPromise = window.web3.eth.personal.sign(message || personalSignMessage, accounts[0]);
+        }
+        signPromise
             .then((result) => {
                 console.log('personal_sign', result);
                 setResult(result);
+                setLoading(0);
             })
             .catch((error) => {
                 console.error('personal_sign', error);
@@ -82,16 +92,13 @@ function PersonalSign(props: any) {
         } else {
             setRecoveryResult(toChecksumAddress(data));
         }
-
-        setLoading(0);
     };
+
     return (
         <div className="form-item card">
             <h3>
                 Personal Sign
-                <Button loading={!!loading} type="primary" onClick={personalSign} disabled={!props.loginState}>
-                    SIGN
-                </Button>
+                <Checkbox onChange={(t) => setUnique(t.target.checked)}>Unique</Checkbox>
             </h3>
             <div className="form-input">
                 <label
@@ -121,6 +128,12 @@ function PersonalSign(props: any) {
                     </label>
                 </div>
             )}
+
+            <div className="form-submit">
+                <Button loading={!!loading} type="primary" onClick={personalSign} disabled={!props.loginState}>
+                    SIGN
+                </Button>
+            </div>
         </div>
     );
 }

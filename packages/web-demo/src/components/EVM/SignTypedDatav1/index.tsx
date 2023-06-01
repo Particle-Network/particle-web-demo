@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Input, notification } from 'antd';
 import { toChecksumAddress } from '@ethereumjs/util';
-import { recoverTypedSignature, SignTypedDataVersion } from '@metamask/eth-sig-util';
+import { SignTypedDataVersion, recoverTypedSignature } from '@metamask/eth-sig-util';
 import { toBase58Address } from '@particle-network/auth';
+import { Button, Input, notification } from 'antd';
+import { useEffect, useState } from 'react';
 import { isJson } from '../../../utils';
 
 function SignTypedDatav1(props: any) {
@@ -98,12 +98,7 @@ function SignTypedDatav1(props: any) {
 
     return (
         <div className="form-item card">
-            <h3>
-                Sign Typed Data v1
-                <Button loading={!!loading} type="primary" onClick={signTypedDataV1} disabled={!props.loginState}>
-                    SIGN
-                </Button>
-            </h3>
+            <h3>Sign Typed Data v1</h3>
             <div className="form-input">
                 <label
                     style={{
@@ -132,6 +127,12 @@ function SignTypedDatav1(props: any) {
                     </label>
                 </div>
             )}
+
+            <div className="form-submit">
+                <Button loading={!!loading} type="primary" onClick={signTypedDataV1} disabled={!props.loginState}>
+                    SIGN
+                </Button>
+            </div>
         </div>
     );
 }
