@@ -22,6 +22,7 @@ import {
     argent,
     web3Modal,
     phantom,
+    isMetaMask,
 } from '@particle-network/connect';
 import './index.scss';
 
@@ -59,8 +60,8 @@ const PageConnectKit = () => {
                     displayWalletEntry: true,
                     defaultWalletEntryPosition: WalletEntryPosition.BR,
                 },
-                // wallets: [metaMask(), walletconnect({ qrcode: false }), rainbow(), omni(), argent()],
-                wallets: [...evmWallets({ qrcode: false }), ...solanaWallets()],
+                // wallets: [metaMask(), rainbow(), omni(), argent()],
+                wallets: [...evmWallets({ qrcode: true }), ...solanaWallets()],
                 securityAccount: {
                     promptSettingWhenSign: 1,
                     promptMasterPasswordSettingWhenLogin: 2,
@@ -97,10 +98,17 @@ const ConnectContent = () => {
         }
     }, [provider]);
 
+    const isMetaMaskInjected =
+        typeof window !== 'undefined' &&
+        typeof window.ethereum !== 'undefined' &&
+        (window.ethereum.providers?.some(isMetaMask) || window.ethereum.isMetaMask);
+
     const connectMetaMask = () => {
-        connect({
-            id: 'metamask',
-        });
+        if (isMetaMaskInjected) {
+            connect({
+                id: 'metamask',
+            });
+        }
     };
 
     const connectParticleWithGoogle = () => {
@@ -186,7 +194,9 @@ const ConnectContent = () => {
             {!account && (
                 <Space className="connect-custom">
                     <img src={require('../../common/images/google_icon.png')} onClick={connectParticleWithGoogle}></img>
-                    <img src={require('../../common/icons/metamask.png')} onClick={connectMetaMask}></img>
+                    {isMetaMaskInjected && (
+                        <img src={require('../../common/icons/metamask.png')} onClick={connectMetaMask}></img>
+                    )}
                 </Space>
             )}
 
