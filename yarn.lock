@@ -4141,21 +4141,21 @@
   resolved "https://registry.yarnpkg.com/@particle-network/common/-/common-0.13.5.tgz#e68af039cfb12519d8086b89317e8a2668f4222b"
   integrity sha512-t6qzMSDENcp8QL6VQHsvvwv1F/xmrkBqugkj7XhOs6mNWc/hG1fw0jpSlLMUOTmXbiO0iqNSrnyXzmJsEU6hBw==
 
-"@particle-network/connect-react-ui@^0.13.5":
-  version "0.13.5"
-  resolved "https://registry.yarnpkg.com/@particle-network/connect-react-ui/-/connect-react-ui-0.13.5.tgz#ebd0fb8909019b9036e4fe96d22f87555656237c"
-  integrity sha512-LeQ9jsXKD656JM5bP61f5FaZcKeyCdlSELhQFtHiZFCg7lSabAWFl91H6n1j49crusXTljjCwsaH8nr6LtReOA==
+"@particle-network/connect-react-ui@^0.13.6":
+  version "0.13.6"
+  resolved "https://registry.yarnpkg.com/@particle-network/connect-react-ui/-/connect-react-ui-0.13.6.tgz#39c61978a89fba3fea7fb042c950564579b8b6c3"
+  integrity sha512-janVYsVDaXwTrAVFdOtUoSh6Y8+H5mgvfHAkU0et3Me4FwDLpaOpmve3GM6A9b+jbsXBx6BZ4mJ4jN1+8mpTBA==
   dependencies:
-    "@particle-network/connect" "^0.13.5"
+    "@particle-network/connect" "^0.13.6"
     i18next "^22.0.6"
     qrcode "^1.5.1"
     react-i18next "^12.0.0"
     react-svg "^16.1.6"
 
-"@particle-network/connect@^0.13.5":
-  version "0.13.5"
-  resolved "https://registry.yarnpkg.com/@particle-network/connect/-/connect-0.13.5.tgz#f3c3f2b30f4e709fd0bcddca64ef67f9bd2f74cc"
-  integrity sha512-Pkxd1X09mR8457yFGI9bZVYhOwTKVpl7LQg/LNlEnvsaGDCa+vNmpIIGJDmeRyY2A2tOHTBVCJxbRfaxTZi1Zg==
+"@particle-network/connect@^0.13.6":
+  version "0.13.6"
+  resolved "https://registry.yarnpkg.com/@particle-network/connect/-/connect-0.13.6.tgz#36ab5c5cb07033c27de0820f7b98b8d85b48fd12"
+  integrity sha512-8QRprovzfez0UVYr1DY559XI5Iej5Ng6NLABrQbAQ3NeH3YjTLdrFdFz1KofBRjpHgx1z7O8zZgAlG2XKOIQ9Q==
   dependencies:
     "@coinbase/wallet-sdk" "^3.6.6"
     "@particle-network/auth" "^0.13.5"

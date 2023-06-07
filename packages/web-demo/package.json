@@ -1,6 +1,6 @@
 {
     "name": "web-demo",
-    "version": "0.13.3",
+    "version": "0.13.4",
     "private": true,
     "dependencies": {
         "@biconomy/smart-account": "2.0.0",
@@ -9,7 +9,7 @@
         "@metamask/eth-sig-util": "^5.0.2",
         "@particle-network/analytics": "^0.13.5",
         "@particle-network/auth": "^0.13.5",
-        "@particle-network/connect-react-ui": "^0.13.5",
+        "@particle-network/connect-react-ui": "^0.13.6",
         "@particle-network/local-provider": "^0.13.5",
         "@particle-network/provider": "^0.13.5",
         "@particle-network/rainbowkit-ext": "^0.13.5",
