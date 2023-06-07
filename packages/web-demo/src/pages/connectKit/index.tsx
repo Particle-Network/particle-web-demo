@@ -35,6 +35,37 @@ import Web3 from 'web3';
 import { WalletEntryPosition } from '@particle-network/auth';
 import { payloadV4 } from '../../components/EVM/SignTypedDatav4';
 
+const getChains = () => {
+    const sortKeys = [
+        'Ethereum',
+        'BSC',
+        'Polygon',
+        'Avalanche',
+        'Moonbeam',
+        'Moonriver',
+        'Heco',
+        'Fantom',
+        'Arbitrum',
+        'Optimism',
+        'KCC',
+        'PlatOn',
+    ];
+
+    return Object.values(ParticleChains).sort((a, b) => {
+        if (sortKeys.includes(a.name) && sortKeys.includes(b.name)) {
+            if (sortKeys.indexOf(a.name) > sortKeys.indexOf(b.name)) {
+                return 1;
+            }
+            return -1;
+        } else if (sortKeys.includes(a.name)) {
+            return -1;
+        } else if (sortKeys.includes(b.name)) {
+            return 1;
+        }
+        return 0;
+    });
+};
+
 const PageConnectKit = () => {
     return (
         <ModalProvider
@@ -55,7 +86,7 @@ const PageConnectKit = () => {
                 projectId: process.env.REACT_APP_PROJECT_ID as string,
                 clientKey: process.env.REACT_APP_CLIENT_KEY as string,
                 appId: process.env.REACT_APP_APP_ID as string,
-                chains: Object.values(ParticleChains),
+                chains: getChains(),
                 particleWalletEntry: {
                     displayWalletEntry: true,
                     defaultWalletEntryPosition: WalletEntryPosition.BR,
@@ -206,7 +237,7 @@ const ConnectContent = () => {
                     defaultValue={`${chain?.name}-${chain?.id}`}
                     onChange={switchChain}
                     value={`${chain?.name}-${chain?.id}`}
-                    options={Object.values(ParticleChains).map((item) => {
+                    options={getChains().map((item) => {
                         return { value: `${item.name}-${item.id}`, label: item.fullname };
                     })}
                 />
