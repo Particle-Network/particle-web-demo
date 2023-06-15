@@ -21,7 +21,6 @@
         "@testing-library/user-event": "^13.2.1",
         "@types/jest": "^27.0.1",
         "@types/node": "^16.7.13",
-        "@walletconnect/ethereum-provider": "1.8.0",
         "antd": "^4.19.5",
         "antd-mobile": " 5.28.1",
         "assert": "^2.0.0",

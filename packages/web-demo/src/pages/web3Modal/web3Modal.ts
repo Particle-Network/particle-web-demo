@@ -1,8 +1,8 @@
-import Web3Modal from 'web3modal';
 import { ParticleNetwork } from '@particle-network/auth';
 import { ParticleProvider } from '@particle-network/provider';
-import WalletConnect from '@walletconnect/ethereum-provider';
-import { googleIcon, facebookIcon, twitterIcon, particleIcon } from './icons';
+import WalletConnect from '@walletconnect/legacy-provider';
+import Web3Modal from 'web3modal';
+import { facebookIcon, googleIcon, particleIcon, twitterIcon } from './icons';
 
 const createWeb3Modal = (particle: ParticleNetwork) => {
     const particleProvider = new ParticleProvider(particle.auth);
