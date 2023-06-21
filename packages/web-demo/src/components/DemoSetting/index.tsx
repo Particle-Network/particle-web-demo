@@ -1,67 +1,51 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState, useRef, useMemo } from 'react';
-import { Select, Input, Button, Slider, message, notification, Tooltip, Switch } from 'antd';
 import { InfoCircleOutlined, QuestionCircleOutlined } from '@ant-design/icons';
-import { ParticleChains as Chains } from '@particle-network/common';
 import { UIMode } from '@particle-network/auth';
+import { ParticleChains as Chains } from '@particle-network/common';
+import { Button, Input, Modal, Slider, Switch, Tooltip, message, notification } from 'antd';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import networkConfig from '../../common/config/erc4337';
 import { customStyle as defCustomStyle } from '../../types/customStyle';
+import { isJson } from '../../utils';
 import PnSelect from '../PnSelect';
 import './index.scss';
-import { isJson } from '../../utils';
+
+const keySort = [
+    // @ts-ignore
+    ...new Set([
+        'Solana',
+        'Ethereum',
+        'BSC',
+        'Polygon',
+        'Avalanche',
+        'Moonbeam',
+        'Moonriver',
+        'Heco',
+        'Fantom',
+        'Arbitrum',
+        'Optimism',
+        'KCC',
+        'PlatOn',
+        'Tron',
+        ...Object.keys(Chains),
+    ]),
+];
 
 const { TextArea } = Input;
 
 function DemoSetting(props: any) {
     const { onChange, value: demoSetting, particle, isLogin } = props;
 
-    const keySort = [
-        // @ts-ignore
-        ...new Set([
-            'Solana',
-            'Ethereum',
-            'BSC',
-            'Polygon',
-            'Avalanche',
-            'Moonbeam',
-            'Moonriver',
-            'Heco',
-            'Fantom',
-            'Arbitrum',
-            'Optimism',
-            'KCC',
-            'PlatOn',
-            'Tron',
-            ...Object.keys(Chains),
-        ]),
-    ];
-    const ParticleChains = {};
-
-    keySort.forEach((key) => {
-        Object.keys(Chains)
-            .filter((key2) => key2.includes(key))
-            .forEach((key2) => {
-                ParticleChains[key2] = Chains[key2];
-            });
-    });
-
-    const chainOptions = useMemo(
-        () =>
-            Object.keys(ParticleChains).map((key) => ({
-                ...ParticleChains[key],
-                key: key,
-            })),
-        [keySort]
-    );
-
     const customTextArea = useRef(null);
     // params
     const [chainKey, setChainKey] = useState<string>(demoSetting.chainKey);
     const [modalBorderRadius, setModalBorderRadius] = useState<number>(demoSetting.modalBorderRadius || 10);
     const [language, setLanguage] = useState<string>(demoSetting.language);
-    const [loginFormMode, setLoginFormMode] = useState(!!localStorage.getItem('loginFormMode') ? 'true' : 'false');
+    const [loginFormMode, setLoginFormMode] = useState(demoSetting.loginFormMode);
     const [theme, setTheme] = useState<string>(demoSetting.theme);
     const [walletTheme, setWalletTheme] = useState<string>(demoSetting.walletTheme);
     const [walletEntrance, setWalletEntrance] = useState<boolean>(demoSetting.walletEntrance);
+    const [erc4337, setERC4337] = useState<boolean>(demoSetting.erc4337);
 
     const [promptSettingWhenSign, setPromptSettingWhenSign] = useState(demoSetting.promptSettingWhenSign);
     const [promptMasterPasswordSettingWhenLogin, setPromptMasterPasswordSettingWhenLogin] = useState<string>(
@@ -69,6 +53,7 @@ function DemoSetting(props: any) {
     );
     const [customStyle, setCustomStyle] = useState<string>(demoSetting.customStyle);
     const [textAreaStr, setTextAreaStr] = useState<string>(customStyle);
+    const [enableERC4337Prompt, setEnableERC4337Prompt] = useState<boolean>(false);
 
     const [fiatCoin, setFiatCoin] = useState<string>(localStorage.getItem('web_demo_fiat_coin') || 'USD');
 
@@ -81,6 +66,29 @@ function DemoSetting(props: any) {
         { value: 1, label: 'Once' },
         { value: 2, label: 'Always' },
     ];
+
+    const ParticleChains = useMemo(() => {
+        const chains = {};
+        keySort.forEach((key) => {
+            Object.keys(Chains)
+                .filter((key2) => key2.includes(key))
+                .forEach((key2) => {
+                    chains[key2] = Chains[key2];
+                });
+        });
+        return chains;
+    }, [keySort]);
+
+    const chainOptions = useMemo(() => {
+        const options = Object.keys(ParticleChains).map((key) => ({
+            ...ParticleChains[key],
+            key: key,
+        }));
+        if (erc4337) {
+            return options.filter((item) => networkConfig.some((config) => config.chainId === item.id));
+        }
+        return options;
+    }, [keySort, ParticleChains, erc4337]);
 
     // callback
     useEffect(() => {
@@ -96,6 +104,7 @@ function DemoSetting(props: any) {
             walletTheme,
             walletEntrance,
             fiatCoin,
+            erc4337,
         };
         if (onChange && JSON.stringify(demoSetting) !== JSON.stringify(newSetting)) {
             onChange({ ...newSetting });
@@ -112,6 +121,7 @@ function DemoSetting(props: any) {
         walletTheme,
         walletEntrance,
         fiatCoin,
+        erc4337,
     ]);
 
     useEffect(() => {
@@ -158,6 +168,17 @@ function DemoSetting(props: any) {
         });
         localStorage.setItem('dapp_particle_modal_border_radius', modalBorderRadius + '');
     }, [modalBorderRadius]);
+
+    const onERC4337Change = (enable: boolean) => {
+        const currentChain = ParticleChains[chainKey];
+        if (!enable || networkConfig.some((config) => config.chainId === currentChain.id)) {
+            localStorage.setItem('dapp_particle_erc4337', enable.toString());
+            setERC4337(enable);
+        } else {
+            setEnableERC4337Prompt(true);
+        }
+    };
+
     return (
         <div className="filter-box card" style={{ flex: 1 }}>
             <h2 className="filter-title">Demo Setting</h2>
@@ -219,6 +240,14 @@ function DemoSetting(props: any) {
                         value: item,
                     }))}
                 ></PnSelect>
+            </div>
+            <div className="filter-item">
+                <div className="filter-label">
+                    ERC-4337:{' '}
+                    <div style={{ display: 'inline-block' }}>
+                        <Switch defaultChecked={erc4337} checked={erc4337} onChange={onERC4337Change}></Switch>
+                    </div>
+                </div>
             </div>
             <div className="filter-item">
                 <div className="filter-label">
@@ -352,6 +381,20 @@ function DemoSetting(props: any) {
                     </Button>
                 </div>
             </div>
+            <Modal
+                title="Enable ERC-4337 Prompt"
+                open={enableERC4337Prompt}
+                centered
+                onCancel={() => setEnableERC4337Prompt(false)}
+                onOk={async () => {
+                    await switchChain('Ethereum');
+                    setERC4337(true);
+                    setEnableERC4337Prompt(false);
+                }}
+            >
+                The current chain does not support ERC-4337, click OK to automatically switch to Ethereum and enable
+                ERC-4337.
+            </Modal>
         </div>
     );
 }

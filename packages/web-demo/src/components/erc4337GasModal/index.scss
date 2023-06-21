@@ -1,0 +1,142 @@
+.erc4337-transaction-container {
+  .ant-drawer-content {
+    border-top-left-radius: 13px;
+    border-top-right-radius: 13px;
+    overflow: hidden;
+    background: white;
+    color: black;
+
+    .ant-drawer-header {
+      border-bottom: none;
+      .ant-drawer-close {
+        color: black;
+        position: absolute;
+        right: 6px;
+      }
+      .ant-drawer-title {
+        color: black;
+        text-align: center;
+        font-size: 18px;
+        font-weight: 500;
+      }
+    }
+    .ant-drawer-body {
+      width: 80%;
+      max-width: 1000px;
+      margin: auto;
+      padding: 0 16px;
+      @media screen and (max-width: 600px) {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.erc4337-modal-container {
+  .ant-modal-footer {
+    display: none;
+  }
+  .ant-modal-content {
+    border-radius: 13px;
+    .ant-modal-header {
+      background: transparent;
+      border-bottom: none;
+      .ant-modal-title {
+        text-align: center;
+        font-weight: bold;
+        font-size: 18px;
+      }
+    }
+
+    .ant-modal-body {
+      .wallet_footer {
+        display: none;
+      }
+    }
+  }
+}
+
+.fee-drawer-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  padding-bottom: 20px;
+  .fee-list {
+    max-height: 70vh;
+    width: 100%;
+    overflow: auto;
+    .gas-fee-item {
+      display: flex;
+      align-items: center;
+      padding: 12px 0;
+
+      &.disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .fee-token-icon {
+        height: 35px;
+        width: 35px;
+        border-radius: 50%;
+      }
+      .fee-token-info {
+        margin-left: 12px;
+        font-size: 15px;
+        .fee-name {
+          font-weight: 500;
+          color: black;
+        }
+        .fee-address {
+          font-size: 13px;
+          color: var(--text-gray-1);
+        }
+      }
+      .fee-token-balance {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-end;
+        flex-grow: 1;
+        .gas-fee {
+          font-size: 15px;
+          color: #ea4335;
+          font-weight: 500;
+        }
+        .token-balance {
+          font-size: 13px;
+          color: var(--text-color);
+        }
+      }
+    }
+  }
+  .bootom-action {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 24px 0 0 0;
+    width: 100%;
+    .btn-gasless {
+      width: 48%;
+      font-size: 17px;
+    }
+    .btn-user-paid {
+      width: 48%;
+      font-size: 17px;
+      transition: none;
+    }
+  }
+  .wallet_footer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    .logo_logo {
+      width: 171px;
+      height: 17px;
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+  }
+}

@@ -1,51 +1,47 @@
-import React, { useMemo, useState, useEffect } from 'react';
-import { Button, Menu, Badge, Input, message, Tag, Dropdown, Popover } from 'antd';
-import type { MenuProps } from 'antd';
-import { isNullish, SettingOption, toBase58Address } from '@particle-network/auth';
-import SendETH from '../components/EVM/SendETH/index';
-import SendERC20Tokens from '../components/EVM/SendERC20Tokens/index';
-import SendERC721Tokens from '../components/EVM/SendERC721Tokens/index';
-import SendERC1155Tokens from '../components/EVM/SendERC1155Tokens/index';
-import SendERC20Approve from '../components/EVM/SendERC20Approve/index';
-import ContractCall from '../components/EVM/ContractCall/index';
-import PersonalSign from '../components/EVM/PersonalSign/index';
-import SignTypedDatav1 from '../components/EVM/SignTypedDatav1/index';
-import SignTypedDatav3 from '../components/EVM/SignTypedDatav3/index';
-import SignTypedDatav4 from '../components/EVM/SignTypedDatav4/index';
-import SignSolanaTransaction from '../components/Solana/SignTransaction/index';
-import SolanaTransaction from '../components/Solana/Transaction/index';
-import SolanaAllTransaction from '../components/Solana/AllTransaction/index';
-import SolanaSignMessage from '../components/Solana/SignMessage/index';
-import DemoSetting from '../components/DemoSetting/index';
-import AccountAvatar from '../components/AccountAvatar/AuthAvatar';
-import { ParticleNetwork, WalletCustomStyle, WalletEntryPosition } from '@particle-network/auth';
+import {
+    AuthType,
+    AuthTypes,
+    ParticleNetwork,
+    SettingOption,
+    WalletCustomStyle,
+    WalletEntryPosition,
+    isNullish,
+    toBase58Address,
+} from '@particle-network/auth';
 import { ParticleChains } from '@particle-network/common';
-import { AuthType, AuthTypes } from '@particle-network/auth';
-import { fromSunFormat } from '../utils/number-utils';
+import type { MenuProps } from 'antd';
+import { Badge, Button, Dropdown, Input, Menu, Popover, Tag, message } from 'antd';
+import { useEffect, useMemo, useState } from 'react';
+import AccountAvatar from '../components/AccountAvatar/AuthAvatar';
+import DemoSetting from '../components/DemoSetting/index';
 import { customStyle as defCustomStyle } from '../types/customStyle';
+import { fromSunFormat } from '../utils/number-utils';
 
 import {
-    DesktopOutlined,
-    ContainerOutlined,
-    TwitterOutlined,
-    ScanOutlined,
     AndroidOutlined,
     AppleOutlined,
-    GithubOutlined,
-    SafetyOutlined,
-    DownOutlined,
-    CopyOutlined,
     BarsOutlined,
-    RedoOutlined,
-    PlusSquareOutlined,
+    ContainerOutlined,
+    CopyOutlined,
+    DesktopOutlined,
+    DownOutlined,
     FileTextOutlined,
+    GithubOutlined,
+    PlusSquareOutlined,
+    RedoOutlined,
+    ScanOutlined,
+    TwitterOutlined,
 } from '@ant-design/icons';
-import './index.scss';
-import { DiscordIcon } from './icon';
+import { BiconomyWrapProvider, SendTransactionMode, SmartAccount } from '@particle-network/biconomy';
 import { ParticleProvider } from '@particle-network/provider';
 import { SolanaWallet } from '@particle-network/solana-wallet';
-import Web3 from 'web3';
 import QRCode from 'qrcode.react';
+import Web3 from 'web3';
+import networkConfig from '../common/config/erc4337';
+import EVM from '../components/EVM';
+import Solana from '../components/Solana';
+import { DiscordIcon } from './icon';
+import './index.scss';
 
 function Home() {
     const [loginLoading, setLoginLoading] = useState(false);
@@ -79,13 +75,14 @@ function Home() {
             isNullish(localStorage.getItem('dapp_particle_walletentrance')),
         walletTheme: localStorage.getItem('dapp_particle_wallettheme') || 'light',
         fiatCoin: localStorage.getItem('web_demo_fiat_coin') || 'USD',
+        erc4337: localStorage.getItem('dapp_particle_erc4337') === 'true',
     });
 
     useEffect(() => {
         if (loginState) {
             initAccount();
         }
-    }, [loginState, demoSetting.chainKey]);
+    }, [loginState, demoSetting.chainKey, demoSetting.erc4337]);
 
     const particle = useMemo(() => {
         const {
@@ -98,6 +95,7 @@ function Home() {
             walletEntrance,
             walletTheme,
             fiatCoin,
+            erc4337,
         } = demoSetting;
         const chainChanged = (chain: any) => {
             initAccount();
@@ -137,6 +135,8 @@ function Home() {
 
         particle.setFiatCoin((fiatCoin as any) || 'USD');
 
+        particle.setERC4337(erc4337);
+
         particle.auth.on('chainChanged', chainChanged);
         particle.auth.on('disconnect', disconnect);
 
@@ -154,7 +154,20 @@ function Home() {
                 });
         }
         const particleProvider = new ParticleProvider(particle.auth);
-        window.web3 = new Web3(particleProvider as any | ParticleProvider);
+
+        if (erc4337) {
+            const smartAccount = new SmartAccount(particleProvider, {
+                projectId: process.env.REACT_APP_PROJECT_ID as string,
+                clientKey: process.env.REACT_APP_CLIENT_KEY as string,
+                appId: process.env.REACT_APP_APP_ID as string,
+                networkConfig,
+            });
+            window.smartAccount = smartAccount;
+            window.web3 = new Web3(new BiconomyWrapProvider(smartAccount, SendTransactionMode.UserSelect) as any);
+        } else {
+            window.web3 = new Web3(particleProvider as any);
+        }
+
         return particle;
     }, [
         demoSetting.promptSettingWhenSign,
@@ -164,6 +177,7 @@ function Home() {
         demoSetting.walletTheme,
         demoSetting.theme,
         demoSetting.fiatCoin,
+        demoSetting.erc4337,
     ]);
 
     const [updateHasPassword, setUpdateHasPassword] = useState(1);
@@ -715,67 +729,14 @@ function Home() {
                     </div>
 
                     {isSolana() ? (
-                        <>
-                            <h2 className="line-title">
-                                <SafetyOutlined /> &nbsp; Transaction
-                            </h2>
-                            <div className="transaction">
-                                <SolanaTransaction
-                                    demoSetting={demoSetting}
-                                    loginState={loginState}
-                                    address={address}
-                                    solanaWallet={solanaWallet}
-                                ></SolanaTransaction>
-                                <SignSolanaTransaction
-                                    demoSetting={demoSetting}
-                                    loginState={loginState}
-                                    address={address}
-                                    solanaWallet={solanaWallet}
-                                />
-                                <SolanaAllTransaction
-                                    demoSetting={demoSetting}
-                                    loginState={loginState}
-                                    address={address}
-                                    solanaWallet={solanaWallet}
-                                />
-                                <h2 className="line-title">
-                                    <SafetyOutlined /> &nbsp; Signature
-                                </h2>
-                                <SolanaSignMessage
-                                    demoSetting={demoSetting}
-                                    loginState={loginState}
-                                    address={address}
-                                    solanaWallet={solanaWallet}
-                                />
-                            </div>
-                        </>
+                        <Solana
+                            demoSetting={demoSetting}
+                            loginState={loginState}
+                            address={address}
+                            solanaWallet={solanaWallet}
+                        ></Solana>
                     ) : (
-                        <>
-                            <h2 className="line-title">
-                                <SafetyOutlined /> &nbsp; Transaction
-                            </h2>
-                            <div className="transaction ">
-                                <SendETH demoSetting={demoSetting} loginState={loginState} />
-                                {!isTron() && (
-                                    <>
-                                        <SendERC20Approve demoSetting={demoSetting} loginState={loginState} />
-                                        <SendERC20Tokens demoSetting={demoSetting} loginState={loginState} />
-                                        <SendERC721Tokens demoSetting={demoSetting} loginState={loginState} />
-                                        <SendERC1155Tokens demoSetting={demoSetting} loginState={loginState} />
-                                        <ContractCall demoSetting={demoSetting} loginState={loginState}></ContractCall>
-                                    </>
-                                )}
-                            </div>
-                            <h2 className="line-title">
-                                <SafetyOutlined /> &nbsp; Signature
-                            </h2>
-                            <div className="transaction">
-                                <PersonalSign demoSetting={demoSetting} loginState={loginState} />
-                                <SignTypedDatav1 demoSetting={demoSetting} loginState={loginState} />
-                                <SignTypedDatav3 demoSetting={demoSetting} loginState={loginState} />
-                                <SignTypedDatav4 demoSetting={demoSetting} loginState={loginState} />
-                            </div>
-                        </>
+                        <EVM demoSetting={demoSetting} loginState={loginState} isTron={isTron()}></EVM>
                     )}
                 </div>
             </div>

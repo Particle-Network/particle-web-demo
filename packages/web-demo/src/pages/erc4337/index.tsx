@@ -1,15 +1,16 @@
-import './index.scss';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { ParticleNetwork } from '@particle-network/auth';
-import { Button, Card, Input, message, Modal, notification, Select, Space, Spin } from 'antd';
-import { LinkOutlined, RedoOutlined, DeploymentUnitOutlined } from '@ant-design/icons';
-import { ParticleProvider } from '@particle-network/provider';
-import { ChainId, FeeQuote, Transaction, ZERO_ADDRESS, SignTypeMethod } from '@biconomy/core-types';
+import { DeploymentUnitOutlined, LinkOutlined, RedoOutlined } from '@ant-design/icons';
+import { ChainId, FeeQuote, SignTypeMethod, Transaction, ZERO_ADDRESS } from '@biconomy/core-types';
 import { BalancesDto, IBalances } from '@biconomy/node-client';
 import SmartAccount from '@biconomy/smart-account';
+import { ParticleNetwork } from '@particle-network/auth';
+import { ParticleChains, chains } from '@particle-network/common';
+import { ParticleProvider } from '@particle-network/provider';
+import { Button, Card, Input, Modal, Select, Space, Spin, message, notification } from 'antd';
 import { ethers } from 'ethers';
-import { chains } from '@particle-network/common';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import networkConfig from '../../common/config/erc4337';
 import { DecimalUnitMap, fromWei, shortString } from '../../utils';
+import './index.scss';
 
 const PageERC4337 = () => {
     const [provider, setProvider] = useState<ethers.providers.Web3Provider>();
@@ -108,43 +109,7 @@ const PageERC4337 = () => {
                     ChainId.POLYGON_MUMBAI,
                     ChainId.BSC_TESTNET,
                 ],
-                networkConfig: [
-                    {
-                        chainId: ChainId.MAINNET,
-                        // Dapp API Key you will get from new Biconomy dashboard that will be live soon
-                        // Meanwhile you can use the test dapp api key mentioned above
-                        dappAPIKey: process.env.REACT_APP_BICONOMY_ETHEREUM,
-                        providerUrl: `${process.env.REACT_APP_RPC_DOMAIN}/evm-chain?chainId=1&projectUuid=${process.env.REACT_APP_PROJECT_ID}&projectKey=${process.env.REACT_APP_CLIENT_KEY}`,
-                    },
-                    {
-                        chainId: ChainId.GOERLI,
-                        // Dapp API Key you will get from new Biconomy dashboard that will be live soon
-                        // Meanwhile you can use the test dapp api key mentioned above
-                        dappAPIKey: process.env.REACT_APP_BICONOMY_GOERLIAPI,
-                        providerUrl: `${process.env.REACT_APP_RPC_DOMAIN}/evm-chain?chainId=5&projectUuid=${process.env.REACT_APP_PROJECT_ID}&projectKey=${process.env.REACT_APP_CLIENT_KEY}`,
-                    },
-                    {
-                        chainId: ChainId.POLYGON_MAINNET,
-                        // Dapp API Key you will get from new Biconomy dashboard that will be live soon
-                        // Meanwhile you can use the test dapp api key mentioned above
-                        dappAPIKey: process.env.REACT_APP_BICONOMY_POLYGON,
-                        providerUrl: `${process.env.REACT_APP_RPC_DOMAIN}/evm-chain?chainId=137&projectUuid=${process.env.REACT_APP_PROJECT_ID}&projectKey=${process.env.REACT_APP_CLIENT_KEY}`,
-                    },
-                    {
-                        chainId: ChainId.POLYGON_MUMBAI,
-                        // Dapp API Key you will get from new Biconomy dashboard that will be live soon
-                        // Meanwhile you can use the test dapp api key mentioned above
-                        dappAPIKey: process.env.REACT_APP_BICONOMY_POLYGON_MUMBAI,
-                        providerUrl: `${process.env.REACT_APP_RPC_DOMAIN}/evm-chain?chainId=80001&projectUuid=${process.env.REACT_APP_PROJECT_ID}&projectKey=${process.env.REACT_APP_CLIENT_KEY}`,
-                    },
-                    {
-                        chainId: ChainId.BSC_TESTNET,
-                        // Dapp API Key you will get from new Biconomy dashboard that will be live soon
-                        // Meanwhile you can use the test dapp api key mentioned above
-                        dappAPIKey: process.env.REACT_APP_BICONOMY_BSC_TESTNET,
-                        providerUrl: `${process.env.REACT_APP_RPC_DOMAIN}/evm-chain?chainId=97&projectUuid=${process.env.REACT_APP_PROJECT_ID}&projectKey=${process.env.REACT_APP_CLIENT_KEY}`,
-                    },
-                ],
+                networkConfig,
             };
             // this provider is from the social login which we created in last setup
             const smartAccount = new SmartAccount(provider, options);
@@ -548,13 +513,15 @@ const PageERC4337 = () => {
                         defaultValue="5"
                         onChange={handleSwitchChain}
                         loading={switchChainLoading}
-                        options={[
-                            { value: '1', label: 'Ethereum Mainnet' },
-                            { value: '5', label: 'Ethereum Goerli' },
-                            { value: '137', label: 'Polygon Mainnet' },
-                            { value: '80001', label: 'Polygon Mumbai' },
-                            { value: '97', label: 'BSC Testnet' },
-                        ]}
+                        options={Object.values(ParticleChains)
+                            .filter((chain) => networkConfig.some((item) => item.chainId === chain.id))
+                            .map((chain) => {
+                                return {
+                                    value: chain.id.toString(),
+                                    label: chain.fullname,
+                                };
+                            })
+                            .sort((a, b) => Number(a.value) - Number(b.value))}
                     />
                 )}
             </div>

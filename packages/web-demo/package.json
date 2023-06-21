@@ -14,6 +14,7 @@
         "@particle-network/provider": "^0.14.0",
         "@particle-network/rainbowkit-ext": "^0.14.0",
         "@particle-network/solana-wallet": "^0.14.0",
+        "@particle-network/biconomy": "^0.1.4",
         "@rainbow-me/rainbowkit": "^1.0.1",
         "@solana/web3.js": "1.50.1",
         "@testing-library/jest-dom": "^5.14.1",
