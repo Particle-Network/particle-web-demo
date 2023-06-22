@@ -41,7 +41,7 @@ function DemoSetting(props: any) {
     const [chainKey, setChainKey] = useState<string>(demoSetting.chainKey);
     const [modalBorderRadius, setModalBorderRadius] = useState<number>(demoSetting.modalBorderRadius || 10);
     const [language, setLanguage] = useState<string>(demoSetting.language);
-    const [loginFormMode, setLoginFormMode] = useState(demoSetting.loginFormMode);
+    const [loginFormMode, setLoginFormMode] = useState<boolean>(demoSetting.loginFormMode);
     const [theme, setTheme] = useState<string>(demoSetting.theme);
     const [walletTheme, setWalletTheme] = useState<string>(demoSetting.walletTheme);
     const [walletEntrance, setWalletEntrance] = useState<boolean>(demoSetting.walletEntrance);
@@ -155,7 +155,7 @@ function DemoSetting(props: any) {
         localStorage.setItem('dapp_particle_form_mode', loginFormMode ? 'checked' : '');
         // @ts-ignore
         const classList = window.document.querySelector('body').classList;
-        if (loginFormMode === 'true') {
+        if (loginFormMode) {
             classList.add('mini-login-form');
         } else {
             classList.remove('mini-login-form');
@@ -284,8 +284,10 @@ function DemoSetting(props: any) {
                 </div>
 
                 <PnSelect
-                    value={loginFormMode}
-                    onChange={setLoginFormMode}
+                    value={loginFormMode.toString()}
+                    onChange={(value) => {
+                        setLoginFormMode(value !== 'false');
+                    }}
                     options={[
                         { value: 'false', label: 'Full' },
                         { value: 'true', label: 'Form mode' },

@@ -22,13 +22,13 @@ function PersonalSign(props: any) {
         return !chainKey.includes('Solana');
     };
 
-    // useEffect(() => {
-    //     const isPersonalSign = window.localStorage.getItem('isPersonalSign');
-    //     if (props?.loginState && isEvm() && isPersonalSign !== '1') {
-    //         window.localStorage.setItem('isPersonalSign', '1');
-    //         personalSign();
-    //     }
-    // }, [props.loginState]);
+    useEffect(() => {
+        const isPersonalSign = window.localStorage.getItem('isPersonalSign');
+        if (props?.loginState && isEvm() && isPersonalSign !== '1') {
+            window.localStorage.setItem('isPersonalSign', '1');
+            personalSign();
+        }
+    }, [props.loginState]);
 
     const personalSignMessage =
         'Hello Particle Network!💰💰💰 \n\nThe fastest path from ideas to deployment in a single workflow for high performance dApps. \n\nhttps://particle.network';
