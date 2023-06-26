@@ -72,7 +72,7 @@ const PageRainbowKit = () => {
     ]);
 
     const wagmiClient = createConfig({
-        autoConnect: true,
+        autoConnect: false,
         connectors,
         publicClient,
         webSocketPublicClient,
