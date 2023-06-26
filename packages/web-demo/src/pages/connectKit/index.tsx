@@ -1,42 +1,36 @@
-import {
-    ModalProvider,
-    ConnectButton,
-    useParticleProvider,
-    useConnectKit,
-    useAccount,
-    useParticleTheme,
-    useLanguage,
-    useSwitchChains,
-    useParticleConnect,
-    useNetwork,
-} from '@particle-network/connect-react-ui';
 import { ParticleChains, chains } from '@particle-network/common';
 import {
-    isEVMProvider,
     evmWallets,
-    solanaWallets,
-    metaMask,
-    walletconnect,
-    rainbow,
-    omni,
-    argent,
-    web3Modal,
-    phantom,
+    isEVMProvider,
     isMetaMask,
+    solanaWallets
 } from '@particle-network/connect';
+import {
+    ConnectButton,
+    ModalProvider,
+    useAccount,
+    useConnectKit,
+    useLanguage,
+    useNetwork,
+    useParticleConnect,
+    useParticleProvider,
+    useParticleTheme,
+    useSwitchChains,
+} from '@particle-network/connect-react-ui';
 import './index.scss';
 
 // import connect react ui styles
 import '@particle-network/connect-react-ui/dist/index.css';
 
-import { useEffect } from 'react';
-import { Button, Divider, Select, Space, notification } from 'antd';
-import Web3 from 'web3';
 import { WalletEntryPosition } from '@particle-network/auth';
+import { Button, Divider, Select, Space, notification } from 'antd';
+import { useEffect } from 'react';
+import Web3 from 'web3';
 import { payloadV4 } from '../../components/EVM/SignTypedDatav4';
 
 const getChains = () => {
     const sortKeys = [
+        'Solana',
         'Ethereum',
         'BSC',
         'Polygon',

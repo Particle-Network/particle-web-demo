@@ -145,7 +145,13 @@ function DemoSetting(props: any) {
     }, [walletEntrance]);
 
     const switchChain = async (key) => {
-        await particle.switchChain(ParticleChains[key]);
+        const chain = ParticleChains[key];
+        if (particle.auth.isLogin()) {
+            await particle.switchChain(chain, true);
+        } else {
+            particle.auth.config.chainId = chain.id;
+            particle.auth.config.chainName = chain.name;
+        }
         localStorage.setItem('dapp_particle_chain_key', key);
         console.log('trigger switch chain:', ParticleChains[chainKey]);
         setChainKey(key);
@@ -182,28 +188,26 @@ function DemoSetting(props: any) {
     return (
         <div className="filter-box card" style={{ flex: 1 }}>
             <h2 className="filter-title">Demo Setting</h2>
-            {isLogin && (
-                <div className="filter-item">
-                    <div className="filter-label">
-                        Chain:
-                        <InfoCircleOutlined
-                            className="info"
-                            onClick={() => {
-                                window.open('https://docs.particle.network/node-service/evm-chains-api', '_blank');
-                            }}
-                        />
-                    </div>
-                    <PnSelect
-                        value={chainKey}
-                        onChange={switchChain}
-                        options={chainOptions.map((item) => ({
-                            ...item,
-                            label: item.fullname,
-                            value: item.key,
-                        }))}
-                    ></PnSelect>
+            <div className="filter-item">
+                <div className="filter-label">
+                    Chain:
+                    <InfoCircleOutlined
+                        className="info"
+                        onClick={() => {
+                            window.open('https://docs.particle.network/node-service/evm-chains-api', '_blank');
+                        }}
+                    />
                 </div>
-            )}
+                <PnSelect
+                    value={chainKey}
+                    onChange={switchChain}
+                    options={chainOptions.map((item) => ({
+                        ...item,
+                        label: item.fullname,
+                        value: item.key,
+                    }))}
+                ></PnSelect>
+            </div>
             <div className="filter-item">
                 <div className="filter-label">Language:</div>
                 <PnSelect

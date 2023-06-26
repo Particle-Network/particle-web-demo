@@ -10,7 +10,7 @@ import {
 } from '@particle-network/auth';
 import { ParticleChains } from '@particle-network/common';
 import type { MenuProps } from 'antd';
-import { Badge, Button, Dropdown, Input, Menu, Popover, Tag, message } from 'antd';
+import { Badge, Button, Dropdown, Input, Menu, Popover, Tag, message, notification } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import AccountAvatar from '../components/AccountAvatar/AuthAvatar';
 import DemoSetting from '../components/DemoSetting/index';
@@ -263,9 +263,11 @@ function Home() {
                 hideLoading: type === 'jwt',
             })
             .then((userInfo) => {
-                window.localStorage.setItem('isPersonalSign', '0');
                 setLoginState(true);
                 setLoginLoading(false);
+                if (isEvm()) {
+                    personalSign();
+                }
             })
             .catch((error: any) => {
                 setLoginLoading(false);
@@ -274,6 +276,27 @@ function Home() {
                     message.error(error.message);
                 }
             });
+    };
+
+    const isEvm = () => {
+        return !demoSetting.chainKey.includes('Solana');
+    };
+
+    const personalSign = async () => {
+        const msg =
+            'Hello Particle Network!💰💰💰 \n\nThe fastest path from ideas to deployment in a single workflow for high performance dApps. \n\nhttps://particle.network';
+        const accounts = await window.web3.eth.getAccounts();
+        try {
+            const hash = await window.web3.eth.personal.sign(msg, accounts[0]);
+            notification.success({
+                message: 'Personal Sign Success',
+                description: hash,
+            });
+        } catch (error: any) {
+            if (error.message) {
+                message.error(error.message);
+            }
+        }
     };
 
     const getBalance = async () => {
