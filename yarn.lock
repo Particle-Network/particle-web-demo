@@ -4187,6 +4187,17 @@
     draggabilly "^3.0.0"
     qs "^6.11.0"
 
+"@particle-network/auth@^0.14.2":
+  version "0.14.2"
+  resolved "https://registry.yarnpkg.com/@particle-network/auth/-/auth-0.14.2.tgz#f55b359984b5cdf3d3aeb85884386359996245e6"
+  integrity sha512-QSYUBXi4ecBYFyi3e3xynRMd09y27gYdUXKOdjXk/PIYuqQBm6lnvo5xtjsGgF8drsxu53sZu7Sr8ULTK4CglA==
+  dependencies:
+    "@particle-network/analytics" "^0.13.5"
+    "@particle-network/common" "^0.14.2"
+    "@particle-network/crypto" "^0.13.5"
+    draggabilly "^3.0.0"
+    qs "^6.11.0"
+
 "@particle-network/biconomy@^0.1.4":
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/@particle-network/biconomy/-/biconomy-0.1.4.tgz#79e7b8360b961c0a47f9ee8396ad1b54e706d097"
@@ -4199,6 +4210,11 @@
   version "0.14.1"
   resolved "https://registry.yarnpkg.com/@particle-network/common/-/common-0.14.1.tgz#231dbf32aba16f5597443f2ea96de59b2ca84961"
   integrity sha512-IG+1cUT6zkcgE4KVwCTZSjJDGLU/yLM6urk5G/qsiWR/N8QyJrooZE3/+z7dm1eM0Tu1cRm/bIHAQ/WJFCe7UQ==
+
+"@particle-network/common@^0.14.2":
+  version "0.14.2"
+  resolved "https://registry.yarnpkg.com/@particle-network/common/-/common-0.14.2.tgz#78b01a7609f8d25424891adbef450b9159ead110"
+  integrity sha512-iHFZ6LOZCgIsDqyFpJrrP5aYL2V7PpCnTxHy0qmS/Gnahc1FKjWItTrKJ2jzUrC+9mgQe0TkUOckYVnSwRws9A==
 
 "@particle-network/connect-react-ui@^0.14.1":
   version "0.14.1"
@@ -4245,10 +4261,10 @@
     tweetnacl "^1.0.3"
     tweetnacl-util "^0.15.1"
 
-"@particle-network/local-provider@^0.14.1":
-  version "0.14.1"
-  resolved "https://registry.yarnpkg.com/@particle-network/local-provider/-/local-provider-0.14.1.tgz#2d0aeb5a9c724419af672375df18e154ea568506"
-  integrity sha512-XIflyycQHSJB46DxWUEuhjyS9JOgcwNJYtMEf6Ghz8szuHjKZEjweAZ9MOJRwAK0In4yl5lwEwUCMeEtH94iEA==
+"@particle-network/local-provider@^0.14.2":
+  version "0.14.2"
+  resolved "https://registry.yarnpkg.com/@particle-network/local-provider/-/local-provider-0.14.2.tgz#48da186d880f1cb57d08508efa62b4a7ed773c08"
+  integrity sha512-VgZ2u44dWk1Ea/RytXeA6XeVBdFzQQALNZalhXsvrLApwMDccTqY3kzDDC//15S7Yz+9YUXwV3OZk/QsauGTxA==
   dependencies:
     "@ethereumjs/tx" "^3.5.2"
     "@ethereumjs/util" "^8.0.2"
@@ -4267,18 +4283,31 @@
     axios "^1.3.6"
     uuid "^8.3.2"
 
-"@particle-network/rainbowkit-ext@^0.14.1":
-  version "0.14.1"
-  resolved "https://registry.yarnpkg.com/@particle-network/rainbowkit-ext/-/rainbowkit-ext-0.14.1.tgz#97feb970b6bc8ca531dcc9db2ed1b1b9cb348691"
-  integrity sha512-FZD6OTHZMLGSaToFQHtF2AOlgzGyv0wt1SjGGy6LUv1ZDj8XVwMoUe2oZSQhhHIcS2wf1vuDMlyEX+5f5KgQSg==
+"@particle-network/provider@^0.14.2":
+  version "0.14.2"
+  resolved "https://registry.yarnpkg.com/@particle-network/provider/-/provider-0.14.2.tgz#17e7d8ae07e11116c7e9231bdf69822d28a6f899"
+  integrity sha512-9oQxDx8EwL73Bxr2oiTpLvQrvepF0r0jsIDGWL047600GM93tOb+bSX/LH0MPS6be8CPgHhX8rz7rLOAb1b3ng==
   dependencies:
-    "@particle-network/auth" "^0.14.1"
-    "@particle-network/provider" "^0.14.1"
+    axios "^1.3.6"
+    uuid "^8.3.2"
+
+"@particle-network/rainbowkit-ext@^0.14.2":
+  version "0.14.2"
+  resolved "https://registry.yarnpkg.com/@particle-network/rainbowkit-ext/-/rainbowkit-ext-0.14.2.tgz#84bea929fec06ed37b70222df334cc00a919249a"
+  integrity sha512-h2JSTTdJXjVssb20HkpU49XBC0Uts6n3Ge+9gESWZfOTVEUheE5gZZdCaII/tLmP3kfIn2SzcVan8/ExE9vuFw==
+  dependencies:
+    "@particle-network/auth" "^0.14.2"
+    "@particle-network/provider" "^0.14.2"
 
 "@particle-network/solana-wallet@^0.14.1":
   version "0.14.1"
   resolved "https://registry.yarnpkg.com/@particle-network/solana-wallet/-/solana-wallet-0.14.1.tgz#980cc434b4884c1e75a4e8a5a8ded424d0321ab1"
   integrity sha512-mdA5wNUXpXjT8a5/gcvgXTzOzCxMNwyHIZQG8ivIMus0b6IvfEqunSSGVPGI6RT3/075nDxrJKaMrxAcglEQAg==
+
+"@particle-network/solana-wallet@^0.14.2":
+  version "0.14.2"
+  resolved "https://registry.yarnpkg.com/@particle-network/solana-wallet/-/solana-wallet-0.14.2.tgz#97c7fc38519fa0193ca970313f0768ab0a0db932"
+  integrity sha512-HnVoXm6n/pCEf/Lw5psutcGurG0sxokHg6NzXIWoaSVc0CNLhXY3BUTTB53aqy2Q/juWSeIxRzx1Amjf0D8WDA==
 
 "@pedrouid/environment@^1.0.1":
   version "1.0.1"
