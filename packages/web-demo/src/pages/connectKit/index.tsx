@@ -10,7 +10,6 @@ import {
 } from '@particle-network/common';
 import {
     argent,
-    coinbase,
     isEVMProvider,
     isMetaMask,
     metaMask,
@@ -19,7 +18,7 @@ import {
     phantom,
     rainbow,
     trust,
-    walletconnect,
+    walletconnect
 } from '@particle-network/connect';
 import {
     ConnectButton,
@@ -113,7 +112,6 @@ const PageConnectKit = () => {
                 wallets: [
                     metaMask({ projectId: walletconnectProjectId, showQrModal: false, metadata }),
                     rainbow({ projectId: walletconnectProjectId, showQrModal: false, metadata }),
-                    coinbase(),
                     walletconnect({ projectId: walletconnectProjectId, showQrModal: true, metadata }),
                     trust({ projectId: walletconnectProjectId, showQrModal: false, metadata }),
                     omni({ projectId: walletconnectProjectId, showQrModal: false, metadata }),
