@@ -1,30 +1,28 @@
-import React, { useState } from 'react';
-import { Button, Input, notification, Select } from 'antd';
 import { SolanaWallet } from '@particle-network/solana-wallet';
+import { Button, Input, notification, Select } from 'antd';
 import bs58 from 'bs58';
+import { useState } from 'react';
+import { personalSignMessage } from '../../../utils/config';
 import './index.scss';
-const { Option } = Select;
 
 function SignMessage(props: { solanaWallet: SolanaWallet; address: string; demoSetting: any; loginState: boolean }) {
-    const defMessage = 'Hello Particle Network!💰💰💰  \n\nhttps://particle.network';
     const [loading, setLoading] = useState(0);
     const [message, setMessage] = useState('');
     const [recoveryResult, setRecoveryResult] = useState('');
     const { solanaWallet, address: account } = props;
     const [messageType, setMessageType] = useState('string');
-    const isDev = process.env.NODE_ENV === 'development';
 
     const signMessage = async () => {
         setLoading(1);
         try {
             let result: any = void 0;
             if (messageType === 'string') {
-                result = await solanaWallet.signMessage(Buffer.from(message || defMessage));
+                result = await solanaWallet.signMessage(Buffer.from(message || personalSignMessage));
             } else if (messageType === 'base64') {
-                const uint8Array = Buffer.from(message || defMessage, 'base64');
+                const uint8Array = Buffer.from(message || personalSignMessage, 'base64');
                 result = await solanaWallet.signMessage(uint8Array);
             } else if (messageType === 'base58') {
-                result = await solanaWallet.signMessage(bs58.decode(message || defMessage));
+                result = await solanaWallet.signMessage(bs58.decode(message || personalSignMessage));
             }
             setRecoveryResult(bs58.encode(result));
             notification.success({
@@ -54,7 +52,7 @@ function SignMessage(props: { solanaWallet: SolanaWallet; address: string; demoS
                     <Input.TextArea
                         // @ts-ignore
                         onInput={(e) => setMessage(e.target.value)}
-                        placeholder={defMessage}
+                        placeholder={personalSignMessage}
                         className="result-box"
                         style={{ backgroundColor: '#fff' }}
                     ></Input.TextArea>

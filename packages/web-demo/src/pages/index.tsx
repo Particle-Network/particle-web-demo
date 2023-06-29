@@ -10,7 +10,7 @@ import {
 } from '@particle-network/auth';
 import { ParticleChains } from '@particle-network/common';
 import type { MenuProps } from 'antd';
-import { Badge, Button, Dropdown, Input, Menu, Popover, Tag, message, notification } from 'antd';
+import { Badge, Button, Checkbox, Dropdown, Input, Menu, Popover, Tag, message, notification } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import AccountAvatar from '../components/AccountAvatar/AuthAvatar';
 import DemoSetting from '../components/DemoSetting/index';
@@ -51,6 +51,7 @@ function Home() {
     const [loginState, setLoginState] = useState(false);
     const [balance, setBalance] = useState<number | string>(0);
     const [address, setAddress] = useState('');
+    const [authorize, setAuthorize] = useState(false);
     const [loginAccount, setLoginAccount] = useState<string>();
     const loadChainKey = () => {
         const key = localStorage.getItem('dapp_particle_chain_key');
@@ -264,18 +265,23 @@ function Home() {
                 socialLoginPrompt: 'consent',
                 loginFormMode: demoSetting.loginFormMode,
                 hideLoading: type === 'jwt',
-                authorization: {
-                    message: demoSetting.chainKey.toLowerCase().includes('solana')
-                        ? bs58.encode(Buffer.from(personalSignMessage))
-                        : Buffer.from(personalSignMessage).toString('hex'),
-                    uniq: true,
-                },
+                authorization: authorize
+                    ? {
+                          message: demoSetting.chainKey.toLowerCase().includes('solana')
+                              ? bs58.encode(Buffer.from(personalSignMessage))
+                              : Buffer.from(personalSignMessage).toString('hex'),
+                          uniq: true,
+                      }
+                    : undefined,
             })
             .then((userInfo) => {
                 setLoginState(true);
                 setLoginLoading(false);
-                if (isEvm()) {
-                    personalSign();
+                if (userInfo.signature) {
+                    notification.success({
+                        message: 'Login And Authorize',
+                        description: userInfo.signature,
+                    });
                 }
             })
             .catch((error: any) => {
@@ -285,27 +291,6 @@ function Home() {
                     message.error(error.message);
                 }
             });
-    };
-
-    const isEvm = () => {
-        return !demoSetting.chainKey.includes('Solana');
-    };
-
-    const personalSign = async () => {
-        const msg =
-            'Hello Particle Network!💰💰💰 \n\nThe fastest path from ideas to deployment in a single workflow for high performance dApps. \n\nhttps://particle.network';
-        const accounts = await window.web3.eth.getAccounts();
-        try {
-            const hash = await window.web3.eth.personal.sign(msg, accounts[0]);
-            notification.success({
-                message: 'Personal Sign Success',
-                description: hash,
-            });
-        } catch (error: any) {
-            if (error.message) {
-                message.error(error.message);
-            }
-        }
     };
 
     const getBalance = async () => {
@@ -687,7 +672,11 @@ function Home() {
                                         </Button>
                                     </div>
                                     <div className="button-group">
-                                        <Button type="primary" className="login-button" onClick={openAccountAndSecurity}>
+                                        <Button
+                                            type="primary"
+                                            className="login-button"
+                                            onClick={openAccountAndSecurity}
+                                        >
                                             Account And Security
                                             {!hasPasswordDot && <Badge dot={true}></Badge>}
                                         </Button>
@@ -737,6 +726,14 @@ function Home() {
                                         Connect
                                     </Button>
                                 </p>
+                                <Checkbox
+                                    className="with-authorize"
+                                    checked={authorize}
+                                    defaultChecked={authorize}
+                                    onChange={(event) => setAuthorize(event.target.checked)}
+                                >
+                                    With authorize
+                                </Checkbox>
                                 <div className="login-methods">
                                     {AuthTypes.map((type) => {
                                         return (
