@@ -1,9 +1,25 @@
-import { ParticleChains, chains } from '@particle-network/common';
 import {
-    evmWallets,
+    Ethereum,
+    EthereumGoerli,
+    EthereumSepolia,
+    ParticleChains,
+    Solana,
+    SolanaDevnet,
+    SolanaTestnet,
+    chains,
+} from '@particle-network/common';
+import {
+    argent,
+    coinbase,
     isEVMProvider,
     isMetaMask,
-    solanaWallets
+    metaMask,
+    okx,
+    omni,
+    phantom,
+    rainbow,
+    trust,
+    walletconnect,
 } from '@particle-network/connect';
 import {
     ConnectButton,
@@ -60,6 +76,15 @@ const getChains = () => {
     });
 };
 
+const walletconnectProjectId = process.env.REACT_APP_WALLETCONNECT_PROJECT_ID as string;
+
+const metadata = {
+    name: 'Particle Demo',
+    description: 'The Full-Stack Infrastructure To Simplify Web3',
+    url: 'https://web-demo.particle.network',
+    icons: ['https://static.particle.network/logo-small.png'],
+};
+
 const PageConnectKit = () => {
     return (
         <ModalProvider
@@ -80,13 +105,22 @@ const PageConnectKit = () => {
                 projectId: process.env.REACT_APP_PROJECT_ID as string,
                 clientKey: process.env.REACT_APP_CLIENT_KEY as string,
                 appId: process.env.REACT_APP_APP_ID as string,
-                chains: getChains(),
+                chains: [Ethereum, EthereumGoerli, EthereumSepolia, Solana, SolanaDevnet, SolanaTestnet],
                 particleWalletEntry: {
                     displayWalletEntry: true,
                     defaultWalletEntryPosition: WalletEntryPosition.BR,
                 },
-                // wallets: [metaMask(), rainbow(), omni(), argent()],
-                wallets: [...evmWallets({ qrcode: true }), ...solanaWallets()],
+                wallets: [
+                    metaMask({ projectId: walletconnectProjectId, showQrModal: false, metadata }),
+                    rainbow({ projectId: walletconnectProjectId, showQrModal: false, metadata }),
+                    coinbase(),
+                    walletconnect({ projectId: walletconnectProjectId, showQrModal: true, metadata }),
+                    trust({ projectId: walletconnectProjectId, showQrModal: false, metadata }),
+                    omni({ projectId: walletconnectProjectId, showQrModal: false, metadata }),
+                    argent({ projectId: walletconnectProjectId, showQrModal: false, metadata }),
+                    okx({ projectId: walletconnectProjectId, showQrModal: false, metadata }),
+                    phantom(),
+                ],
                 securityAccount: {
                     promptSettingWhenSign: 1,
                     promptMasterPasswordSettingWhenLogin: 2,

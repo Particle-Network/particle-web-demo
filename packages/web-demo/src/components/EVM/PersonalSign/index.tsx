@@ -3,7 +3,9 @@ import { recoverPersonalSignature } from '@metamask/eth-sig-util';
 import { toBase58Address } from '@particle-network/auth';
 import { Button, Checkbox, Input, notification } from 'antd';
 import { useEffect, useState } from 'react';
+import { personalSignMessage } from '../../../utils/config';
 import './index.scss';
+
 function PersonalSign(props: any) {
     const [loading, setLoading] = useState(0);
     const [result, setResult] = useState('');
@@ -17,9 +19,6 @@ function PersonalSign(props: any) {
     const isTron = () => {
         return chainKey.includes('Tron');
     };
-
-    const personalSignMessage =
-        'Hello Particle Network!💰💰💰 \n\nThe fastest path from ideas to deployment in a single workflow for high performance dApps. \n\nhttps://particle.network';
 
     const personalSign = async () => {
         setLoading(1);

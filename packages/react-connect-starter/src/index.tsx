@@ -1,24 +1,12 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import {
-    PlatON,
-    Optimism,
-    Moonbeam,
-    Moonriver,
-    Avalanche,
-    Polygon,
-    BSC,
-    Ethereum,
-    EthereumGoerli,
-    BSCTestnet,
-    KCCTestnet,
-} from '@particle-network/common';
+import { WalletEntryPosition } from '@particle-network/auth';
+import { BSC, BSCTestnet, Ethereum, EthereumGoerli, EthereumSepolia } from '@particle-network/common';
 import { evmWallets } from '@particle-network/connect';
 import { ModalProvider } from '@particle-network/connect-react-ui';
-import { WalletEntryPosition } from '@particle-network/auth';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import './index.css';
+import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
@@ -43,25 +31,17 @@ root.render(
                 projectId: process.env.REACT_APP_PROJECT_ID as string,
                 clientKey: process.env.REACT_APP_CLIENT_KEY as string,
                 appId: process.env.REACT_APP_APP_ID as string,
-                chains: [
-                    PlatON,
-                    Optimism,
-                    Moonbeam,
-                    Moonriver,
-                    Avalanche,
-                    Polygon,
-                    BSC,
-                    Ethereum,
-                    EthereumGoerli,
-                    BSCTestnet,
-                    KCCTestnet,
-                ],
+                chains: [Ethereum, EthereumGoerli, EthereumSepolia, BSC, BSCTestnet],
                 particleWalletEntry: {
                     displayWalletEntry: true,
                     defaultWalletEntryPosition: WalletEntryPosition.BR,
-                    supportChains: [Ethereum, EthereumGoerli],
                 },
-                wallets: [...evmWallets({ qrcode: false })],
+                wallets: [
+                    ...evmWallets({
+                        projectId: process.env.REACT_APP_WALLETCONNECT_PROJECT_ID as string,
+                        showQrModal: false,
+                    }),
+                ],
             }}
             language="en"
             theme={'light'}

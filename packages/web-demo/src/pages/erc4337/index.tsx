@@ -637,7 +637,7 @@ const PageERC4337 = () => {
                     <>
                         <Card
                             className="tx-card"
-                            title="Send Natvie Token"
+                            title="Send Native Token"
                             actions={[
                                 <Button
                                     type="text"

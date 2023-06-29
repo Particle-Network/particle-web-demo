@@ -13,6 +13,8 @@ module.exports = function override(config, env) {
         assert: require.resolve('assert'),
         buffer: require.resolve('buffer'),
         process: require.resolve('process/browser'),
+        querystring: require.resolve('querystring-es3'),
+        zlib: require.resolve('browserify-zlib'),
     };
     const plugin = new webpack.ProvidePlugin({
         Buffer: ['buffer', 'Buffer'],

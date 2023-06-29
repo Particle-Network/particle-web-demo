@@ -1,22 +1,22 @@
-import '../styles/globals.css';
+import { WalletEntryPosition } from '@particle-network/auth';
 import {
-    PlatON,
-    Optimism,
-    Moonbeam,
-    Moonriver,
     Avalanche,
-    Polygon,
     BSC,
+    BSCTestnet,
     Ethereum,
     EthereumGoerli,
-    Solana,
-    BSCTestnet,
     KCCTestnet,
+    Moonbeam,
+    Moonriver,
+    Optimism,
+    PlatON,
+    Polygon,
+    Solana,
 } from '@particle-network/common';
 import { evmWallets, solanaWallets } from '@particle-network/connect';
 import { ModalProvider } from '@particle-network/connect-react-ui';
-import { WalletEntryPosition } from '@particle-network/auth';
 import '@particle-network/connect-react-ui/esm/index.css';
+import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }: any) {
     return (
@@ -56,7 +56,13 @@ function MyApp({ Component, pageProps }: any) {
                     defaultWalletEntryPosition: WalletEntryPosition.BR,
                     supportChains: [Ethereum, EthereumGoerli],
                 },
-                wallets: [...evmWallets({ qrcode: false }), ...solanaWallets()],
+                wallets: [
+                    ...evmWallets({
+                        projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID as string,
+                        showQrModal: false,
+                    }),
+                    ...solanaWallets(),
+                ],
             }}
             language="en"
             theme={'light'}

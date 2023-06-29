@@ -149,8 +149,7 @@ function DemoSetting(props: any) {
         if (particle.auth.isLogin()) {
             await particle.switchChain(chain, true);
         } else {
-            particle.auth.config.chainId = chain.id;
-            particle.auth.config.chainName = chain.name;
+            particle.setChain(chain)
         }
         localStorage.setItem('dapp_particle_chain_key', key);
         console.log('trigger switch chain:', ParticleChains[chainKey]);

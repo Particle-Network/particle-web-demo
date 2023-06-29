@@ -3,8 +3,8 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
-        "@particle-network/auth": "^0.14.2",
-        "@particle-network/provider": "^0.14.2",
+        "@particle-network/auth": "^0.14.3-alpha.2",
+        "@particle-network/provider": "^0.14.3-alpha.2",
         "@testing-library/jest-dom": "^5.16.5",
         "@testing-library/react": "^13.4.0",
         "@testing-library/user-event": "^13.5.0",

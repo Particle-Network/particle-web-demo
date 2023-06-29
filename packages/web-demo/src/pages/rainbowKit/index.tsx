@@ -1,4 +1,3 @@
-import './index.scss';
 import { ConnectButton, connectorsForWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import {
     argentWallet,
@@ -12,14 +11,15 @@ import {
     trustWallet,
     walletConnectWallet,
 } from '@rainbow-me/rainbowkit/wallets';
+import './index.scss';
 
-import { configureChains, createConfig, WagmiConfig } from 'wagmi';
-import { mainnet, polygon, optimism, arbitrum } from 'wagmi/chains';
-import { publicProvider } from 'wagmi/providers/public';
-import '@rainbow-me/rainbowkit/styles.css';
-import { particleWallet } from '@particle-network/rainbowkit-ext';
-import { useMemo } from 'react';
 import { ParticleNetwork } from '@particle-network/auth';
+import { particleWallet } from '@particle-network/rainbowkit-ext';
+import '@rainbow-me/rainbowkit/styles.css';
+import { useMemo } from 'react';
+import { configureChains, createConfig, WagmiConfig } from 'wagmi';
+import { arbitrum, mainnet, optimism, polygon } from 'wagmi/chains';
+import { publicProvider } from 'wagmi/providers/public';
 
 const PageRainbowKit = () => {
     const particle = useMemo(() => {
@@ -49,10 +49,10 @@ const PageRainbowKit = () => {
                 particleWallet({ chains, authType: 'apple' }),
                 particleWallet({ chains }),
                 injectedWallet({ chains }),
-                rainbowWallet({ chains }),
+                rainbowWallet({ chains, projectId: process.env.REACT_APP_WALLETCONNECT_PROJECT_ID as string }),
                 coinbaseWallet({ appName: 'RainbowKit demo', chains }),
-                metaMaskWallet({ chains }),
-                walletConnectWallet({ chains }),
+                metaMaskWallet({ chains, projectId: process.env.REACT_APP_WALLETCONNECT_PROJECT_ID as string }),
+                walletConnectWallet({ chains, projectId: process.env.REACT_APP_WALLETCONNECT_PROJECT_ID as string }),
             ],
         };
     }, [particle]);
@@ -62,11 +62,11 @@ const PageRainbowKit = () => {
         {
             groupName: 'Other',
             wallets: [
-                argentWallet({ chains }),
-                trustWallet({ chains }),
-                omniWallet({ chains }),
-                imTokenWallet({ chains }),
-                ledgerWallet({ chains }),
+                argentWallet({ chains, projectId: process.env.REACT_APP_WALLETCONNECT_PROJECT_ID as string }),
+                trustWallet({ chains, projectId: process.env.REACT_APP_WALLETCONNECT_PROJECT_ID as string }),
+                omniWallet({ chains, projectId: process.env.REACT_APP_WALLETCONNECT_PROJECT_ID as string }),
+                imTokenWallet({ chains, projectId: process.env.REACT_APP_WALLETCONNECT_PROJECT_ID as string }),
+                ledgerWallet({ chains, projectId: process.env.REACT_APP_WALLETCONNECT_PROJECT_ID as string }),
             ],
         },
     ]);

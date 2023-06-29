@@ -35,11 +35,13 @@ import {
 import { BiconomyWrapProvider, SendTransactionMode, SmartAccount } from '@particle-network/biconomy';
 import { ParticleProvider } from '@particle-network/provider';
 import { SolanaWallet } from '@particle-network/solana-wallet';
+import bs58 from 'bs58';
 import QRCode from 'qrcode.react';
 import Web3 from 'web3';
 import networkConfig from '../common/config/erc4337';
 import EVM from '../components/EVM';
 import Solana from '../components/Solana';
+import { personalSignMessage } from '../utils/config';
 import { DiscordIcon } from './icon';
 import './index.scss';
 
@@ -143,7 +145,7 @@ function Home() {
         setLoginState(particle && particle.auth.isLogin());
         if (particle && particle.auth.isLogin()) {
             particle.auth
-                .getUserSimpleInfo()
+                .getSecurityAccount()
                 .catch((error: any) => {
                     if (error.code === 10005 || error.code === 8005) {
                         logout();
@@ -252,6 +254,7 @@ function Home() {
                 message.loading('custom loading...');
             }
         }
+
         setLoginLoading(true);
         particle.auth
             .login({
@@ -261,6 +264,12 @@ function Home() {
                 socialLoginPrompt: 'consent',
                 loginFormMode: demoSetting.loginFormMode,
                 hideLoading: type === 'jwt',
+                authorization: {
+                    message: demoSetting.chainKey.toLowerCase().includes('solana')
+                        ? bs58.encode(Buffer.from(personalSignMessage))
+                        : Buffer.from(personalSignMessage).toString('hex'),
+                    uniq: true,
+                },
             })
             .then((userInfo) => {
                 setLoginState(true);
@@ -474,10 +483,10 @@ function Home() {
             particle.openWallet();
         }
     };
-    const accountSecurity = () => {
+    const openAccountAndSecurity = () => {
         if (particle) {
             particle.auth
-                .accountSecurity()
+                .openAccountAndSecurity()
                 .then((res) => {
                     setUpdateHasPassword(updateHasPassword + 1);
                 })
@@ -678,8 +687,8 @@ function Home() {
                                         </Button>
                                     </div>
                                     <div className="button-group">
-                                        <Button type="primary" className="login-button" onClick={accountSecurity}>
-                                            Account Security
+                                        <Button type="primary" className="login-button" onClick={openAccountAndSecurity}>
+                                            Account And Security
                                             {!hasPasswordDot && <Badge dot={true}></Badge>}
                                         </Button>
                                         <Button

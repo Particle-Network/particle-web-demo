@@ -1,5 +1,5 @@
-import { ParticleConnect, metaMask, web3Modal } from '@particle-network/connect';
 import { Ethereum, EthereumGoerli } from '@particle-network/common';
+import { ParticleConnect, metaMask, walletconnect } from '@particle-network/connect';
 import React, { useMemo, useState } from 'react';
 import './App.css';
 
@@ -14,7 +14,10 @@ function App() {
             clientKey: process.env.REACT_APP_CLIENT_KEY as string,
             appId: process.env.REACT_APP_APP_ID as string,
             chains: [Ethereum, EthereumGoerli],
-            wallets: [metaMask(), web3Modal()],
+            wallets: [
+                metaMask({ projectId: process.env.REACT_APP_WALLETCONNECT_PROJECT_ID }),
+                walletconnect({ projectId: process.env.REACT_APP_WALLETCONNECT_PROJECT_ID }),
+            ],
         });
     }, []);
 
@@ -33,7 +36,7 @@ function App() {
             <button className="btn" onClick={() => connectWallet('metamask')}>
                 MetaMask
             </button>
-            <button className="btn" onClick={() => connectWallet('web3Modal')}>
+            <button className="btn" onClick={() => connectWallet('walletconnect_v2')}>
                 WalletConnect
             </button>
             <button className="btn" onClick={() => connectWallet('particle')}>

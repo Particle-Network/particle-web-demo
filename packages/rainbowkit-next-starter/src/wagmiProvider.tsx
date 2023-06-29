@@ -13,13 +13,12 @@ import {
     walletConnectWallet,
 } from '@rainbow-me/rainbowkit/wallets';
 
+import '@rainbow-me/rainbowkit/styles.css';
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
 import { publicProvider } from 'wagmi/providers/public';
-import '@rainbow-me/rainbowkit/styles.css';
 
-import { mainnet, polygon, optimism, arbitrum } from 'wagmi/chains';
-import React, { useMemo } from 'react';
 import { ParticleNetwork } from '@particle-network/auth';
+import { arbitrum, mainnet, optimism, polygon } from 'wagmi/chains';
 
 import { particleWallet } from '@particle-network/rainbowkit-ext';
 
@@ -49,10 +48,10 @@ const popularWallets = {
     wallets: [
         ...particleWallets,
         injectedWallet({ chains }),
-        rainbowWallet({ chains }),
+        rainbowWallet({ chains, projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID as string }),
         coinbaseWallet({ appName: 'RainbowKit demo', chains }),
-        metaMaskWallet({ chains }),
-        walletConnectWallet({ chains }),
+        metaMaskWallet({ chains, projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID as string }),
+        walletConnectWallet({ chains, projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID as string }),
     ],
 };
 
@@ -61,11 +60,11 @@ const connectors = connectorsForWallets([
     {
         groupName: 'Other',
         wallets: [
-            argentWallet({ chains }),
-            trustWallet({ chains }),
-            omniWallet({ chains }),
-            imTokenWallet({ chains }),
-            ledgerWallet({ chains }),
+            argentWallet({ chains, projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID as string }),
+            trustWallet({ chains, projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID as string }),
+            omniWallet({ chains, projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID as string }),
+            imTokenWallet({ chains, projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID as string }),
+            ledgerWallet({ chains, projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID as string }),
         ],
     },
 ]);
