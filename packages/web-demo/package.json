@@ -3,7 +3,7 @@
     "version": "0.14.3",
     "private": true,
     "dependencies": {
-        "@biconomy/smart-account": "2.0.0",
+        "@biconomy/smart-account": "2.0.2",
         "@ethereumjs/tx": "^3.5.2",
         "@ethereumjs/util": "^8.0.2",
         "@metamask/eth-sig-util": "^5.0.2",
