@@ -8,18 +8,7 @@ import {
     SolanaTestnet,
     chains,
 } from '@particle-network/common';
-import {
-    argent,
-    isEVMProvider,
-    isMetaMask,
-    metaMask,
-    okx,
-    omni,
-    phantom,
-    rainbow,
-    trust,
-    walletconnect
-} from '@particle-network/connect';
+import { evmWallets, isEVMProvider, isMetaMask, solanaWallets } from '@particle-network/connect';
 import {
     ConnectButton,
     ModalProvider,
@@ -110,14 +99,8 @@ const PageConnectKit = () => {
                     defaultWalletEntryPosition: WalletEntryPosition.BR,
                 },
                 wallets: [
-                    metaMask({ projectId: walletconnectProjectId, showQrModal: false, metadata }),
-                    rainbow({ projectId: walletconnectProjectId, showQrModal: false, metadata }),
-                    walletconnect({ projectId: walletconnectProjectId, showQrModal: true, metadata }),
-                    trust({ projectId: walletconnectProjectId, showQrModal: false, metadata }),
-                    omni({ projectId: walletconnectProjectId, showQrModal: false, metadata }),
-                    argent({ projectId: walletconnectProjectId, showQrModal: false, metadata }),
-                    okx({ projectId: walletconnectProjectId, showQrModal: false, metadata }),
-                    phantom(),
+                    ...evmWallets({ projectId: walletconnectProjectId, showQrModal: false, metadata }),
+                    ...solanaWallets(),
                 ],
                 securityAccount: {
                     promptSettingWhenSign: 1,
