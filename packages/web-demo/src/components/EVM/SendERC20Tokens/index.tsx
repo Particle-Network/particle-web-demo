@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { Button, message, Input, InputNumber, notification } from 'antd';
 import { addHexPrefix, intToHex } from '@ethereumjs/util';
-import { toWei, isValidEVMAddress } from '../../../utils';
+import { Button, Input, InputNumber, message, notification } from 'antd';
+import { useState } from 'react';
+import { isValidEVMAddress, toWei } from '../../../utils';
 
 function SendERC20Tokens(props: any) {
     const [loading, setLoading] = useState(0);
@@ -55,7 +55,7 @@ function SendERC20Tokens(props: any) {
 
             const txnParams = {
                 from: accounts[0],
-                to: address,
+                to: contract,
                 value: '0x0',
                 data: result,
                 gasLimit: addHexPrefix(intToHex(gasLimit)),

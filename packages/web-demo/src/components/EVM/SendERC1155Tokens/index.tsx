@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Button, message, Input, InputNumber, notification } from 'antd';
 import { addHexPrefix, intToHex } from '@ethereumjs/util';
+import { Button, Input, InputNumber, message, notification } from 'antd';
+import { useState } from 'react';
 import { isValidEVMAddress } from '../../../utils';
 
 function SendERC1155Tokens(props: any) {
@@ -58,7 +58,7 @@ function SendERC1155Tokens(props: any) {
 
             const txnParams = {
                 from: from,
-                to: address,
+                to: contract,
                 value: '0x0',
                 data: result,
                 gasLimit: addHexPrefix(intToHex(estimate)),

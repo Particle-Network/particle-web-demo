@@ -50,7 +50,7 @@ function SendERC721Tokens(props: any) {
 
             const txnParams = {
                 from: from,
-                to: address,
+                to: contract,
                 value: '0x0',
                 data: result,
                 gasLimit: addHexPrefix(intToHex(estimate)),

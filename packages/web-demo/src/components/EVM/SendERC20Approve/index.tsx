@@ -55,7 +55,7 @@ function SendERC20Approve(props: any) {
 
             const txnParams = {
                 from: accounts[0],
-                to: address,
+                to: contract,
                 value: '0x0',
                 data: result,
                 gasLimit: addHexPrefix(intToHex(gasLimit)),
