@@ -15,7 +15,7 @@ function App() {
 
     useEffect(() => {
         particleAuth.connectEagerly().catch(() => {
-            console.debug('Failed to connect eagerly to coinbase wallet');
+            console.debug('Failed to connect eagerly to particle wallet');
         });
     }, []);
 
