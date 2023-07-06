@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Button, message, Input, InputNumber, notification } from 'antd';
 import { addHexPrefix, intToHex } from '@ethereumjs/util';
+import { Button, Input, InputNumber, message, notification } from 'antd';
+import { useState } from 'react';
 import { isValidEVMAddress } from '../../../utils';
 
 function SendERC721Tokens(props: any) {
@@ -35,7 +35,7 @@ function SendERC721Tokens(props: any) {
         const method = 'particle_abi_encodeFunctionCall';
         const params = [contract, 'erc721_safeTransferFrom', [from, address, tokenId]];
         try {
-            const result = await window.web3.currentProvider.request({
+            const result = await (window.web3.currentProvider as any).request({
                 method,
                 params,
                 from,

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Button, message, Input, notification } from 'antd';
+import { Button, Input, message, notification } from 'antd';
+import { useState } from 'react';
 import { isValidEVMAddress } from '../../../utils';
 
 function ContractCall(props: any) {
@@ -19,7 +19,7 @@ function ContractCall(props: any) {
         // setLoading(1);
 
         const accounts = await window.web3.eth.getAccounts();
-        window.web3.eth.Contract.setProvider(window.web3.currentProvider, accounts);
+        window.web3.eth.setProvider(window.web3.currentProvider);
 
         const params = methodParams.split(',');
 

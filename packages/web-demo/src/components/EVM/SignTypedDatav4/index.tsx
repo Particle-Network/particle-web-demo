@@ -36,7 +36,7 @@ function SignTypedDatav4(props: any) {
 
             //EIP712Domain and domain order: name, version, chainId, verifyingContract
 
-            window.web3.currentProvider //@ts-ignore
+            (window.web3.currentProvider as any)
                 .request({
                     method,
                     params,

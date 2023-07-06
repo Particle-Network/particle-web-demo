@@ -21,6 +21,8 @@
         "@testing-library/user-event": "^13.2.1",
         "@types/jest": "^27.0.1",
         "@types/node": "^16.7.13",
+        "@web3modal/ethereum": "^2.6.2",
+        "@web3modal/react": "^2.6.2",
         "antd": "^4.19.5",
         "antd-mobile": " 5.28.1",
         "assert": "^2.0.0",
@@ -48,8 +50,7 @@
         "viem": "^0.3.35",
         "wagmi": "^1.0.5",
         "web-vitals": "^2.1.0",
-        "web3": "^1.7.3",
-        "web3modal": "^1.9.8"
+        "web3": "^1.7.3"
     },
     "scripts": {
         "clean": "rm -rf build",

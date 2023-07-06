@@ -173,8 +173,8 @@ const ConnectContent = () => {
     };
 
     const getBalance = async () => {
-        const accouts = await (window.web3 as Web3).eth.getAccounts();
-        const result = await (window.web3 as Web3).eth.getBalance(accouts[0]);
+        const accouts = await window.web3.eth.getAccounts();
+        const result = await window.web3.eth.getBalance(accouts[0]);
         notification.success({
             message: 'Get Balance Successful',
             description: result,
@@ -182,8 +182,8 @@ const ConnectContent = () => {
     };
 
     const personalSign = async () => {
-        const accouts = await (window.web3 as Web3).eth.getAccounts();
-        const result = await (window.web3 as Web3).eth.personal.sign('Hello Particle!', accouts[0], '');
+        const accouts = await window.web3.eth.getAccounts();
+        const result = await window.web3.eth.personal.sign('Hello Particle!', accouts[0], '');
         notification.success({
             message: 'Personal Sign Successful',
             description: result,
@@ -191,8 +191,8 @@ const ConnectContent = () => {
     };
 
     const signTypedData = async () => {
-        const accouts = await (window.web3 as Web3).eth.getAccounts();
-        const result = await window.web3.currentProvider.request({
+        const accouts = await window.web3.eth.getAccounts();
+        const result = await (window.web3.currentProvider as any).request({
             method: 'eth_signTypedData_v4',
             params: [accouts[0], JSON.stringify(payloadV4)],
         });
@@ -203,8 +203,8 @@ const ConnectContent = () => {
     };
 
     const sendTransaction = async () => {
-        const accouts = await (window.web3 as Web3).eth.getAccounts();
-        const result = await (window.web3 as Web3).eth.sendTransaction({
+        const accouts = await window.web3.eth.getAccounts();
+        const result = await window.web3.eth.sendTransaction({
             from: accouts[0],
             to: '0x6Bc8fd522354e4244531ce3D2B99f5dF2aAE335e',
             value: window.web3.utils.toWei('0.001', chain?.name?.toLowerCase() === 'tron' ? 'mwei' : 'ether'),

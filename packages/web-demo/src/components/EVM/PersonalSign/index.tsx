@@ -33,12 +33,12 @@ function PersonalSign(props: any) {
 
         let signPromise;
         if (unique) {
-            signPromise = window.web3.currentProvider.request({
+            signPromise = (window.web3.currentProvider as any).request({
                 method: 'personal_sign_uniq',
                 params: [message || personalSignMessage, accounts[0]],
             });
         } else {
-            signPromise = window.web3.eth.personal.sign(message || personalSignMessage, accounts[0]);
+            signPromise = window.web3.eth.personal.sign(message || personalSignMessage, accounts[0], '');
         }
         signPromise
             .then((result) => {

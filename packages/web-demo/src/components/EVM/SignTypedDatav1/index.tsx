@@ -50,7 +50,7 @@ function SignTypedDatav1(props: any) {
 
             const params = [msg || JSON.stringify(msgV1), from];
             const method = 'eth_signTypedData_v1';
-            window.web3.currentProvider //@ts-ignore
+            (window.web3.currentProvider as any)
                 .request({
                     method,
                     params,
