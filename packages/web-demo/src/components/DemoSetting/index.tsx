@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { InfoCircleOutlined, QuestionCircleOutlined } from '@ant-design/icons';
+import { InfoCircleOutlined } from '@ant-design/icons';
 import { UIMode } from '@particle-network/auth';
 import { ParticleChains as Chains } from '@particle-network/common';
-import { Button, Input, Modal, Slider, Switch, Tooltip, message, notification } from 'antd';
+import { Button, Input, Modal, Slider, Switch, message, notification } from 'antd';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import networkConfig from '../../common/config/erc4337';
 import { customStyle as defCustomStyle } from '../../types/customStyle';
@@ -41,7 +41,6 @@ function DemoSetting(props: any) {
     const [chainKey, setChainKey] = useState<string>(demoSetting.chainKey);
     const [modalBorderRadius, setModalBorderRadius] = useState<number>(demoSetting.modalBorderRadius || 10);
     const [language, setLanguage] = useState<string>(demoSetting.language);
-    const [loginFormMode, setLoginFormMode] = useState<boolean>(demoSetting.loginFormMode);
     const [theme, setTheme] = useState<string>(demoSetting.theme);
     const [walletTheme, setWalletTheme] = useState<string>(demoSetting.walletTheme);
     const [walletEntrance, setWalletEntrance] = useState<boolean>(demoSetting.walletEntrance);
@@ -65,6 +64,7 @@ function DemoSetting(props: any) {
         { value: '0', label: 'None' },
         { value: '1', label: 'Once' },
         { value: '2', label: 'Always' },
+        { value: '3', label: 'Force' },
     ];
 
     const ParticleChains = useMemo(() => {
@@ -96,7 +96,6 @@ function DemoSetting(props: any) {
             chainKey,
             language,
             theme,
-            loginFormMode,
             modalBorderRadius,
             promptSettingWhenSign,
             promptMasterPasswordSettingWhenLogin,
@@ -113,7 +112,6 @@ function DemoSetting(props: any) {
         chainKey,
         language,
         theme,
-        loginFormMode,
         modalBorderRadius,
         promptSettingWhenSign,
         promptMasterPasswordSettingWhenLogin,
@@ -149,23 +147,13 @@ function DemoSetting(props: any) {
         if (particle.auth.isLogin()) {
             await particle.switchChain(chain, true);
         } else {
-            particle.setChain(chain)
+            particle.setChainInfo(chain);
         }
         localStorage.setItem('dapp_particle_chain_key', key);
         console.log('trigger switch chain:', ParticleChains[chainKey]);
         setChainKey(key);
     };
 
-    useEffect(() => {
-        localStorage.setItem('dapp_particle_form_mode', loginFormMode ? 'checked' : '');
-        // @ts-ignore
-        const classList = window.document.querySelector('body').classList;
-        if (loginFormMode) {
-            classList.add('mini-login-form');
-        } else {
-            classList.remove('mini-login-form');
-        }
-    }, [loginFormMode]);
     useEffect(() => {
         particle.setAuthTheme({
             // @ts-ignore
@@ -278,25 +266,6 @@ function DemoSetting(props: any) {
                 </div>
             )}
 
-            <div className="filter-item">
-                <div className="filter-label">
-                    Login Full / Form Mode:
-                    <Tooltip placement="topRight" title={'Form Mode only support email and phone login'}>
-                        <QuestionCircleOutlined className="text-icon" />
-                    </Tooltip>
-                </div>
-
-                <PnSelect
-                    value={loginFormMode.toString()}
-                    onChange={(value) => {
-                        setLoginFormMode(value !== 'false');
-                    }}
-                    options={[
-                        { value: 'false', label: 'Full' },
-                        { value: 'true', label: 'Form mode' },
-                    ]}
-                ></PnSelect>
-            </div>
             <div className="filter-item">
                 <div className="filter-label">Modal Border Radius:</div>
                 <Slider
