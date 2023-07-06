@@ -47,8 +47,8 @@ function DemoSetting(props: any) {
     const [walletEntrance, setWalletEntrance] = useState<boolean>(demoSetting.walletEntrance);
     const [erc4337, setERC4337] = useState<boolean>(demoSetting.erc4337);
 
-    const [promptSettingWhenSign, setPromptSettingWhenSign] = useState(demoSetting.promptSettingWhenSign);
-    const [promptMasterPasswordSettingWhenLogin, setPromptMasterPasswordSettingWhenLogin] = useState<string>(
+    const [promptSettingWhenSign, setPromptSettingWhenSign] = useState<number>(demoSetting.promptSettingWhenSign);
+    const [promptMasterPasswordSettingWhenLogin, setPromptMasterPasswordSettingWhenLogin] = useState<number>(
         demoSetting.promptMasterPasswordSettingWhenLogin
     );
     const [customStyle, setCustomStyle] = useState<string>(demoSetting.customStyle);
@@ -62,9 +62,9 @@ function DemoSetting(props: any) {
     const ThemeOptions = ['light', 'dark'];
     const FiatCoinOptions = ['USD', 'CNY', 'JPY', 'HKD', 'INR', 'KRW'];
     const SettingWhenLoginOption = [
-        { value: 0, label: 'None' },
-        { value: 1, label: 'Once' },
-        { value: 2, label: 'Always' },
+        { value: '0', label: 'None' },
+        { value: '1', label: 'Once' },
+        { value: '2', label: 'Always' },
     ];
 
     const ParticleChains = useMemo(() => {
@@ -312,10 +312,10 @@ function DemoSetting(props: any) {
             <div className="filter-item">
                 <div className="filter-label">Prompt Master Password Setting When Login</div>
                 <PnSelect
-                    value={promptMasterPasswordSettingWhenLogin}
+                    value={promptMasterPasswordSettingWhenLogin.toString()}
                     onChange={(value) => {
                         localStorage.setItem('promptMasterPasswordSettingWhenLogin', value + '');
-                        setPromptMasterPasswordSettingWhenLogin(value);
+                        setPromptMasterPasswordSettingWhenLogin(Number(value));
                     }}
                     options={SettingWhenLoginOption}
                 ></PnSelect>
@@ -323,10 +323,10 @@ function DemoSetting(props: any) {
             <div className="filter-item">
                 <div className="filter-label">Prompt Security Setting When Sign</div>
                 <PnSelect
-                    value={promptSettingWhenSign}
+                    value={promptSettingWhenSign.toString()}
                     onChange={(value) => {
                         localStorage.setItem('promptSettingWhenSign', value + '');
-                        setPromptSettingWhenSign(value);
+                        setPromptSettingWhenSign(Number(value));
                     }}
                     options={SettingWhenLoginOption}
                 ></PnSelect>
