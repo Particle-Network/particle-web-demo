@@ -9,7 +9,7 @@
         "@metamask/eth-sig-util": "^5.0.2",
         "@particle-network/auth": "^0.14.4",
         "@particle-network/biconomy": "^0.1.6",
-        "@particle-network/connect-react-ui": "^0.14.6",
+        "@particle-network/connect-react-ui": "^0.14.7",
         "@particle-network/local-provider": "^0.14.4",
         "@particle-network/provider": "^0.14.4",
         "@particle-network/rainbowkit-ext": "^0.14.4",
