@@ -58,7 +58,7 @@ function Home() {
         if (key && ParticleChains[key]) {
             return key;
         }
-        return 'Ethereum';
+        return 'ethereum-1';
     };
 
     const [demoSetting, setDemosetting] = useState({
@@ -110,7 +110,7 @@ function Home() {
             window.particle.auth.off('disconnect', disconnect);
             window.particle.walletEntryDestroy();
         }
-        const chainKey = localStorage.getItem('dapp_particle_chain_key') || 'Ethereum';
+        const chainKey = localStorage.getItem('dapp_particle_chain_key') || 'ethereum-1';
         const chain = ParticleChains[chainKey];
         const particle = new ParticleNetwork({
             projectId: process.env.REACT_APP_PROJECT_ID as string,

@@ -361,7 +361,7 @@ function DemoSetting(props: any) {
                 centered
                 onCancel={() => setEnableERC4337Prompt(false)}
                 onOk={async () => {
-                    await switchChain('Ethereum');
+                    await switchChain('ethereum-1');
                     setERC4337(true);
                     setEnableERC4337Prompt(false);
                 }}
