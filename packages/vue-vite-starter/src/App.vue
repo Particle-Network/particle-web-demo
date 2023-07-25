@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Ethereum, EthereumGoerli } from '@particle-network/common';
+import { Ethereum, EthereumGoerli } from '@particle-network/chains';
 import { Chain, ConnectConfig, ParticleConnect, Provider, metaMask, walletconnect } from '@particle-network/connect';
 import { ref } from 'vue';
 

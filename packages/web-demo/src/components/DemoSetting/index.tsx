@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { UIMode } from '@particle-network/auth';
-import { ParticleChains as Chains } from '@particle-network/common';
+import { ParticleChains as Chains } from '@particle-network/chains';
 import { Button, Input, Modal, Slider, Switch, message, notification } from 'antd';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import networkConfig from '../../common/config/erc4337';

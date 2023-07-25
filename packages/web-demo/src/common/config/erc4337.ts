@@ -44,6 +44,47 @@ const networkConfig = [
         dappAPIKey: process.env.REACT_APP_BICONOMY_ARBITRUM_ONE_GOERLI as string,
         providerUrl: `${process.env.REACT_APP_RPC_DOMAIN}/evm-chain?chainId=421613&projectUuid=${process.env.REACT_APP_PROJECT_ID}&projectKey=${process.env.REACT_APP_CLIENT_KEY}`,
     },
+
+    // {
+    //     chainId: 1442,
+    //     dappAPIKey: process.env.REACT_APP_BICONOMY_POLYGON_ZKEVM_TESTNET as string,
+    //     providerUrl: `${process.env.REACT_APP_RPC_DOMAIN}/evm-chain?chainId=1442&projectUuid=${process.env.REACT_APP_PROJECT_ID}&projectKey=${process.env.REACT_APP_CLIENT_KEY}`,
+    // },
+    // {
+    //     chainId: 1101,
+    //     dappAPIKey: process.env.REACT_APP_BICONOMY_POLYGON_ZKEVM as string,
+    //     providerUrl: `${process.env.REACT_APP_RPC_DOMAIN}/evm-chain?chainId=1101&projectUuid=${process.env.REACT_APP_PROJECT_ID}&projectKey=${process.env.REACT_APP_CLIENT_KEY}`,
+    // },
+    // {
+    //     chainId: 43113,
+    //     dappAPIKey: process.env.REACT_APP_BICONOMY_AVALANCHE_TESTNET as string,
+    //     providerUrl: `${process.env.REACT_APP_RPC_DOMAIN}/evm-chain?chainId=43113&projectUuid=${process.env.REACT_APP_PROJECT_ID}&projectKey=${process.env.REACT_APP_CLIENT_KEY}`,
+    // },
+    // {
+    //     chainId: 43114,
+    //     dappAPIKey: process.env.REACT_APP_BICONOMY_AVALANCHE as string,
+    //     providerUrl: `${process.env.REACT_APP_RPC_DOMAIN}/evm-chain?chainId=43114&projectUuid=${process.env.REACT_APP_PROJECT_ID}&projectKey=${process.env.REACT_APP_CLIENT_KEY}`,
+    // },
+    // {
+    //     chainId: 420,
+    //     dappAPIKey: process.env.REACT_APP_BICONOMY_OPTIMISM_GOERLI as string,
+    //     providerUrl: `${process.env.REACT_APP_RPC_DOMAIN}/evm-chain?chainId=420&projectUuid=${process.env.REACT_APP_PROJECT_ID}&projectKey=${process.env.REACT_APP_CLIENT_KEY}`,
+    // },
+    // {
+    //     chainId: 10,
+    //     dappAPIKey: process.env.REACT_APP_BICONOMY_OPTIMISM as string,
+    //     providerUrl: `${process.env.REACT_APP_RPC_DOMAIN}/evm-chain?chainId=10&projectUuid=${process.env.REACT_APP_PROJECT_ID}&projectKey=${process.env.REACT_APP_CLIENT_KEY}`,
+    // },
+    // {
+    //     chainId: 84531,
+    //     dappAPIKey: process.env.REACT_APP_BICONOMY_BASE_GOERLI as string,
+    //     providerUrl: `${process.env.REACT_APP_RPC_DOMAIN}/evm-chain?chainId=84531&projectUuid=${process.env.REACT_APP_PROJECT_ID}&projectKey=${process.env.REACT_APP_CLIENT_KEY}`,
+    // },
+    // {
+    //     chainId: 59140,
+    //     dappAPIKey: process.env.REACT_APP_BICONOMY_LINEA_TESTNET as string,
+    //     providerUrl: `${process.env.REACT_APP_RPC_DOMAIN}/evm-chain?chainId=59140&projectUuid=${process.env.REACT_APP_PROJECT_ID}&projectKey=${process.env.REACT_APP_CLIENT_KEY}`,
+    // },
 ];
 
 export default networkConfig;

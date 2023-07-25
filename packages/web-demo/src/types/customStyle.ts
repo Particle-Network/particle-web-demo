@@ -1,5 +1,5 @@
 import { WalletCustomStyle } from '@particle-network/auth';
-import { BSC, BSCTestnet, Ethereum, EthereumGoerli } from '@particle-network/common';
+import { BNBChain, BNBChainTestnet, Ethereum, EthereumGoerli } from '@particle-network/chains';
 
 export const customStyle: WalletCustomStyle = {
     supportAddToken: true, // whether to show import token，default true
@@ -14,12 +14,12 @@ export const customStyle: WalletCustomStyle = {
             name: EthereumGoerli.name,
         },
         {
-            id: BSC.id,
-            name: BSC.name,
+            id: BNBChain.id,
+            name: BNBChain.name,
         },
         {
-            id: BSCTestnet.id,
-            name: BSCTestnet.name,
+            id: BNBChainTestnet.id,
+            name: BNBChainTestnet.name,
         },
     ],
     // displayTokenAddresses: ["0x326C977E6efc84E512bB9C30f76E30c160eD06FB"], // whether to show specific token address, if not specified, will display all available tokens

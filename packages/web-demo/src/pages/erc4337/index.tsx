@@ -3,7 +3,7 @@ import { ChainId, FeeQuote, SignTypeMethod, Transaction, ZERO_ADDRESS } from '@b
 import { BalancesDto, IBalances } from '@biconomy/node-client';
 import SmartAccount from '@biconomy/smart-account';
 import { ParticleNetwork } from '@particle-network/auth';
-import { ParticleChains, chains } from '@particle-network/common';
+import { ParticleChains, chains } from '@particle-network/chains';
 import { ParticleProvider } from '@particle-network/provider';
 import { Button, Card, Input, Modal, Select, Space, Spin, message, notification } from 'antd';
 import { ethers } from 'ethers';
@@ -75,7 +75,7 @@ const PageERC4337 = () => {
             const provider = new ethers.providers.Web3Provider(new ParticleProvider(particle.auth), 'any');
             setProvider(provider);
             if (particle.auth.isLogin()) {
-                setAccount(particle.auth.wallet()?.public_address);
+                setAccount(particle.auth.getWallet()?.public_address);
             }
             particle.auth.on('disconnect', resetConnectState);
         }
@@ -145,7 +145,7 @@ const PageERC4337 = () => {
     const checkWalletIsDeploy = async () => {
         if (provider && smartAccount) {
             setScaDeployLoading(true);
-            const deployed = await smartAccount.isDeployed(particle.auth.chainId());
+            const deployed = await smartAccount.isDeployed(particle.auth.getChainId());
             console.log('checkWalletIsDeploy', deployed);
             setWalletDeploy(deployed);
             setScaDeployLoading(false);
@@ -157,7 +157,7 @@ const PageERC4337 = () => {
             .login()
             .then((info) => {
                 console.log('connect success', info);
-                setAccount(particle.auth.wallet()?.public_address);
+                setAccount(particle.auth.getWallet()?.public_address);
             })
             .catch((error) => {
                 message.error(error.message);
@@ -417,7 +417,7 @@ const PageERC4337 = () => {
             const balanceParams: BalancesDto = {
                 // if no chainId is supplied, SDK will automatically pick active one that
                 // is being supplied for initialization
-                chainId: particle.auth.chainId(), // chainId of your choice
+                chainId: particle.auth.getChainId(), // chainId of your choice
                 eoaAddress: smartAccount?.address || '',
                 // If empty string you receive balances of all tokens watched by Indexer
                 // you can only whitelist token addresses that are listed in token respostory
@@ -433,7 +433,7 @@ const PageERC4337 = () => {
     };
 
     const formatScaBalance = (scaBalance: IBalances[]) => {
-        const chain = chains.getEVMChainInfoById(particle.auth.chainId());
+        const chain = chains.getEVMChainInfoById(particle.auth.getChainId());
         if (scaBalance) {
             const nativeBalance = scaBalance.find((item: any) => item.native_token);
             if (nativeBalance) {
@@ -447,16 +447,16 @@ const PageERC4337 = () => {
         if (account && provider) {
             setEoaBalanceLoading(true);
             const balance = await provider.getBalance(account);
-            const chain = chains.getEVMChainInfoById(particle.auth.chainId());
+            const chain = chains.getEVMChainInfoById(particle.auth.getChainId());
             setEoaBalance(`${ethers.utils.formatEther(balance)} ${chain?.nativeCurrency.symbol}`);
             setEoaBalanceLoading(false);
         }
     };
 
     const openExplorer = (address: string) => {
-        const chain = chains.getEVMChainInfoById(particle.auth.chainId());
+        const chain = chains.getEVMChainInfoById(particle.auth.getChainId());
         if (chain) {
-            const explorerUrl = `${chain.blockExplorerUrls[0]}/address/${address}`;
+            const explorerUrl = `${chain.blockExplorerUrl}/address/${address}`;
             window.open(explorerUrl);
         }
     };

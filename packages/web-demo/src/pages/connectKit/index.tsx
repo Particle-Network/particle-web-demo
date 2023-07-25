@@ -7,7 +7,7 @@ import {
     SolanaDevnet,
     SolanaTestnet,
     chains,
-} from '@particle-network/common';
+} from '@particle-network/chains';
 import { evmWallets, isEVMProvider, isMetaMask, solanaWallets } from '@particle-network/connect';
 import {
     ConnectButton,

@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { Button, message, Input, InputNumber, notification } from 'antd';
-import { ParticleChains } from '@particle-network/common';
+import { ParticleChains, chains } from '@particle-network/chains';
 import { toBase58Address, toHexAddress } from '@particle-network/auth';
 import { isValidEVMAddress, isValidTronAddress } from '../../../utils';
 function SendETH(props: any) {
@@ -22,7 +22,7 @@ function SendETH(props: any) {
     }, [chainKey]);
 
     const isSupportEIP1559 = () => {
-        return ParticleChains[chainKey].supportEIP1559;
+        return chains.isChainSupportEIP1559(ParticleChains[chainKey])
     };
     const sendTransaction = async () => {
         setLoading(1);

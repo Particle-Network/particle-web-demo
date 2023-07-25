@@ -1,5 +1,5 @@
 import { WalletEntryPosition } from '@particle-network/auth';
-import { BSC, BSCTestnet, Ethereum, EthereumGoerli, EthereumSepolia } from '@particle-network/common';
+import { BNBChain, BNBChainTestnet, Ethereum, EthereumGoerli, EthereumSepolia } from '@particle-network/chains';
 import { evmWallets } from '@particle-network/connect';
 import { ModalProvider } from '@particle-network/connect-react-ui';
 import React from 'react';
@@ -31,7 +31,7 @@ root.render(
                 projectId: process.env.REACT_APP_PROJECT_ID as string,
                 clientKey: process.env.REACT_APP_CLIENT_KEY as string,
                 appId: process.env.REACT_APP_APP_ID as string,
-                chains: [Ethereum, EthereumGoerli, EthereumSepolia, BSC, BSCTestnet],
+                chains: [Ethereum, EthereumGoerli, EthereumSepolia, BNBChain, BNBChainTestnet],
                 particleWalletEntry: {
                     displayWalletEntry: true,
                     defaultWalletEntryPosition: WalletEntryPosition.BR,

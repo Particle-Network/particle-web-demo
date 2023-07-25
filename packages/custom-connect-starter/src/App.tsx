@@ -1,4 +1,4 @@
-import { Ethereum, EthereumGoerli } from '@particle-network/common';
+import { Ethereum, EthereumGoerli } from '@particle-network/chains';
 import { ParticleConnect, metaMask, walletconnect } from '@particle-network/connect';
 import React, { useMemo, useState } from 'react';
 import './App.css';

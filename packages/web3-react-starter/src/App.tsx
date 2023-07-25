@@ -24,7 +24,7 @@ function App() {
             preferredAuthType: type,
         });
         //@ts-ignore
-        const userInfo = window.particle.auth.userInfo();
+        const userInfo = window.particle.auth.getUserInfo();
         console.log('particle userInfo', userInfo);
     };
 

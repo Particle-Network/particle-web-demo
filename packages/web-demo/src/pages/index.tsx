@@ -8,7 +8,7 @@ import {
     isNullish,
     toBase58Address,
 } from '@particle-network/auth';
-import { ParticleChains } from '@particle-network/common';
+import { ParticleChains } from '@particle-network/chains';
 import type { MenuProps } from 'antd';
 import { Badge, Button, Checkbox, Dropdown, Input, Menu, Popover, Tag, message, notification } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
@@ -187,9 +187,9 @@ function Home() {
         try {
             if (particle && loginState && updateHasPassword) {
                 // @ts-ignore
-                const has_set_payment_password = particle.auth.userInfo().security_account?.has_set_payment_password;
+                const has_set_payment_password = particle.auth.getUserInfo().security_account?.has_set_payment_password;
                 // @ts-ignore
-                const has_set_master_password = particle.auth.userInfo().security_account?.has_set_master_password;
+                const has_set_master_password = particle.auth.getUserInfo().security_account?.has_set_master_password;
 
                 return has_set_payment_password && has_set_master_password;
             }
@@ -199,10 +199,10 @@ function Home() {
         return false;
     }, [particle, loginState, updateHasPassword]);
     const isTron = () => {
-        return particle && particle?.auth?.chain()?.name?.toLowerCase() === 'tron';
+        return particle && particle?.auth?.getChain()?.name?.toLowerCase() === 'tron';
     };
     const isSolana = () => {
-        return particle && particle?.auth?.chain()?.name?.toLowerCase() === 'solana';
+        return particle && particle?.auth?.getChain()?.name?.toLowerCase() === 'solana';
     };
 
     const solanaWallet = useMemo(() => {
