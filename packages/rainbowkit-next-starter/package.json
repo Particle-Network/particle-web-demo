@@ -9,7 +9,7 @@
         "lint": "next lint"
     },
     "dependencies": {
-        "@particle-network/rainbowkit-ext": "^1.0.0-alpha.1",
+        "@particle-network/rainbowkit-ext": "^1.0.0",
         "@rainbow-me/rainbowkit": "^1.0.1",
         "ethers": "^5.7.2",
         "next": "^13.0.6",
