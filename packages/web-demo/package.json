@@ -9,6 +9,7 @@
         "@metamask/eth-sig-util": "^5.0.2",
         "@particle-network/auth": "^1.0.0-alpha.1",
         "@particle-network/biconomy": "^1.0.0-alpha.1",
+        "@particle-network/chains": "^1.0.1",
         "@particle-network/connect-react-ui": "^1.0.0-alpha.1",
         "@particle-network/local-provider": "^1.0.0-alpha.1",
         "@particle-network/provider": "^1.0.0-alpha.1",

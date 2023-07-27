@@ -2,11 +2,10 @@ import {
     Ethereum,
     EthereumGoerli,
     EthereumSepolia,
-    ParticleChains,
     Solana,
     SolanaDevnet,
     SolanaTestnet,
-    chains,
+    chains
 } from '@particle-network/chains';
 import { evmWallets, isEVMProvider, isMetaMask, solanaWallets } from '@particle-network/connect';
 import {
@@ -31,38 +30,6 @@ import { Button, Divider, Select, Space, notification } from 'antd';
 import { useEffect } from 'react';
 import Web3 from 'web3';
 import { payloadV4 } from '../../components/EVM/SignTypedDatav4';
-
-const getChains = () => {
-    const sortKeys = [
-        'Solana',
-        'Ethereum',
-        'BSC',
-        'Polygon',
-        'Avalanche',
-        'Moonbeam',
-        'Moonriver',
-        'Heco',
-        'Fantom',
-        'Arbitrum',
-        'Optimism',
-        'KCC',
-        'PlatOn',
-    ];
-
-    return Object.values(ParticleChains).sort((a, b) => {
-        if (sortKeys.includes(a.name) && sortKeys.includes(b.name)) {
-            if (sortKeys.indexOf(a.name) > sortKeys.indexOf(b.name)) {
-                return 1;
-            }
-            return -1;
-        } else if (sortKeys.includes(a.name)) {
-            return -1;
-        } else if (sortKeys.includes(b.name)) {
-            return 1;
-        }
-        return 0;
-    });
-};
 
 const walletconnectProjectId = process.env.REACT_APP_WALLETCONNECT_PROJECT_ID as string;
 
@@ -246,7 +213,7 @@ const ConnectContent = () => {
                     defaultValue={`${chain?.name}-${chain?.id}`}
                     onChange={switchChain}
                     value={`${chain?.name}-${chain?.id}`}
-                    options={getChains().map((item) => {
+                    options={chains.getAllChainInfos().map((item) => {
                         return { value: `${item.name}-${item.id}`, label: item.fullname };
                     })}
                 />

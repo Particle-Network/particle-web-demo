@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { UIMode } from '@particle-network/auth';
-import { ParticleChains as Chains } from '@particle-network/chains';
+import { ParticleChains, chains } from '@particle-network/chains';
 import { Button, Input, Modal, Slider, Switch, message, notification } from 'antd';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import networkConfig from '../../common/config/erc4337';
@@ -9,27 +9,6 @@ import { customStyle as defCustomStyle } from '../../types/customStyle';
 import { isJson } from '../../utils';
 import PnSelect from '../PnSelect';
 import './index.scss';
-
-const keySort = [
-    // @ts-ignore
-    ...new Set([
-        'Solana',
-        'Ethereum',
-        'BSC',
-        'Polygon',
-        'Avalanche',
-        'Moonbeam',
-        'Moonriver',
-        'Heco',
-        'Fantom',
-        'Arbitrum',
-        'Optimism',
-        'KCC',
-        'PlatOn',
-        'Tron',
-        ...Object.keys(Chains),
-    ]),
-];
 
 const { TextArea } = Input;
 
@@ -67,28 +46,15 @@ function DemoSetting(props: any) {
         { value: '3', label: 'Force' },
     ];
 
-    const ParticleChains = useMemo(() => {
-        const chains = {};
-        keySort.forEach((key) => {
-            Object.keys(Chains)
-                .filter((key2) => key2.includes(key))
-                .forEach((key2) => {
-                    chains[key2] = Chains[key2];
-                });
-        });
-        return chains;
-    }, [keySort]);
-
     const chainOptions = useMemo(() => {
-        const options = Object.keys(ParticleChains).map((key) => ({
-            ...ParticleChains[key],
-            key: key,
-        }));
+        const options = chains.getAllChainInfos();
         if (erc4337) {
-            return options.filter((item) => networkConfig.some((config) => config.chainId === item.id));
+            return options.filter(
+                (item) => item.chainType === 'evm' && networkConfig.some((config) => config.chainId === item.id)
+            );
         }
         return options;
-    }, [keySort, ParticleChains, erc4337]);
+    }, [erc4337]);
 
     // callback
     useEffect(() => {
@@ -191,7 +157,7 @@ function DemoSetting(props: any) {
                     options={chainOptions.map((item) => ({
                         ...item,
                         label: item.fullname,
-                        value: item.key,
+                        value: `${item.name.toLowerCase()}-${item.id}`,
                     }))}
                 ></PnSelect>
             </div>

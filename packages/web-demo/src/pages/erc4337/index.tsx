@@ -514,7 +514,10 @@ const PageERC4337 = () => {
                         onChange={handleSwitchChain}
                         loading={switchChainLoading}
                         options={Object.values(ParticleChains)
-                            .filter((chain) => networkConfig.some((item) => item.chainId === chain.id))
+                            .filter(
+                                (chain) =>
+                                    chain.chainType === 'evm' && networkConfig.some((item) => item.chainId === chain.id)
+                            )
                             .map((chain) => {
                                 return {
                                     value: chain.id.toString(),
