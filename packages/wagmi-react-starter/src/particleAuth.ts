@@ -1,25 +1,35 @@
+import type { Config, LoginOptions, ParticleNetwork } from '@particle-network/auth';
+import type { ParticleProvider } from '@particle-network/provider';
 import { Connector } from '@wagmi/core';
 import type { Chain } from '@wagmi/core/chains';
-import type { ParticleNetwork, Config } from '@particle-network/auth';
-import type { ParticleProvider } from '@particle-network/provider';
-import { Address, ConnectorData } from 'wagmi';
 import { UserRejectedRequestError, createWalletClient, custom, getAddress } from 'viem';
+import { Address, ConnectorData } from 'wagmi';
 
-type Options = Config;
+export type ParticleOptions = Config;
 
-export class ParticleAuthConnector extends Connector<ParticleProvider, Options> {
+export class ParticleAuthConnector extends Connector<ParticleProvider, ParticleOptions> {
     readonly id = 'particleAuth';
     readonly name = 'Particle Auth';
     readonly ready = true;
 
     private client?: ParticleNetwork;
     private provider?: ParticleProvider;
+    private loginOptions?: LoginOptions;
 
-    constructor({ chains, options }: { chains?: Chain[]; options: Options }) {
+    constructor({
+        chains,
+        options,
+        loginOptions,
+    }: {
+        chains?: Chain[];
+        options: ParticleOptions;
+        loginOptions?: LoginOptions;
+    }) {
         super({
             chains,
             options,
         });
+        this.loginOptions = loginOptions;
     }
 
     async connect({ chainId }: { chainId?: number } = {}): Promise<Required<ConnectorData>> {
@@ -40,6 +50,9 @@ export class ParticleAuthConnector extends Connector<ParticleProvider, Options> 
                 unsupported = this.isChainUnsupported(id);
             }
 
+            if (!this.client?.auth.isLogin()) {
+                await this.client?.auth.login(this.loginOptions);
+            }
             const account = await this.getAccount();
 
             return {
