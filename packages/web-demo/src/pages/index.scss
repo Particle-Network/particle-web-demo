@@ -266,11 +266,15 @@
             margin-bottom: 15px;
         }
 
-        .with-authorize {
+        .login-option-item {
             display: flex;
-            justify-content: center;
-            margin-bottom: 15px;
-            margin-top: -10px;
+            justify-content: space-between;
+            font-size: 16px;
+            padding: 6px 0;
+        }
+
+        .authorize-message-input {
+            margin-bottom: 10px;
         }
 
         .link {

@@ -10,7 +10,7 @@ import {
 } from '@particle-network/auth';
 import { ParticleChains } from '@particle-network/chains';
 import type { MenuProps } from 'antd';
-import { Badge, Button, Checkbox, Dropdown, Input, Menu, Popover, Tag, message, notification } from 'antd';
+import { Badge, Button, Dropdown, Input, Menu, Popover, Switch, Tag, message, notification } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import AccountAvatar from '../components/AccountAvatar/AuthAvatar';
 import DemoSetting from '../components/DemoSetting/index';
@@ -32,6 +32,7 @@ import {
     ScanOutlined,
     TwitterOutlined,
 } from '@ant-design/icons';
+import { bufferToHex } from '@ethereumjs/util';
 import { BiconomyWrapProvider, SendTransactionMode, SmartAccount } from '@particle-network/biconomy';
 import { ParticleProvider } from '@particle-network/provider';
 import { SolanaWallet } from '@particle-network/solana-wallet';
@@ -41,7 +42,6 @@ import Web3 from 'web3';
 import networkConfig from '../common/config/erc4337';
 import EVM from '../components/EVM';
 import Solana from '../components/Solana';
-import { personalSignMessage } from '../utils/config';
 import { DiscordIcon } from './icon';
 import './index.scss';
 
@@ -52,7 +52,9 @@ function Home() {
     const [balance, setBalance] = useState<number | string>(0);
     const [address, setAddress] = useState('');
     const [authorize, setAuthorize] = useState(false);
+    const [authorizeUniq, setAuthorizeUniq] = useState(false);
     const [loginAccount, setLoginAccount] = useState<string>();
+    const [authorizeMessage, setAuthorizeMessage] = useState<string>();
     const loadChainKey = () => {
         const key = localStorage.getItem('dapp_particle_chain_key');
         if (key && ParticleChains[key]) {
@@ -256,6 +258,20 @@ function Home() {
         }
 
         setLoginLoading(true);
+
+        const authorization = authorize
+            ? {
+                  message: authorizeMessage
+                      ? demoSetting.chainKey.toLowerCase().includes('solana')
+                          ? bs58.encode(Buffer.from(authorizeMessage))
+                          : bufferToHex(Buffer.from(authorizeMessage))
+                      : undefined,
+                  uniq: authorizeUniq,
+              }
+            : undefined;
+
+        console.log('login authorization', authorization);
+
         particle.auth
             .login({
                 preferredAuthType: type,
@@ -263,14 +279,7 @@ function Home() {
                 supportAuthTypes: 'all',
                 socialLoginPrompt: 'consent',
                 hideLoading: type === 'jwt',
-                authorization: authorize
-                    ? {
-                          message: demoSetting.chainKey.toLowerCase().includes('solana')
-                              ? bs58.encode(Buffer.from(personalSignMessage))
-                              : Buffer.from(personalSignMessage).toString('hex'),
-                          uniq: true,
-                      }
-                    : undefined,
+                authorization,
             })
             .then((userInfo) => {
                 setLoginState(true);
@@ -704,6 +713,36 @@ function Home() {
                         ) : (
                             <div className="login-box card">
                                 <h2 className="login-box-title">Login Methods</h2>
+
+                                <div className="login-option-item">
+                                    Authorize
+                                    <Switch
+                                        checked={authorize}
+                                        defaultChecked={authorize}
+                                        onChange={(checked: boolean) => setAuthorize(checked)}
+                                    ></Switch>
+                                </div>
+
+                                {authorize && (
+                                    <>
+                                        <div className="login-option-item">
+                                            Unique
+                                            <Switch
+                                                checked={authorizeUniq}
+                                                defaultChecked={authorizeUniq}
+                                                onChange={(checked: boolean) => setAuthorizeUniq(checked)}
+                                            ></Switch>
+                                        </div>
+                                        <Input.TextArea
+                                            className="authorize-message-input"
+                                            placeholder="authorize message &#10;evm: optional&#10;solana: required"
+                                            value={authorizeMessage}
+                                            autoSize={true}
+                                            onChange={(e) => setAuthorizeMessage(e.target.value)}
+                                        ></Input.TextArea>
+                                    </>
+                                )}
+
                                 <p className="center-center">
                                     <Input.TextArea
                                         className="input-account"
@@ -724,14 +763,7 @@ function Home() {
                                         Connect
                                     </Button>
                                 </p>
-                                <Checkbox
-                                    className="with-authorize"
-                                    checked={authorize}
-                                    defaultChecked={authorize}
-                                    onChange={(event) => setAuthorize(event.target.checked)}
-                                >
-                                    With authorize
-                                </Checkbox>
+
                                 <div className="login-methods">
                                     {AuthTypes.map((type) => {
                                         return (
