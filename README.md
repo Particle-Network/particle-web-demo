@@ -17,6 +17,9 @@ Add below config to `./packages/web-demo/.env` file, Replace 'xxx' with the new 
 REACT_APP_PROJECT_ID=xxx
 REACT_APP_CLIENT_KEY= xxx
 REACT_APP_APP_ID=xxx
+
+# if use waleltconnect, set walletconnect project id, created in https://walletconnect.com/
+REACT_APP_WALLETCONNECT_PROJECT_ID=xxx
 ```
 
 -   Install [Node.js](https://nodejs.org/).
