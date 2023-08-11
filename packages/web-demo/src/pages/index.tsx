@@ -33,7 +33,7 @@ import {
     TwitterOutlined,
 } from '@ant-design/icons';
 import { bufferToHex } from '@ethereumjs/util';
-import { BiconomyWrapProvider, SendTransactionMode, SmartAccount } from '@particle-network/biconomy';
+import { BiconomyWrapProvider, SendTransactionMode, SmartAccount } from '@particle-network/aa';
 import { ParticleProvider } from '@particle-network/provider';
 import { SolanaWallet } from '@particle-network/solana-wallet';
 import bs58 from 'bs58';
@@ -356,14 +356,6 @@ function Home() {
         },
         {
             label: (
-                <a href="/erc4337" target="_blank" rel="noopener noreferrer">
-                    ERC-4337
-                </a>
-            ),
-            key: 'erc4337',
-        },
-        {
-            label: (
                 <a href="/rainbowKit " target="_blank" rel="noopener noreferrer">
                     RainbowKit
                 </a>
@@ -493,7 +485,6 @@ function Home() {
     const contect2 = () => (
         <div className="menus-mobile-down">
             <p onClick={() => openWindow('/connectKit')}>ConnectKit</p>
-            <p onClick={() => openWindow('/erc4337')}>ERC-4337</p>
             <p onClick={() => openWindow('/rainbowKit')}>RainbowKit</p>
             <p onClick={() => openWindow('/web3Modal')}>Web3Modal</p>
             <p onClick={() => openWindow('https://static.particle.network/sdks/web/index.html')}>BrowserDemo</p>

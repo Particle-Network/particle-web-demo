@@ -1,4 +1,5 @@
-import { FeeQuote } from '@particle-network/biconomy/lib/types/types';
+import { FeeQuote, FeeQuotesResponse } from '@particle-network/aa/lib/types/types';
+import { isNullish } from '@particle-network/auth';
 import { Button, Drawer, Image, Modal, Radio } from 'antd';
 import BigNumber from 'bignumber.js';
 import { ethers } from 'ethers';
@@ -10,11 +11,13 @@ import './index.scss';
 const Erc4337GasModal = () => {
     const [open, setOpen] = useState(false);
     const [feeQuotes, setFeeQuotes] = useState<FeeQuote[]>();
-    const [selectFeeQuote, setSelectFeeQuote] = useState<FeeQuote>();
+    const [feeQuotesResponse, setFeeQuotesResponse] = useState<FeeQuotesResponse>();
+    const [selectFeeQuote, setSelectFeeQuote] = useState<FeeQuote | null>();
 
     useEffect(() => {
-        events.on('erc4337:prepareTransaction', (feeQuotes) => {
-            setFeeQuotes(feeQuotes);
+        events.on('erc4337:prepareTransaction', (response: FeeQuotesResponse) => {
+            setFeeQuotes([response.verifyingPaymasterNative.feeQuote!, ...(response.tokenPaymaster?.feeQuotes ?? [])]);
+            setFeeQuotesResponse(response);
             setOpen(true);
         });
         return () => {
@@ -24,19 +27,25 @@ const Erc4337GasModal = () => {
 
     useEffect(() => {
         if (feeQuotes) {
-            for (let feeQuote of feeQuotes) {
-                if (hasEnoughGas(feeQuote)) {
-                    setSelectFeeQuote(feeQuote);
-                    break;
+            if (feeQuotesResponse?.verifyingPaymasterGasless) {
+                //gasless
+                setSelectFeeQuote(null);
+            } else {
+                for (let feeQuote of feeQuotes) {
+                    if (hasEnoughGas(feeQuote)) {
+                        setSelectFeeQuote(feeQuote);
+                        break;
+                    }
                 }
             }
         }
-    }, [feeQuotes]);
+    }, [feeQuotes, feeQuotesResponse]);
 
     useEffect(() => {
         if (!open) {
             setFeeQuotes(undefined);
             setSelectFeeQuote(undefined);
+            setFeeQuotesResponse(undefined);
         }
     }, [open]);
 
@@ -46,22 +55,32 @@ const Erc4337GasModal = () => {
     };
 
     const sendTransaction = () => {
-        events.emit('erc4337:sendTransaction', { feeQuote: selectFeeQuote });
-        setOpen(false);
-    };
-
-    const sendGaslessTransaction = () => {
-        events.emit('erc4337:sendTransaction');
+        if (selectFeeQuote === null && feeQuotesResponse?.verifyingPaymasterGasless) {
+            const { userOp, userOpHash } = feeQuotesResponse?.verifyingPaymasterGasless;
+            events.emit('erc4337:sendTransaction', { userOp, userOpHash });
+        } else if (
+            selectFeeQuote &&
+            '0x0000000000000000000000000000000000000000' === selectFeeQuote.tokenInfo.address &&
+            feeQuotesResponse
+        ) {
+            const { userOp, userOpHash } = feeQuotesResponse.verifyingPaymasterNative;
+            events.emit('erc4337:sendTransaction', { userOp, userOpHash });
+        } else if (selectFeeQuote && feeQuotesResponse?.tokenPaymaster) {
+            events.emit('erc4337:sendTransaction', {
+                feeQuote: selectFeeQuote,
+                tokenPaymasterAddress: feeQuotesResponse?.tokenPaymaster.tokenPaymasterAddress,
+            });
+        }
         setOpen(false);
     };
 
     const feeTokenBalance = (feeQuote: FeeQuote) => {
-        return ethers.utils.formatUnits(feeQuote.tokenBalance, feeQuote.decimal);
+        return ethers.utils.formatUnits(feeQuote.balance, feeQuote.tokenInfo.decimals);
     };
 
     const formatFeeQuote = (feeQuote: FeeQuote) => {
         try {
-            return `-${ethers.utils.formatUnits(feeQuote.tokenBalance, feeQuote.decimal)}`;
+            return `-${ethers.utils.formatUnits(feeQuote.balance, feeQuote.tokenInfo.decimals)}`;
         } catch (error) {
             console.error(error);
             return '';
@@ -69,8 +88,8 @@ const Erc4337GasModal = () => {
     };
 
     const hasEnoughGas = (feeQuote: FeeQuote) => {
-        const fee = feeQuote.payment;
-        const balance = feeQuote.tokenBalance;
+        const fee = feeQuote.fee;
+        const balance = feeQuote.balance;
         return balance && new BigNumber(balance).gte(new BigNumber(fee));
     };
 
@@ -78,56 +97,78 @@ const Erc4337GasModal = () => {
         return (
             <div className="fee-drawer-content">
                 <div className="fee-list">
-                    {feeQuotes &&
-                        feeQuotes.map((feeQuote) => {
-                            return (
-                                <div
-                                    className={`gas-fee-item ${hasEnoughGas(feeQuote) ? '' : 'disabled'}`}
-                                    key={feeQuote.address}
-                                    onClick={() => {
-                                        if (hasEnoughGas(feeQuote)) {
-                                            setSelectFeeQuote(feeQuote);
-                                        }
-                                    }}
-                                >
-                                    <Radio
-                                        className="fee-radio"
-                                        checked={selectFeeQuote?.address === feeQuote.address}
-                                        disabled={!hasEnoughGas(feeQuote)}
-                                    ></Radio>
-                                    <Image className="fee-token-icon" preview={false} src={feeQuote.logoUrl}></Image>
-                                    <div className="fee-token-info">
-                                        <div className="fee-name">{feeQuote.symbol}</div>
-                                        <div className="fee-address">
-                                            {feeQuote.address.substring(0, 5) +
-                                                '...' +
-                                                feeQuote.address.substring(feeQuote.address.length - 5)}
-                                        </div>
-                                    </div>
-                                    <div className="fee-token-balance">
-                                        <div className="gas-fee">{formatFeeQuote(feeQuote)}</div>
-                                        <div className="token-balance">
-                                            {hasEnoughGas(feeQuote)
-                                                ? feeTokenBalance(feeQuote)
-                                                : 'Insufficient balance'}
-                                        </div>
+                    {feeQuotesResponse && (
+                        <div
+                            className={`gas-fee-item ${feeQuotesResponse.verifyingPaymasterGasless ? '' : 'disabled'}`}
+                            onClick={() => {
+                                if (feeQuotesResponse.verifyingPaymasterGasless) {
+                                    setSelectFeeQuote(null);
+                                }
+                            }}
+                        >
+                            <Radio
+                                className="fee-radio"
+                                checked={selectFeeQuote === null}
+                                disabled={isNullish(feeQuotesResponse.verifyingPaymasterGasless)}
+                            ></Radio>
+                            <Image
+                                className="fee-token-icon"
+                                preview={false}
+                                src={require('../../common/icons/aa-icon-gasless.png')}
+                            ></Image>
+                            <div className="fee-token-info">Gassless</div>
+                            <div className="fee-token-balance">Free</div>
+                        </div>
+                    )}
+
+                    {feeQuotes?.map((feeQuote) => {
+                        return (
+                            <div
+                                className={`gas-fee-item ${hasEnoughGas(feeQuote) ? '' : 'disabled'}`}
+                                key={feeQuote.tokenInfo.address}
+                                onClick={() => {
+                                    if (hasEnoughGas(feeQuote)) {
+                                        setSelectFeeQuote(feeQuote);
+                                    }
+                                }}
+                            >
+                                <Radio
+                                    className="fee-radio"
+                                    checked={selectFeeQuote?.tokenInfo?.address === feeQuote.tokenInfo.address}
+                                    disabled={!hasEnoughGas(feeQuote)}
+                                ></Radio>
+                                <Image
+                                    className="fee-token-icon"
+                                    preview={false}
+                                    src={feeQuote.tokenInfo.logoURI}
+                                ></Image>
+                                <div className="fee-token-info">
+                                    <div className="fee-name">{feeQuote.tokenInfo.symbol}</div>
+                                    <div className="fee-address">
+                                        {feeQuote.tokenInfo.address.substring(0, 5) +
+                                            '...' +
+                                            feeQuote.tokenInfo.address.substring(feeQuote.tokenInfo.address.length - 5)}
                                     </div>
                                 </div>
-                            );
-                        })}
+                                <div className="fee-token-balance">
+                                    <div className="gas-fee">{formatFeeQuote(feeQuote)}</div>
+                                    <div className="token-balance">
+                                        {hasEnoughGas(feeQuote) ? feeTokenBalance(feeQuote) : 'Insufficient balance'}
+                                    </div>
+                                </div>
+                            </div>
+                        );
+                    })}
                 </div>
 
                 <div className="bootom-action">
                     <Button
                         type="primary"
-                        className="btn-user-paid"
+                        className="btn-aa-send"
                         onClick={sendTransaction}
                         disabled={selectFeeQuote === undefined}
                     >
                         Send
-                    </Button>
-                    <Button type="primary" className="btn-gasless" onClick={sendGaslessTransaction}>
-                        Gasless Send
                     </Button>
                 </div>
             </div>

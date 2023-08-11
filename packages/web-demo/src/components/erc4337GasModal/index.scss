@@ -85,9 +85,10 @@
       .fee-token-info {
         margin-left: 12px;
         font-size: 15px;
+        color: var(--text-color);
         .fee-name {
           font-weight: 500;
-          color: black;
+          color: var(--text-color);
         }
         .fee-address {
           font-size: 13px;
@@ -99,6 +100,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: flex-end;
+        color: var(--text-color);
         flex-grow: 1;
         .gas-fee {
           font-size: 15px;
@@ -118,14 +120,9 @@
     align-items: center;
     margin: 24px 0 0 0;
     width: 100%;
-    .btn-gasless {
-      width: 48%;
+    .btn-aa-send {
+      width: 100%;
       font-size: 17px;
-    }
-    .btn-user-paid {
-      width: 48%;
-      font-size: 17px;
-      transition: none;
     }
   }
   .wallet_footer {

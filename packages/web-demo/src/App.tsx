@@ -1,13 +1,11 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Home from './pages/index';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.scss';
+import Page404 from './pages/404';
+import PageConnectKit from './pages/connectKit';
+import Home from './pages/index';
+import PageQrcode from './pages/qrcode';
 import PageRainbowKit from './pages/rainbowKit';
 import PageWeb3Modal from './pages/web3Modal';
-import PageConnectKit from './pages/connectKit';
-import PageQrcode from './pages/qrcode';
-import Page404 from './pages/404';
-import React from 'react';
-import PageERC4337 from './pages/erc4337';
 import PageWebRedirect from './pages/webRedirect';
 
 // TODO:set debug for internal test, developer must remove it.
@@ -23,7 +21,6 @@ function App() {
                 <Route path="/web3Modal" element={<PageWeb3Modal />} />
                 <Route path="/connectKit" element={<PageConnectKit />} />
                 <Route path="/qrcode" element={<PageQrcode />} />
-                <Route path="/erc4337" element={<PageERC4337 />} />
                 <Route path="/webRedirect" element={<PageWebRedirect />} />
                 <Route path="*" element={<Page404 />} />
             </Routes>

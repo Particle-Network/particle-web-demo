@@ -3,12 +3,11 @@
     "version": "1.0.0",
     "private": true,
     "dependencies": {
-        "@biconomy/smart-account": "2.0.2",
         "@ethereumjs/tx": "^3.5.2",
         "@ethereumjs/util": "^8.0.2",
         "@metamask/eth-sig-util": "^5.0.2",
         "@particle-network/auth": "^1.0.0",
-        "@particle-network/biconomy": "^1.0.0",
+        "@particle-network/aa": "^1.0.0",
         "@particle-network/chains": "^1.0.1",
         "@particle-network/connect-react-ui": "^1.0.0",
         "@particle-network/local-provider": "^1.0.0",
@@ -56,6 +55,7 @@
     "scripts": {
         "clean": "rm -rf build",
         "start": "dotenv -e .env.dev.local react-app-rewired start",
+        "start:authLocal": "dotenv -e .env.dev.local -e .env.localhost.local react-app-rewired start",
         "build": "dotenv -e .env.dev.local react-app-rewired build",
         "build:staging": "dotenv -e .env.staging.local react-app-rewired build",
         "build:production": "dotenv -e .env.pro.local react-app-rewired build",

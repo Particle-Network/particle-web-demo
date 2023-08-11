@@ -1,5 +1,5 @@
+import { type SmartAccount } from '@particle-network/aa';
 import type Web3 from 'web3';
-import { type SmartAccount } from '@particle-network/biconomy';
 
 declare global {
     interface Window {

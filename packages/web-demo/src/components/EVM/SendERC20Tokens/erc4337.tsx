@@ -1,4 +1,4 @@
-import { FeeQuote } from '@particle-network/biconomy/lib/types/types';
+import { SendTransactionParams } from '@particle-network/aa/lib/types/types';
 import { Button, Input, InputNumber, message, notification } from 'antd';
 import { ethers } from 'ethers';
 import { useState } from 'react';
@@ -66,21 +66,19 @@ function ERC4337SendERC20Tokens(props: any) {
 
     const sendERC20Transaction = async (tx: any) => {
         setLoading(1);
-        const feeQuotes = await window.smartAccount.getFeeQuotes(tx);
+        const feeQuotesResult = await window.smartAccount.getFeeQuotes(tx);
         const txHash = await new Promise<string>((resolve, reject) => {
             events.removeAllListeners('erc4337:sendTransaction');
             events.removeAllListeners('erc4337:sendTransactionError');
-            events.once('erc4337:sendTransaction', async (data?: { feeQuote: FeeQuote }) => {
-                let hash;
+            events.once('erc4337:sendTransaction', async (params: any) => {
                 try {
-                    if (data && data.feeQuote) {
-                        //Customers pay for their own gas
-                        hash = await window.smartAccount.sendUserPaidTransaction(tx, data.feeQuote);
+                    if (params.feeQuote) {
+                        const hash = await window.smartAccount.sendTransaction({ ...params, tx });
+                        resolve(hash);
                     } else {
-                        //gasless
-                        hash = await window.smartAccount.sendGaslessTransaction(tx);
+                        const hash = await window.smartAccount.sendTransaction(params);
+                        resolve(hash);
                     }
-                    resolve(hash);
                 } catch (error) {
                     reject(error);
                 }
@@ -88,14 +86,8 @@ function ERC4337SendERC20Tokens(props: any) {
             events.once('erc4337:sendTransactionError', (error) => {
                 reject(error);
             });
-            events.emit('erc4337:prepareTransaction', feeQuotes);
+            events.emit('erc4337:prepareTransaction', feeQuotesResult);
         });
-        return txHash;
-    };
-
-    const sendGaslessERC20Transaction = async (tx: any) => {
-        setLoading(2);
-        const txHash = await window.smartAccount.sendGaslessTransaction(tx);
         return txHash;
     };
 
@@ -142,14 +134,6 @@ function ERC4337SendERC20Tokens(props: any) {
                     onClick={() => sendTransaction(sendERC20Transaction)}
                 >
                     SEND
-                </Button>
-                <Button
-                    disabled={!props.loginState}
-                    type="primary"
-                    loading={loading === 2}
-                    onClick={() => sendTransaction(sendGaslessERC20Transaction)}
-                >
-                    GASLESS SEND
                 </Button>
             </div>
         </div>

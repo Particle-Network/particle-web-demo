@@ -1,4 +1,3 @@
-import { FeeQuote } from '@particle-network/biconomy/lib/types/types';
 import { Button, Input, InputNumber, message, notification } from 'antd';
 import { useState } from 'react';
 import { isValidEVMAddress } from '../../../utils';
@@ -34,22 +33,20 @@ function ERC4337SendETH(props: any) {
                 value: amountWei,
             };
 
-            const feeQuotes = await window.smartAccount.getFeeQuotes(txnParams);
+            const feeQuotesResult = await window.smartAccount.getFeeQuotes(txnParams);
 
             const txHash = await new Promise<string>((resolve, reject) => {
                 events.removeAllListeners('erc4337:sendTransaction');
                 events.removeAllListeners('erc4337:sendTransactionError');
-                events.once('erc4337:sendTransaction', async (data?: { feeQuote: FeeQuote }) => {
-                    let hash;
+                events.once('erc4337:sendTransaction', async (params: any) => {
                     try {
-                        if (data && data.feeQuote) {
-                            //Customers pay for their own gas
-                            hash = await window.smartAccount.sendUserPaidTransaction(txnParams, data.feeQuote);
+                        if (params.feeQuote) {
+                            const hash = await window.smartAccount.sendTransaction({ ...params, tx: txnParams });
+                            resolve(hash);
                         } else {
-                            //gasless
-                            hash = await window.smartAccount.sendGaslessTransaction(txnParams);
+                            const hash = await window.smartAccount.sendTransaction(params);
+                            resolve(hash);
                         }
-                        resolve(hash);
                     } catch (error) {
                         reject(error);
                     }
@@ -57,7 +54,7 @@ function ERC4337SendETH(props: any) {
                 events.once('erc4337:sendTransactionError', (error) => {
                     reject(error);
                 });
-                events.emit('erc4337:prepareTransaction', feeQuotes);
+                events.emit('erc4337:prepareTransaction', feeQuotesResult);
             });
             if (txHash) {
                 notification.success({
@@ -67,50 +64,6 @@ function ERC4337SendETH(props: any) {
             } else {
                 notification.error({
                     message: 'Send Failure',
-                    description: 'tx hash is null',
-                });
-            }
-        } catch (error: any) {
-            if (error.code !== 4011) {
-                const msg = error.data?.extraMessage || error.message;
-                if (msg) {
-                    message.error(msg);
-                }
-            }
-        } finally {
-            setLoading(0);
-        }
-    };
-
-    const sendGaslessTransaction = async () => {
-        setLoading(2);
-        const address = receiveAddress || defReceiveAddress;
-        if (!isValidEVMAddress(address)) {
-            setLoading(0);
-            return notification.error({
-                message: 'Please enter the correct address',
-            });
-        }
-        const amount = ethAmount || defEthAmount;
-        const accounts = await window.web3.eth.getAccounts();
-        const amountWei = window.web3.utils.toWei(amount, 'ether');
-
-        const txnParams = {
-            from: accounts[0],
-            to: address,
-            value: amountWei,
-        };
-
-        try {
-            const txHash = await window.smartAccount.sendGaslessTransaction(txnParams);
-            if (txHash) {
-                notification.success({
-                    message: 'Gasless Send Successfully',
-                    description: txHash,
-                });
-            } else {
-                notification.error({
-                    message: 'Gasless Send Failure',
                     description: 'tx hash is null',
                 });
             }
@@ -155,15 +108,6 @@ function ERC4337SendETH(props: any) {
             <div className="form-submit">
                 <Button type="primary" loading={loading === 1} onClick={sendTransaction} disabled={!props.loginState}>
                     SEND
-                </Button>
-
-                <Button
-                    type="primary"
-                    loading={loading === 2}
-                    onClick={sendGaslessTransaction}
-                    disabled={!props.loginState}
-                >
-                    GASLESS SEND
                 </Button>
             </div>
         </div>

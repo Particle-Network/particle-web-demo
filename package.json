@@ -36,6 +36,7 @@
         "build": "lerna run build",
         "start:web3-react": "lerna run start --scope=web3-react-starter",
         "start:web-demo": "lerna run start --scope=web-demo",
+        "start:web-demo:authLocal": "lerna run start:authLocal --scope=web-demo",
         "deploy:web-demo": "./packages/web-demo/dev_deploy.sh",
         "deploy:staging:web-demo": "./packages/web-demo/staging_deploy.sh",
         "deploy:production:web-demo": "./packages/web-demo/production_deploy.sh",

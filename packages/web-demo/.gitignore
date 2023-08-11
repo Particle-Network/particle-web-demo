@@ -19,7 +19,7 @@
 .env.production.local
 .env.dev.local
 .env.pro.local
-.env.staging.local
+.env.*.local
 
 npm-debug.log*
 yarn-debug.log*
