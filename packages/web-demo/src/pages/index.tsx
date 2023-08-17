@@ -33,7 +33,7 @@ import {
     TwitterOutlined,
 } from '@ant-design/icons';
 import { bufferToHex } from '@ethereumjs/util';
-import { BiconomyWrapProvider, SendTransactionMode, SmartAccount } from '@particle-network/aa';
+import { AAWrapProvider, SendTransactionMode, SmartAccount } from '@particle-network/aa';
 import { ParticleProvider } from '@particle-network/provider';
 import { SolanaWallet } from '@particle-network/solana-wallet';
 import bs58 from 'bs58';
@@ -167,7 +167,7 @@ function Home() {
                 networkConfig,
             });
             window.smartAccount = smartAccount;
-            window.web3 = new Web3(new BiconomyWrapProvider(smartAccount, SendTransactionMode.UserSelect) as any);
+            window.web3 = new Web3(new AAWrapProvider(smartAccount, SendTransactionMode.UserSelect) as any);
         } else {
             window.web3 = new Web3(particleProvider as any);
         }
