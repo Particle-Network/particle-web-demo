@@ -3580,6 +3580,11 @@
   resolved "https://registry.yarnpkg.com/@particle-network/chains/-/chains-1.0.2.tgz#728f56ccc5cda9224baf8818a6a32162807258a1"
   integrity sha512-Fp57qIUe344rWXFbjGoCL2y4Khe4pusgPZzw+x8DcfzpZqCjgpVUh0gmcu8b1eSBJCrzk3UGDMNgEd4T91D50w==
 
+"@particle-network/chains@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@particle-network/chains/-/chains-1.0.3.tgz#1823cd155e7c7ae7af3618d3f92a2e762bdf1fd9"
+  integrity sha512-8AUWHU1fqUMyx2xOgxLrEDAgPCFoSZjir9PWrzin+6/9CcryBnRAv8rzPDlNSvCSxjnNFUDbYPFGwWC9Sy/vzg==
+
 "@particle-network/connect-react-ui@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@particle-network/connect-react-ui/-/connect-react-ui-1.0.1.tgz#a05bd22f8db95e27e61a6c3887eeb1865a257b8a"
