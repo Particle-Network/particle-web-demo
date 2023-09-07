@@ -1,0 +1,20 @@
+.content-body {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    padding: 30px;
+
+    .btn {
+        width: 200px;
+        height: 48px;
+        background-color: rgb(69, 69, 246);
+        color: white;
+        font-size: 20px;
+        font-weight: 500;
+        border-radius: 24px;
+        border: 0;
+    }
+}

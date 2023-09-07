@@ -1,6 +1,7 @@
 import React from 'react';
 import { useAccount, useConnect, useDisconnect } from 'wagmi';
 import { ParticleAuthConnector, ParticleOptions } from './particleAuth';
+import './proflie.scss';
 
 const particleOptions: ParticleOptions = {
     projectId: process.env.REACT_APP_PROJECT_ID as string,
@@ -17,44 +18,52 @@ export default function Profile() {
     });
     const { disconnect } = useDisconnect();
 
-    if (address)
-        return (
-            <div>
-                Connected to {address}
-                <button onClick={() => disconnect()}>Disconnect</button>
-            </div>
-        );
     return (
-        <div>
-            <button onClick={() => connect()}>Connect Wallet</button>
-            <button
-                onClick={() => {
-                    connect({
-                        connector: new ParticleAuthConnector({
-                            options: particleOptions,
-                            loginOptions: {
-                                preferredAuthType: 'google',
-                            },
-                        }),
-                    });
-                }}
-            >
-                Google
-            </button>
-            <button
-                onClick={() => {
-                    connect({
-                        connector: new ParticleAuthConnector({
-                            options: particleOptions,
-                            loginOptions: {
-                                preferredAuthType: 'twitter',
-                            },
-                        }),
-                    });
-                }}
-            >
-                Twitter
-            </button>
+        <div className="content-body">
+            {address ? (
+                <button className="btn" onClick={() => disconnect()}>
+                    Disconnect
+                </button>
+            ) : (
+                <>
+                    <button className="btn" onClick={() => connect()}>
+                        Connect Wallet
+                    </button>
+
+                    <button
+                        className="btn"
+                        onClick={() => {
+                            connect({
+                                connector: new ParticleAuthConnector({
+                                    options: particleOptions,
+                                    loginOptions: {
+                                        preferredAuthType: 'google',
+                                    },
+                                }),
+                            });
+                        }}
+                    >
+                        Google
+                    </button>
+                    <button
+                        className="btn"
+                        onClick={() => {
+                            connect({
+                                connector: new ParticleAuthConnector({
+                                    options: particleOptions,
+                                    loginOptions: {
+                                        preferredAuthType: 'twitter',
+                                    },
+                                }),
+                            });
+                        }}
+                    >
+                        Twitter
+                    </button>
+                </>
+            )}
+
+            {address && <div>Wallet Address: {address}</div>}
         </div>
     );
 }
