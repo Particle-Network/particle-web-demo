@@ -1,12 +1,23 @@
 import { Ethereum, EthereumGoerli } from '@particle-network/chains';
-import { ParticleConnect, metaMask, walletconnect } from '@particle-network/connect';
-import React, { useMemo, useState } from 'react';
-import './App.css';
+import {
+    ParticleConnect,
+    Provider,
+    coinbase,
+    isEVMProvider,
+    isSolanaProvider,
+    metaMask,
+    rainbow,
+    walletconnect,
+} from '@particle-network/connect';
+import { Button, Divider, Modal, message } from 'antd';
+import React, { useEffect, useMemo, useState } from 'react';
+import './App.scss';
 
 function App() {
-    const [provider, setProvider] = useState<any>();
-    const [phone, setPhone] = useState('');
-    const [email, setEmail] = useState('');
+    const [provider, setProvider] = useState<Provider>();
+
+    const [connectModal, setConnectModal] = useState(false);
+    const [address, setAddress] = useState<string>();
 
     const connectKit = useMemo(() => {
         return new ParticleConnect({
@@ -16,6 +27,8 @@ function App() {
             chains: [Ethereum, EthereumGoerli],
             wallets: [
                 metaMask({ projectId: process.env.REACT_APP_WALLETCONNECT_PROJECT_ID }),
+                rainbow({ projectId: process.env.REACT_APP_WALLETCONNECT_PROJECT_ID }),
+                coinbase(),
                 walletconnect({ projectId: process.env.REACT_APP_WALLETCONNECT_PROJECT_ID }),
             ],
         });
@@ -23,51 +36,163 @@ function App() {
 
     const connectWallet = async (id: string, options?: any) => {
         console.log('connectWallet', id, options);
+        setConnectModal(false);
         try {
             const connectProvider = await connectKit.connect(id, options);
             setProvider(connectProvider);
         } catch (error) {
             console.error('connectWallet', error);
+            message.error(error.message ?? error);
+        }
+    };
+
+    const disconnectWallet = async () => {
+        try {
+            await connectKit.disconnect({ hideLoading: true });
+        } catch (error) {
+            console.error(error);
+        }
+        setProvider(null);
+    };
+
+    useEffect(() => {
+        const id = connectKit.cachedProviderId();
+        if (id) {
+            connectKit
+                .connectToCachedProvider()
+                .then((provider) => {
+                    setProvider(provider);
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        } else {
+            setProvider(null);
+        }
+
+        const onDisconnect = () => {
+            setProvider(null);
+        };
+
+        connectKit.on('disconnect', onDisconnect);
+
+        return () => {
+            connectKit.removeListener('disconnect', onDisconnect);
+        };
+    }, [connectKit]);
+
+    useEffect(() => {
+        if (provider) {
+            getAddress();
+        } else {
+            setAddress(undefined);
+        }
+    }, [provider]);
+
+    const getAddress = async () => {
+        if (isEVMProvider(provider)) {
+            const addresses = await provider.request({ method: 'eth_accounts' });
+            setAddress(addresses[0]);
+        } else if (isSolanaProvider(provider)) {
+            const address = provider.publicKey.toBase58();
+            setAddress(address);
         }
     };
 
     return (
-        <div className="App">
-            <button className="btn" onClick={() => connectWallet('metamask')}>
-                MetaMask
-            </button>
-            <button className="btn" onClick={() => connectWallet('walletconnect_v2')}>
-                WalletConnect
-            </button>
-            <button className="btn" onClick={() => connectWallet('particle')}>
-                Particle
-            </button>
+        <div className="app">
+            <div className="app-title">Custom ConnectKit</div>
+            {provider !== undefined &&
+                (provider ? (
+                    <Button className="btn-action" size="large" type="primary" onClick={disconnectWallet}>
+                        Disconnect
+                    </Button>
+                ) : (
+                    <Button className="btn-action" size="large" type="primary" onClick={() => setConnectModal(true)}>
+                        Connect
+                    </Button>
+                ))}
 
-            <button className="btn" onClick={() => connectWallet('particle', { preferredAuthType: 'google' })}>
-                Connect With Google
-            </button>
-            <form>
-                {/* @ts-ignore */}
+            {address && <div className="address">{address}</div>}
 
-                <input onInput={(e) => setEmail(e.target.value)}></input>
-                <input
-                    className="btn"
-                    type="submit"
-                    value="Connect With Email"
-                    onClick={() => connectWallet('particle', { preferredAuthType: 'email', account: email })}
-                />
-            </form>
+            <Modal
+                className="connect-modal"
+                title="Connect Wallet"
+                open={connectModal}
+                onCancel={() => setConnectModal(false)}
+                footer
+                centered
+            >
+                <div className="wallet-items">
+                    <div onClick={() => connectWallet('metamask')}>
+                        MetaMask
+                        <img src={require('./assets/metamask_icon.png')} alt=""></img>
+                    </div>
+                    <div onClick={() => connectWallet('walletconnect_v2')}>
+                        WalletConnect <img src={require('./assets/walletconnect_icon.png')} alt=""></img>
+                    </div>
+                </div>
 
-            <form>
-                {/* @ts-ignore */}
-                <input onInput={(e) => setPhone(e.target.value)} />
-                <input
-                    className="btn"
-                    type="submit"
-                    value="Connect With Phone"
-                    onClick={() => connectWallet('particle', { preferredAuthType: 'phone', account: '+86' + phone })}
-                />
-            </form>
+                <Divider>Or connect with Particle Wallet</Divider>
+
+                <div className="particle-methods">
+                    <img
+                        onClick={() => connectWallet('particle', { preferredAuthType: 'email' })}
+                        src={require('./assets/email_icon.png')}
+                        alt=""
+                    ></img>
+                    <img
+                        onClick={() => connectWallet('particle', { preferredAuthType: 'phone' })}
+                        src={require('./assets/phone_icon.png')}
+                        alt=""
+                    ></img>
+                    <img
+                        onClick={() => connectWallet('particle', { preferredAuthType: 'twitter' })}
+                        src={require('./assets/twitter_icon.png')}
+                        alt=""
+                    ></img>
+                    <img
+                        onClick={() => connectWallet('particle', { preferredAuthType: 'google' })}
+                        src={require('./assets/google_icon.png')}
+                        alt=""
+                    ></img>
+                    <img
+                        onClick={() => connectWallet('particle', { preferredAuthType: 'apple' })}
+                        src={require('./assets/apple_icon.png')}
+                        alt=""
+                    ></img>
+                    <img
+                        onClick={() => connectWallet('particle', { preferredAuthType: 'facebook' })}
+                        src={require('./assets/facebook_icon.png')}
+                        alt=""
+                    ></img>
+                    <img
+                        onClick={() => connectWallet('particle', { preferredAuthType: 'discord' })}
+                        src={require('./assets/discord_icon.png')}
+                        alt=""
+                    ></img>
+                    <img
+                        onClick={() => connectWallet('particle', { preferredAuthType: 'github' })}
+                        src={require('./assets/github_icon.png')}
+                        alt=""
+                    ></img>
+                    <img
+                        onClick={() => connectWallet('particle', { preferredAuthType: 'linkedin' })}
+                        src={require('./assets/linkedin_icon.png')}
+                        alt=""
+                    ></img>
+                    <img
+                        onClick={() => connectWallet('particle', { preferredAuthType: 'microsoft' })}
+                        src={require('./assets/microsoft_icon.png')}
+                        alt=""
+                    ></img>
+                    <img
+                        onClick={() => connectWallet('particle', { preferredAuthType: 'twitch' })}
+                        src={require('./assets/twitch_icon.png')}
+                        alt=""
+                    ></img>
+                </div>
+            </Modal>
         </div>
     );
 }
