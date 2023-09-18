@@ -9,8 +9,8 @@ import {
     rainbow,
     walletconnect,
 } from '@particle-network/connect';
-import { Button, Divider, Modal, message } from 'antd';
-import React, { useEffect, useMemo, useState } from 'react';
+import { Button, Divider, Modal, message, notification } from 'antd';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import './App.scss';
 
 function App() {
@@ -89,6 +89,23 @@ function App() {
         }
     }, [provider]);
 
+    const personalSign = useCallback(async () => {
+        if (address && provider && isEVMProvider(provider)) {
+            try {
+                const result = await provider.request({
+                    method: 'personal_sign',
+                    params: ['0x48656c6c6f20576f726c64', address],
+                });
+                notification.success({
+                    message: 'Personal Sign',
+                    description: result,
+                });
+            } catch (error) {
+                console.log('personal_sign', error);
+            }
+        }
+    }, [provider, address]);
+
     const getAddress = async () => {
         if (isEVMProvider(provider)) {
             const addresses = await provider.request({ method: 'eth_accounts' });
@@ -113,7 +130,14 @@ function App() {
                     </Button>
                 ))}
 
-            {address && <div className="address">{address}</div>}
+            {address && (
+                <>
+                    <div className="address">{address}</div>
+                    <Button className="btn-action" size="large" type="primary" onClick={personalSign}>
+                        Personal Sign
+                    </Button>
+                </>
+            )}
 
             <Modal
                 className="connect-modal"
