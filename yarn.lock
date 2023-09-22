@@ -3564,10 +3564,10 @@
     hash.js "^1.1.7"
     uuidv4 "^6.2.13"
 
-"@particle-network/auth@*", "@particle-network/auth@>=1.2.0", "@particle-network/auth@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@particle-network/auth/-/auth-1.2.0.tgz#de37f1d6f86a3c89693c02a0a2ee10863033987e"
-  integrity sha512-etjcYLxr2n80t5d2ZtxUKECYyvQ4P0oC3VJqGQsy4gjphj3GHbfxa7LyRCJYnZjKoumrUaPbfS9+iJ3pAPzj/Q==
+"@particle-network/auth@*", "@particle-network/auth@>=1.2.0", "@particle-network/auth@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@particle-network/auth/-/auth-1.2.1.tgz#8a39b5ea370670d3db71ec3c00e789b216b6e537"
+  integrity sha512-8qgt9zSG1seF39osq/cM3kfwbJQJGi+Tpt7foF6swUjeftJJr5Lz44i1UgXr1MBdW89+qPE67NndxLrDaNgOxg==
   dependencies:
     "@particle-network/analytics" "^1.0.0"
     "@particle-network/chains" "*"
