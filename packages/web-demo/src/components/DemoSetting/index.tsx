@@ -5,7 +5,7 @@ import { ParticleChains, chains } from '@particle-network/chains';
 import { Button, Input, Modal, Slider, Switch, message, notification } from 'antd';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import networkConfig from '../../common/config/erc4337';
-import { customStyle as defCustomStyle } from '../../types/customStyle';
+// import { customStyle as defCustomStyle } from '../../types/customStyle';
 import { isJson } from '../../utils';
 import PnSelect from '../PnSelect';
 import './index.scss';
@@ -285,7 +285,7 @@ function DemoSetting(props: any) {
                     // @ts-ignore
                     onInput={(e) => setTextAreaStr(e.target.value)}
                     placeholder="Please input your wallet custom style, use default style if not set"
-                    defaultValue={customStyle || JSON.stringify(defCustomStyle)}
+                    defaultValue={customStyle || ''}
                 />
                 <div className="filter-input">
                     <Button
@@ -307,8 +307,8 @@ function DemoSetting(props: any) {
                                         setTextAreaStr(text);
                                         setCustomStyle(text);
                                     } else {
-                                        setCustomStyle(JSON.stringify(defCustomStyle));
-                                        setTextAreaStr(JSON.stringify(defCustomStyle));
+                                        setCustomStyle('');
+                                        setTextAreaStr('');
                                         localStorage.removeItem('customStyle');
                                     }
                                 } catch (e) {
