@@ -14,7 +14,7 @@ import { Badge, Button, Dropdown, Input, Menu, Popover, Switch, Tag, message, no
 import { useEffect, useMemo, useState } from 'react';
 import AccountAvatar from '../components/AccountAvatar/AuthAvatar';
 import DemoSetting from '../components/DemoSetting/index';
-import { customStyle as defCustomStyle } from '../types/customStyle';
+// import { customStyle as defCustomStyle } from '../types/customStyle';
 import { fromSunFormat } from '../utils/number-utils';
 
 import {
@@ -72,7 +72,8 @@ function Home() {
         ),
         promptSettingWhenSign: Number(localStorage.getItem('promptSettingWhenSign') || '1'),
         theme: localStorage.getItem('dapp_particle_theme') || 'light',
-        customStyle: localStorage.getItem('customStyle') || JSON.stringify(defCustomStyle),
+        // customStyle: localStorage.getItem('customStyle') || JSON.stringify(defCustomStyle),
+        customStyle: localStorage.getItem('customStyle'),
         modalBorderRadius: Number(localStorage.getItem('dapp_particle_modal_border_radius') || 10),
         walletEntrance:
             localStorage.getItem('dapp_particle_walletentrance') === 'true' ||
