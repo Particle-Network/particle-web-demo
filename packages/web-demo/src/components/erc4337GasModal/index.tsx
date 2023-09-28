@@ -80,7 +80,7 @@ const Erc4337GasModal = () => {
 
     const formatFeeQuote = (feeQuote: FeeQuote) => {
         try {
-            return `-${ethers.utils.formatUnits(feeQuote.balance, feeQuote.tokenInfo.decimals)}`;
+            return `-${ethers.utils.formatUnits(feeQuote.fee, feeQuote.tokenInfo.decimals)}`;
         } catch (error) {
             console.error(error);
             return '';
