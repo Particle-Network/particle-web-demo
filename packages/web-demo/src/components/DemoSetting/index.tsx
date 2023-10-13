@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { InfoCircleOutlined } from '@ant-design/icons';
-import { UIMode } from '@particle-network/auth';
+import { ERC4337Options, UIMode, isNullish } from '@particle-network/auth';
 import { ParticleChains, chains } from '@particle-network/chains';
 import { Button, Input, Modal, Slider, Switch, message, notification } from 'antd';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import networkConfig from '../../common/config/erc4337';
 // import { customStyle as defCustomStyle } from '../../types/customStyle';
+import aaOptions from '../../common/config/erc4337';
 import { isJson } from '../../utils';
 import PnSelect from '../PnSelect';
 import './index.scss';
@@ -13,7 +13,7 @@ import './index.scss';
 const { TextArea } = Input;
 
 function DemoSetting(props: any) {
-    const { onChange, value: demoSetting, particle, isLogin } = props;
+    const { onChange, value: demoSetting, particle } = props;
 
     const customTextArea = useRef(null);
     // params
@@ -23,7 +23,7 @@ function DemoSetting(props: any) {
     const [theme, setTheme] = useState<string>(demoSetting.theme);
     const [walletTheme, setWalletTheme] = useState<string>(demoSetting.walletTheme);
     const [walletEntrance, setWalletEntrance] = useState<boolean>(demoSetting.walletEntrance);
-    const [erc4337, setERC4337] = useState<boolean>(demoSetting.erc4337);
+    const [erc4337, setERC4337] = useState<boolean | ERC4337Options>(demoSetting.erc4337);
 
     const [promptSettingWhenSign, setPromptSettingWhenSign] = useState<number>(demoSetting.promptSettingWhenSign);
     const [promptMasterPasswordSettingWhenLogin, setPromptMasterPasswordSettingWhenLogin] = useState<number>(
@@ -31,7 +31,7 @@ function DemoSetting(props: any) {
     );
     const [customStyle, setCustomStyle] = useState<string>(demoSetting.customStyle);
     const [textAreaStr, setTextAreaStr] = useState<string>(customStyle);
-    const [enableERC4337Prompt, setEnableERC4337Prompt] = useState<boolean>(false);
+    const [enableERC4337Prompt, setEnableERC4337Prompt] = useState<string>();
 
     const [fiatCoin, setFiatCoin] = useState<string>(localStorage.getItem('web_demo_fiat_coin') || 'USD');
 
@@ -39,6 +39,7 @@ function DemoSetting(props: any) {
     const LanguageOptions = ['en', 'zh-CN', 'zh-TW', 'ja', 'ko'];
     const ThemeOptions = ['light', 'dark'];
     const FiatCoinOptions = ['USD', 'CNY', 'JPY', 'HKD', 'INR', 'KRW'];
+    const ERC4337Types = ['DISABLE', 'BICONOMY', 'CYBERCONNECT', 'SIMPLE'];
     const SettingWhenLoginOption = [
         { value: '0', label: 'None' },
         { value: '1', label: 'Once' },
@@ -46,11 +47,25 @@ function DemoSetting(props: any) {
         { value: '3', label: 'Force' },
     ];
 
+    const aaNetworkConfig = useMemo(() => {
+        if (typeof erc4337 === 'boolean') {
+            return [];
+        } else {
+            if (erc4337.name === 'BICONOMY') {
+                return aaOptions.biconomy;
+            } else if (erc4337.name === 'CYBERCONNECT') {
+                return aaOptions.cyberConnect;
+            } else {
+                return aaOptions.simple;
+            }
+        }
+    }, [erc4337]);
+
     const chainOptions = useMemo(() => {
         const options = chains.getAllChainInfos();
         if (erc4337) {
             return options.filter(
-                (item) => item.chainType === 'evm' && networkConfig.some((config) => config.chainId === item.id)
+                (item) => item.chainType === 'evm' && aaNetworkConfig.some((config) => config.chainId === item.id)
             );
         }
         return options;
@@ -128,13 +143,56 @@ function DemoSetting(props: any) {
         localStorage.setItem('dapp_particle_modal_border_radius', modalBorderRadius + '');
     }, [modalBorderRadius]);
 
-    const onERC4337Change = (enable: boolean) => {
+    const onERC4337Change = (typeName: string) => {
         const currentChain = ParticleChains[chainKey];
-        if (!enable || networkConfig.some((config) => config.chainId === currentChain.id)) {
-            localStorage.setItem('dapp_particle_erc4337', enable.toString());
-            setERC4337(enable);
+        if (typeName === ERC4337Types[0]) {
+            localStorage.setItem('dapp_particle_erc4337_option', 'false');
+            setERC4337(false);
         } else {
-            setEnableERC4337Prompt(true);
+            //'SIMPLE' | 'CYBERCONNECT' | 'BICONOMY'
+            let aaSupportChains;
+            if (typeName === 'BICONOMY') {
+                aaSupportChains = aaOptions.biconomy?.map((item) => item.chainId);
+            } else if (typeName === 'CYBERCONNECT') {
+                aaSupportChains = aaOptions.cyberConnect?.map((item) => item.chainId);
+            } else {
+                aaSupportChains = aaOptions.simple?.map((item) => item.chainId);
+            }
+            if (aaSupportChains.includes(currentChain.id)) {
+                localStorage.setItem(
+                    'dapp_particle_erc4337_option',
+                    JSON.stringify({
+                        name: typeName,
+                        version: '1.0.0',
+                    })
+                );
+                setERC4337({
+                    name: typeName as any,
+                    version: '1.0.0',
+                });
+            } else {
+                setEnableERC4337Prompt(typeName);
+            }
+        }
+    };
+
+    const switchChainAndEnableErc4337 = async (typeName: string) => {
+        let firstChainId;
+        if (typeName === 'BICONOMY') {
+            firstChainId = aaOptions.biconomy[0].chainId;
+        } else if (typeName === 'CYBERCONNECT') {
+            firstChainId = aaOptions.cyberConnect[0].chainId;
+        } else {
+            firstChainId = aaOptions.simple[0].chainId;
+        }
+        const chain = chains.getEVMChainInfoById(firstChainId);
+        if (chain) {
+            await switchChain(`${chain.name.toLowerCase()}-${chain.id}`);
+            setERC4337({
+                name: typeName as any,
+                version: '1.0.0',
+            });
+            setEnableERC4337Prompt(undefined);
         }
     };
 
@@ -199,12 +257,15 @@ function DemoSetting(props: any) {
                 ></PnSelect>
             </div>
             <div className="filter-item">
-                <div className="filter-label">
-                    ERC-4337:{' '}
-                    <div style={{ display: 'inline-block' }}>
-                        <Switch defaultChecked={erc4337} checked={erc4337} onChange={onERC4337Change}></Switch>
-                    </div>
-                </div>
+                <div className="filter-label">ERC-4337</div>
+                <PnSelect
+                    value={typeof erc4337 === 'boolean' ? ERC4337Types[0] : erc4337.name}
+                    onChange={onERC4337Change}
+                    options={ERC4337Types.map((item) => ({
+                        label: item,
+                        value: item,
+                    }))}
+                ></PnSelect>
             </div>
             <div className="filter-item">
                 <div className="filter-label">
@@ -323,17 +384,13 @@ function DemoSetting(props: any) {
             </div>
             <Modal
                 title="Enable ERC-4337 Prompt"
-                open={enableERC4337Prompt}
+                open={!isNullish(enableERC4337Prompt)}
                 centered
-                onCancel={() => setEnableERC4337Prompt(false)}
-                onOk={async () => {
-                    await switchChain('ethereum-1');
-                    setERC4337(true);
-                    setEnableERC4337Prompt(false);
-                }}
+                onCancel={() => setEnableERC4337Prompt(undefined)}
+                onOk={() => switchChainAndEnableErc4337(enableERC4337Prompt!)}
             >
-                The current chain does not support ERC-4337, click OK to automatically switch to Ethereum and enable
-                ERC-4337.
+                {`${enableERC4337Prompt} not support current chain, click OK to automatically switch chain and enable
+                ERC-4337.`}
             </Modal>
         </div>
     );

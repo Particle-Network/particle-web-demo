@@ -39,7 +39,7 @@ import { SolanaWallet } from '@particle-network/solana-wallet';
 import bs58 from 'bs58';
 import QRCode from 'qrcode.react';
 import Web3 from 'web3';
-import networkConfig from '../common/config/erc4337';
+import aaOptions from '../common/config/erc4337';
 import EVM from '../components/EVM';
 import Solana from '../components/Solana';
 import { DiscordIcon } from './icon';
@@ -80,7 +80,7 @@ function Home() {
             isNullish(localStorage.getItem('dapp_particle_walletentrance')),
         walletTheme: localStorage.getItem('dapp_particle_wallettheme') || 'light',
         fiatCoin: localStorage.getItem('web_demo_fiat_coin') || 'USD',
-        erc4337: localStorage.getItem('dapp_particle_erc4337') === 'true',
+        erc4337: JSON.parse(localStorage.getItem('dapp_particle_erc4337_option') ?? 'false'),
     });
 
     useEffect(() => {
@@ -140,7 +140,7 @@ function Home() {
 
         particle.setFiatCoin((fiatCoin as any) || 'USD');
 
-        particle.setERC4337(erc4337);
+        particle.setERC4337(erc4337 as any);
 
         particle.auth.on('chainChanged', chainChanged);
         particle.auth.on('disconnect', disconnect);
@@ -165,8 +165,9 @@ function Home() {
                 projectId: process.env.REACT_APP_PROJECT_ID as string,
                 clientKey: process.env.REACT_APP_CLIENT_KEY as string,
                 appId: process.env.REACT_APP_APP_ID as string,
-                networkConfig,
+                aaOptions,
             });
+            smartAccount.setSmartAccountType(erc4337.name)
             window.smartAccount = smartAccount;
             window.web3 = new Web3(new AAWrapProvider(smartAccount, SendTransactionMode.UserSelect) as any);
         } else {
