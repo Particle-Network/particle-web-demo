@@ -22,47 +22,38 @@ const aaOptions = {
     biconomy: [
         {
             chainId: Ethereum.id,
-            apiKey: process.env.REACT_APP_BICONOMY_ETHEREUM as string,
             version: '1.0.0',
         },
         {
             chainId: EthereumGoerli.id,
-            apiKey: process.env.REACT_APP_BICONOMY_GOERLIAPI as string,
             version: '1.0.0',
         },
         {
             chainId: Polygon.id,
-            apiKey: process.env.REACT_APP_BICONOMY_POLYGON as string,
             version: '1.0.0',
         },
         {
             chainId: PolygonMumbai.id,
-            apiKey: process.env.REACT_APP_BICONOMY_POLYGON_MUMBAI as string,
             version: '1.0.0',
         },
         {
             chainId: BNBChain.id,
-            apiKey: process.env.REACT_APP_BICONOMY_BSC_MAINNET as string,
             version: '1.0.0',
         },
         {
             chainId: BNBChainTestnet.id,
-            apiKey: process.env.REACT_APP_BICONOMY_BSC_TESTNET as string,
             version: '1.0.0',
         },
         {
             chainId: ArbitrumOne.id,
-            apiKey: process.env.REACT_APP_BICONOMY_ARBITRUM_ONE as string,
             version: '1.0.0',
         },
         {
             chainId: ArbitrumNova.id,
-            apiKey: process.env.REACT_APP_BICONOMY_ARBITRUM_NOVA as string,
             version: '1.0.0',
         },
         {
             chainId: ArbitrumGoerli.id,
-            apiKey: process.env.REACT_APP_BICONOMY_ARBITRUM_ONE_GOERLI as string,
             version: '1.0.0',
         },
 
@@ -76,32 +67,26 @@ const aaOptions = {
         // },
         {
             chainId: AvalancheTestnet.id,
-            apiKey: process.env.REACT_APP_BICONOMY_AVALANCHE_TESTNET as string,
             version: '1.0.0',
         },
         {
             chainId: Avalanche.id,
-            apiKey: process.env.REACT_APP_BICONOMY_AVALANCHE as string,
             version: '1.0.0',
         },
         {
             chainId: OptimismGoerli.id,
-            apiKey: process.env.REACT_APP_BICONOMY_OPTIMISM_GOERLI as string,
             version: '1.0.0',
         },
         {
             chainId: Optimism.id,
-            apiKey: process.env.REACT_APP_BICONOMY_OPTIMISM as string,
             version: '1.0.0',
         },
         {
             chainId: Base.id,
-            apiKey: process.env.REACT_APP_BICONOMY_BASE as string,
             version: '1.0.0',
         },
         {
             chainId: BaseGoerli.id,
-            apiKey: process.env.REACT_APP_BICONOMY_BASE_GOERLI as string,
             version: '1.0.0',
         },
         // {
@@ -232,6 +217,81 @@ const aaOptions = {
             chainId: 5000,
             version: '1.0.0',
         },
+    ],
+    paymasterApiKeys: [
+        {
+            chainId: Ethereum.id,
+            apiKey: process.env.REACT_APP_BICONOMY_ETHEREUM as string,
+        },
+        {
+            chainId: EthereumGoerli.id,
+            apiKey: process.env.REACT_APP_BICONOMY_GOERLIAPI as string,
+        },
+        {
+            chainId: Polygon.id,
+            apiKey: process.env.REACT_APP_BICONOMY_POLYGON as string,
+        },
+        {
+            chainId: PolygonMumbai.id,
+            apiKey: process.env.REACT_APP_BICONOMY_POLYGON_MUMBAI as string,
+        },
+        {
+            chainId: BNBChain.id,
+            apiKey: process.env.REACT_APP_BICONOMY_BSC_MAINNET as string,
+        },
+        {
+            chainId: BNBChainTestnet.id,
+            apiKey: process.env.REACT_APP_BICONOMY_BSC_TESTNET as string,
+        },
+        {
+            chainId: ArbitrumOne.id,
+            apiKey: process.env.REACT_APP_BICONOMY_ARBITRUM_ONE as string,
+        },
+        {
+            chainId: ArbitrumNova.id,
+            apiKey: process.env.REACT_APP_BICONOMY_ARBITRUM_NOVA as string,
+        },
+        {
+            chainId: ArbitrumGoerli.id,
+            apiKey: process.env.REACT_APP_BICONOMY_ARBITRUM_ONE_GOERLI as string,
+        },
+
+        // {
+        //     chainId: PolygonzkEVMTestnet.id,
+        //     apiKey: process.env.REACT_APP_BICONOMY_POLYGON_ZKEVM_TESTNET as string,
+        // },
+        // {
+        //     chainId: PolygonzkEVM.id,
+        //     apiKey: process.env.REACT_APP_BICONOMY_POLYGON_ZKEVM as string,
+        // },
+        {
+            chainId: AvalancheTestnet.id,
+            apiKey: process.env.REACT_APP_BICONOMY_AVALANCHE_TESTNET as string,
+        },
+        {
+            chainId: Avalanche.id,
+            apiKey: process.env.REACT_APP_BICONOMY_AVALANCHE as string,
+        },
+        {
+            chainId: OptimismGoerli.id,
+            apiKey: process.env.REACT_APP_BICONOMY_OPTIMISM_GOERLI as string,
+        },
+        {
+            chainId: Optimism.id,
+            apiKey: process.env.REACT_APP_BICONOMY_OPTIMISM as string,
+        },
+        {
+            chainId: Base.id,
+            apiKey: process.env.REACT_APP_BICONOMY_BASE as string,
+        },
+        {
+            chainId: BaseGoerli.id,
+            apiKey: process.env.REACT_APP_BICONOMY_BASE_GOERLI as string,
+        },
+        // {
+        //     chainId: LineaGoerli.id,
+        //     apiKey: process.env.REACT_APP_BICONOMY_LINEA_TESTNET as string,
+        // },
     ],
 };
 
