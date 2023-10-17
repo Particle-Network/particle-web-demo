@@ -177,6 +177,10 @@ const aaOptions = {
             version: '1.0.0',
         },
         {
+            chainId: 59144,
+            version: '1.0.0',
+        },
+        {
             chainId: 59140,
             version: '1.0.0',
         },
