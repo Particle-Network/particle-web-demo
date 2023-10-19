@@ -204,6 +204,30 @@ const aaOptions = {
             chainId: 5000,
             version: '1.0.0',
         },
+        {
+            chainId: 167007,
+            version: '1.0.0',
+        },
+        {
+            chainId: 534352,
+            version: '1.0.0',
+        },
+        {
+            chainId: 43114,
+            version: '1.0.0',
+        },
+        {
+            chainId: 43113,
+            version: '1.0.0',
+        },
+        {
+            chainId: 8453,
+            version: '1.0.0',
+        },
+        {
+            chainId: 84531,
+            version: '1.0.0',
+        },
     ],
     paymasterApiKeys: [
         {
