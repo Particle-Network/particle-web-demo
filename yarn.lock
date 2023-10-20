@@ -3575,15 +3575,10 @@
     buffer "^6.0.3"
     draggabilly "^3.0.0"
 
-"@particle-network/chains@*":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@particle-network/chains/-/chains-1.2.0.tgz#f05948e670df0bba79618d6cac2297ea6b9d9f27"
-  integrity sha512-ZjtwyXzW2XIxMCaxZW2+JUv/M5BVEzUoUoPIQACuW+ma8N29yEKaOwKSCADKUT07PBex7uuuT522zQsuFjgV8w==
-
-"@particle-network/chains@^1.2.2":
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/@particle-network/chains/-/chains-1.2.2.tgz#4746cfbad95b7fd8d572b76d1586f8ce95b56c8d"
-  integrity sha512-GyDDWmyNGxvzQ/roQDBR+LP8VGKfwti/qJc8aXYsdYkO3e6ogunqaUEKl4jjVolGJFh6UPweMCOI1FPYJmgSAg==
+"@particle-network/chains@*", "@particle-network/chains@^1.2.3":
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/@particle-network/chains/-/chains-1.2.3.tgz#d359b8a8fc5970cb123a306d487ae13823ff725e"
+  integrity sha512-1XBo33WWSV00C1JwejaLJiD9qoG3Vvb/251IELC8l5W69Sd7EJN9AbzK9A1Piw0toI9qhX/IKWzmBnEC8ZPcuA==
 
 "@particle-network/connect-react-ui@^1.2.0":
   version "1.2.0"
