@@ -1,6 +1,6 @@
 {
     "name": "web-demo",
-    "version": "1.2.0",
+    "version": "1.2.3",
     "private": true,
     "dependencies": {
         "@ethereumjs/tx": "^3.5.2",
