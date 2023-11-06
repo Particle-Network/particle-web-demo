@@ -1,8 +1,6 @@
 import { WalletEntryPosition } from '@particle-network/auth';
 import {
     Avalanche,
-    BSC,
-    BSCTestnet,
     Ethereum,
     EthereumGoerli,
     KCCTestnet,
@@ -12,7 +10,7 @@ import {
     PlatON,
     Polygon,
     Solana,
-} from '@particle-network/common';
+} from '@particle-network/chains';
 import { evmWallets, solanaWallets } from '@particle-network/connect';
 import { ModalProvider } from '@particle-network/connect-react-ui';
 import '@particle-network/connect-react-ui/esm/index.css';
@@ -44,11 +42,9 @@ function MyApp({ Component, pageProps }: any) {
                     Moonriver,
                     Avalanche,
                     Polygon,
-                    BSC,
                     Ethereum,
                     EthereumGoerli,
                     Solana,
-                    BSCTestnet,
                     KCCTestnet,
                 ],
                 particleWalletEntry: {
