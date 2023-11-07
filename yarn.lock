@@ -3575,10 +3575,10 @@
     buffer "^6.0.3"
     draggabilly "^3.0.0"
 
-"@particle-network/chains@*", "@particle-network/chains@^1.3.0":
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/@particle-network/chains/-/chains-1.3.0.tgz#49bb27d093e3e647194d08166ef010d74e17cd45"
-  integrity sha512-KId6Ko06yWp0CoVLCoQ2zu1ePHgs3tHm0/t81xflVyWmwd62ChKt+eFADQY+/CyVqK61HBN7Jlq2BQghXKK/iA==
+"@particle-network/chains@*", "@particle-network/chains@^1.3.1":
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/@particle-network/chains/-/chains-1.3.1.tgz#ca869475a4666318425834166a22fbb6eeb4ce77"
+  integrity sha512-HGtwhj6nyLrbH0ZO7XjSvYQ0UZ7mfNPOPTy44o7Qu3gUpukBZdg71iqg6B8zOr6TAsRQMYUOU9/i0FXKx9gaCg==
 
 "@particle-network/connect-react-ui@^1.2.1":
   version "1.2.1"
