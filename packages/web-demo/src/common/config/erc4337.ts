@@ -1,258 +1,43 @@
+const options = {
+    BICONOMY: {
+        SUPPORTED_CHAIN_IDS: [
+            1, 5, 137, 80001, 56, 97, 42161, 42170, 421613, 10, 420, 43114, 43113, 8453, 84531, 1101, 1442, 59140,
+        ],
+        BATCH_TX: true,
+    },
+    SIMPLE: {
+        SUPPORTED_CHAIN_IDS: [
+            1, 5, 11155111, 137, 80001, 56, 97, 204, 5611, 42161, 42170, 421613, 43114, 43113, 8453, 84531, 59144,
+            59140, 10, 420, 169, 3441005, 5000, 5001, 534352, 534351, 100, 10200, 424, 58008, 88, 89, 1284, 1285, 1287,
+            1101, 1442, 250, 4002, 91715, 167007, 195, 1261120, 12008, 12015, 12021,
+        ],
+        BATCH_TX: true,
+    },
+    CYBERCONNECT: {
+        SUPPORTED_CHAIN_IDS: [10, 420, 137, 80001, 8453, 84531, 59144, 59140, 42161, 421613, 204, 5611],
+        BATCH_TX: false,
+    },
+};
+
 const aaOptions = {
-    biconomy: [
-        {
-            chainId: 1,
+    biconomy: options.BICONOMY.SUPPORTED_CHAIN_IDS.map((chainId) => {
+        return {
+            chainId,
             version: '1.0.0',
-        },
-        {
-            chainId: 5,
+        };
+    }),
+    cyberConnect: options.CYBERCONNECT.SUPPORTED_CHAIN_IDS.map((chainId) => {
+        return {
+            chainId,
             version: '1.0.0',
-        },
-        {
-            chainId: 137,
+        };
+    }),
+    simple: options.SIMPLE.SUPPORTED_CHAIN_IDS.map((chainId) => {
+        return {
+            chainId,
             version: '1.0.0',
-        },
-        {
-            chainId: 80001,
-            version: '1.0.0',
-        },
-        {
-            chainId: 56,
-            version: '1.0.0',
-        },
-        {
-            chainId: 97,
-            version: '1.0.0',
-        },
-        {
-            chainId: 42161,
-            version: '1.0.0',
-        },
-        {
-            chainId: 42170,
-            version: '1.0.0',
-        },
-        {
-            chainId: 421613,
-            version: '1.0.0',
-        },
-        {
-            chainId: 10,
-            version: '1.0.0',
-        },
-        {
-            chainId: 420,
-            version: '1.0.0',
-        },
-        {
-            chainId: 43114,
-            version: '1.0.0',
-        },
-        {
-            chainId: 43113,
-            version: '1.0.0',
-        },
-        {
-            chainId: 8453,
-            version: '1.0.0',
-        },
-        {
-            chainId: 84531,
-            version: '1.0.0',
-        },
-        {
-            chainId: 59140,
-            version: '1.0.0',
-        },
-    ],
-    cyberConnect: [
-        {
-            chainId: 10,
-            version: '1.0.0',
-        },
-        {
-            chainId: 420,
-            version: '1.0.0',
-        },
-        {
-            chainId: 137,
-            version: '1.0.0',
-        },
-        {
-            chainId: 80001,
-            version: '1.0.0',
-        },
-        {
-            chainId: 8453,
-            version: '1.0.0',
-        },
-        {
-            chainId: 84531,
-            version: '1.0.0',
-        },
-        {
-            chainId: 59144,
-            version: '1.0.0',
-        },
-        {
-            chainId: 59140,
-            version: '1.0.0',
-        },
-        {
-            chainId: 42161,
-            version: '1.0.0',
-        },
-        {
-            chainId: 421613,
-            version: '1.0.0',
-        },
-        {
-            chainId: 204,
-            version: '1.0.0',
-        },
-        {
-            chainId: 5611,
-            version: '1.0.0',
-        },
-    ],
-    simple: [
-        {
-            chainId: 1,
-            version: '1.0.0',
-        },
-        {
-            chainId: 10,
-            version: '1.0.0',
-        },
-        {
-            chainId: 42161,
-            version: '1.0.0',
-        },
-        {
-            chainId: 42170,
-            version: '1.0.0',
-        },
-        {
-            chainId: 421613,
-            version: '1.0.0',
-        },
-        {
-            chainId: 137,
-            version: '1.0.0',
-        },
-        {
-            chainId: 80001,
-            version: '1.0.0',
-        },
-        {
-            chainId: 5,
-            version: '1.0.0',
-        },
-        {
-            chainId: 11155111,
-            version: '1.0.0',
-        },
-        {
-            chainId: 56,
-            version: '1.0.0',
-        },
-        {
-            chainId: 97,
-            version: '1.0.0',
-        },
-        {
-            chainId: 204,
-            version: '1.0.0',
-        },
-        {
-            chainId: 5611,
-            version: '1.0.0',
-        },
-        {
-            chainId: 534351,
-            version: '1.0.0',
-        },
-        {
-            chainId: 91715,
-            version: '1.0.0',
-        },
-        {
-            chainId: 59144,
-            version: '1.0.0',
-        },
-        {
-            chainId: 59140,
-            version: '1.0.0',
-        },
-        {
-            chainId: 420,
-            version: '1.0.0',
-        },
-        {
-            chainId: 3441005,
-            version: '1.0.0',
-        },
-        {
-            chainId: 169,
-            version: '1.0.0',
-        },
-        {
-            chainId: 5001,
-            version: '1.0.0',
-        },
-        {
-            chainId: 5000,
-            version: '1.0.0',
-        },
-        {
-            chainId: 167007,
-            version: '1.0.0',
-        },
-        {
-            chainId: 534352,
-            version: '1.0.0',
-        },
-        {
-            chainId: 43114,
-            version: '1.0.0',
-        },
-        {
-            chainId: 43113,
-            version: '1.0.0',
-        },
-        {
-            chainId: 8453,
-            version: '1.0.0',
-        },
-        {
-            chainId: 84531,
-            version: '1.0.0',
-        },
-        {
-            chainId: 100,
-            version: '1.0.0',
-        },
-        {
-            chainId: 10200,
-            version: '1.0.0',
-        },
-        {
-            chainId: 424,
-            version: '1.0.0',
-        },
-        {
-            chainId: 58008,
-            version: '1.0.0',
-        },
-        {
-            chainId: 195,
-            version: '1.0.0',
-        },
-        {
-            chainId: 1261120,
-            version: '1.0.0',
-        },
-    ],
+        };
+    }),
     paymasterApiKeys: [
         {
             chainId: 1,
