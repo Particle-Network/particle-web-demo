@@ -1,0 +1,138 @@
+.page-container {
+    padding: 0;
+    background-color: #f6f6f6;
+    font-family: sans-serif;
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; 
+    padding: 10px 20px;
+    background-color: #ffffff;
+    width: 100%;
+  }
+  
+  .logo-img {
+    height: 50px;
+    width: auto;
+  }
+  
+  .demo-text {
+    font-size: 24px;
+    margin-left: 10px;
+    font-weight: bold;
+  }
+  
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+  }
+  
+  .grid-item {
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    padding: 0;
+    border-radius: 8px;
+    position: relative;
+    margin: 1rem;
+    transition: transform 0.3s;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .grid-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .thumbnail {
+    width: 100%;
+    padding-top: 50%;
+    background-size: cover;
+    background-position: center;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
+  
+  .demo-name {
+    font-weight: bold;
+    font-size: 1.5rem;
+    padding-left: 5%;
+  }
+  
+  .icon-container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  
+  .play-button {
+    background-color: rgba(0, 0, 0, 0.2);
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .play-button:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+    width: 0;
+    height: 0;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-left: 12px solid white;
+  }
+  
+  .play-button:hover {
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  
+  .play-button:focus {
+    outline: none;
+  }
+  
+  .github-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  
+  .github-icon:hover {
+    opacity: 0.8;
+  }
+  
+  .box {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .bottom-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  
