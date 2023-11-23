@@ -380,6 +380,14 @@ function Home() {
             ),
             key: 'BrowserDemo',
         },
+        {
+            label: (
+                <a href="/other" target="_blank" rel="noopener noreferrer">
+                    Other
+                </a>
+            ),
+            key: 'Other',
+        },
     ];
 
     const ConnectButtonFC = () => {
@@ -490,6 +498,7 @@ function Home() {
             <p onClick={() => openWindow('/rainbowKit')}>RainbowKit</p>
             <p onClick={() => openWindow('/web3Modal')}>Web3Modal</p>
             <p onClick={() => openWindow('https://static.particle.network/sdks/web/index.html')}>BrowserDemo</p>
+            <p onClick={() => openWindow('/other')}>Other</p>
         </div>
     );
 

@@ -7,6 +7,7 @@ import PageQrcode from './pages/qrcode';
 import PageRainbowKit from './pages/rainbowKit';
 import PageWeb3Modal from './pages/web3Modal';
 import PageWebRedirect from './pages/webRedirect';
+import PageOther from './pages/other';
 
 // TODO:set debug for internal test, developer must remove it.
 window.__PARTICLE_ENVIRONMENT__ = process.env.REACT_APP_PARTICLE_ENV;
@@ -21,6 +22,7 @@ function App() {
                 <Route path="/web3Modal" element={<PageWeb3Modal />} />
                 <Route path="/connectKit" element={<PageConnectKit />} />
                 <Route path="/qrcode" element={<PageQrcode />} />
+                <Route path="/other" element={<PageOther />} />
                 <Route path="/webRedirect" element={<PageWebRedirect />} />
                 <Route path="*" element={<Page404 />} />
             </Routes>
