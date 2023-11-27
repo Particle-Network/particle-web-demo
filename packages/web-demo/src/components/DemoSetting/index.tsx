@@ -4,7 +4,6 @@ import { ERC4337Options, UIMode, isNullish } from '@particle-network/auth';
 import { ParticleChains, chains } from '@particle-network/chains';
 import { Button, Input, Modal, Slider, Switch, message, notification } from 'antd';
 import { useEffect, useMemo, useRef, useState } from 'react';
-// import { customStyle as defCustomStyle } from '../../types/customStyle';
 import aaOptions from '../../common/config/erc4337';
 import { isJson } from '../../utils';
 import PnSelect from '../PnSelect';
@@ -23,7 +22,7 @@ function DemoSetting(props: any) {
     const [theme, setTheme] = useState<string>(demoSetting.theme);
     const [walletTheme, setWalletTheme] = useState<string>(demoSetting.walletTheme);
     const [walletEntrance, setWalletEntrance] = useState<boolean>(demoSetting.walletEntrance);
-    const [erc4337, setERC4337] = useState<boolean | ERC4337Options>(demoSetting.erc4337);
+    const [erc4337, setERC4337] = useState<ERC4337Options | undefined>(demoSetting.erc4337);
 
     const [promptSettingWhenSign, setPromptSettingWhenSign] = useState<number>(demoSetting.promptSettingWhenSign);
     const [promptMasterPasswordSettingWhenLogin, setPromptMasterPasswordSettingWhenLogin] = useState<number>(
@@ -31,7 +30,7 @@ function DemoSetting(props: any) {
     );
     const [customStyle, setCustomStyle] = useState<string>(demoSetting.customStyle);
     const [textAreaStr, setTextAreaStr] = useState<string>(customStyle);
-    const [enableERC4337Prompt, setEnableERC4337Prompt] = useState<string>();
+    const [enableERC4337Prompt, setEnableERC4337Prompt] = useState<ERC4337Options>();
 
     const [fiatCoin, setFiatCoin] = useState<string>(localStorage.getItem('web_demo_fiat_coin') || 'USD');
 
@@ -39,7 +38,7 @@ function DemoSetting(props: any) {
     const LanguageOptions = ['en', 'zh-CN', 'zh-TW', 'ja', 'ko'];
     const ThemeOptions = ['light', 'dark'];
     const FiatCoinOptions = ['USD', 'CNY', 'JPY', 'HKD', 'INR', 'KRW'];
-    const ERC4337Types = ['DISABLE', 'BICONOMY', 'CYBERCONNECT', 'SIMPLE'];
+    const ERC4337Types = ['DISABLE', 'BICONOMY 1.0.0', 'BICONOMY 2.0.0', 'CYBERCONNECT 1.0.0', 'SIMPLE 1.0.0'];
     const SettingWhenLoginOption = [
         { value: '0', label: 'None' },
         { value: '1', label: 'Once' },
@@ -47,26 +46,13 @@ function DemoSetting(props: any) {
         { value: '3', label: 'Force' },
     ];
 
-    const aaNetworkConfig = useMemo(() => {
-        if (typeof erc4337 === 'boolean') {
-            return [];
-        } else {
-            if (erc4337.name === 'BICONOMY') {
-                return aaOptions.biconomy;
-            } else if (erc4337.name === 'CYBERCONNECT') {
-                return aaOptions.cyberConnect;
-            } else {
-                return aaOptions.simple;
-            }
-        }
-    }, [erc4337]);
-
     const chainOptions = useMemo(() => {
         const options = chains.getAllChainInfos();
         if (erc4337) {
-            return options.filter(
-                (item) => item.chainType === 'evm' && aaNetworkConfig.some((config) => config.chainId === item.id)
-            );
+            const aaSupportChains = aaOptions.accountContracts[erc4337.name].find(
+                (item) => item.version === erc4337.version
+            )!.chainIds;
+            return options.filter((item) => item.chainType === 'evm' && aaSupportChains.some((id) => id === item.id));
         }
         return options;
     }, [erc4337]);
@@ -143,55 +129,36 @@ function DemoSetting(props: any) {
         localStorage.setItem('dapp_particle_modal_border_radius', modalBorderRadius + '');
     }, [modalBorderRadius]);
 
-    const onERC4337Change = (typeName: string) => {
+    const onERC4337Change = (value: String) => {
+        const [name, version] = value.split(' ');
+        if (name === ERC4337Types[0]) {
+            localStorage.removeItem('dapp_particle_erc4337_contract');
+            setERC4337(undefined);
+            return;
+        }
+        const options: ERC4337Options = {
+            name: name as any,
+            version,
+        };
         const currentChain = ParticleChains[chainKey];
-        if (typeName === ERC4337Types[0]) {
-            localStorage.setItem('dapp_particle_erc4337_option', 'false');
-            setERC4337(false);
+        const aaSupportChains = aaOptions.accountContracts[options.name]?.find(
+            (item) => item.version === options.version
+        )?.chainIds;
+        if (aaSupportChains?.includes(currentChain.id)) {
+            localStorage.setItem('dapp_particle_erc4337_contract', JSON.stringify(options));
+            setERC4337(options);
         } else {
-            //'SIMPLE' | 'CYBERCONNECT' | 'BICONOMY'
-            let aaSupportChains;
-            if (typeName === 'BICONOMY') {
-                aaSupportChains = aaOptions.biconomy?.map((item) => item.chainId);
-            } else if (typeName === 'CYBERCONNECT') {
-                aaSupportChains = aaOptions.cyberConnect?.map((item) => item.chainId);
-            } else {
-                aaSupportChains = aaOptions.simple?.map((item) => item.chainId);
-            }
-            if (aaSupportChains.includes(currentChain.id)) {
-                localStorage.setItem(
-                    'dapp_particle_erc4337_option',
-                    JSON.stringify({
-                        name: typeName,
-                        version: '1.0.0',
-                    })
-                );
-                setERC4337({
-                    name: typeName as any,
-                    version: '1.0.0',
-                });
-            } else {
-                setEnableERC4337Prompt(typeName);
-            }
+            setEnableERC4337Prompt(options);
         }
     };
 
-    const switchChainAndEnableErc4337 = async (typeName: string) => {
-        let firstChainId;
-        if (typeName === 'BICONOMY') {
-            firstChainId = aaOptions.biconomy[0].chainId;
-        } else if (typeName === 'CYBERCONNECT') {
-            firstChainId = aaOptions.cyberConnect[0].chainId;
-        } else {
-            firstChainId = aaOptions.simple[0].chainId;
-        }
+    const switchChainAndEnableErc4337 = async (options: ERC4337Options) => {
+        let firstChainId = aaOptions.accountContracts[options.name].find((item) => item.version === options.version)!
+            .chainIds[0];
         const chain = chains.getEVMChainInfoById(firstChainId);
         if (chain) {
             await switchChain(`${chain.name.toLowerCase()}-${chain.id}`);
-            setERC4337({
-                name: typeName as any,
-                version: '1.0.0',
-            });
+            setERC4337(options);
             setEnableERC4337Prompt(undefined);
         }
     };
@@ -259,12 +226,14 @@ function DemoSetting(props: any) {
             <div className="filter-item">
                 <div className="filter-label">ERC-4337</div>
                 <PnSelect
-                    value={typeof erc4337 === 'boolean' ? ERC4337Types[0] : erc4337.name}
+                    value={erc4337 ? `${erc4337.name} ${erc4337.version}` : ERC4337Types[0]}
                     onChange={onERC4337Change}
-                    options={ERC4337Types.map((item) => ({
-                        label: item,
-                        value: item,
-                    }))}
+                    options={ERC4337Types.map((item) => {
+                        return {
+                            label: item,
+                            value: item,
+                        };
+                    })}
                 ></PnSelect>
             </div>
             <div className="filter-item">

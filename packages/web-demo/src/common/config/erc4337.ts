@@ -1,43 +1,64 @@
-const options = {
-    BICONOMY: {
+export const options = {
+    BICONOMY_V1: {
+        NAME: 'BiconomyV1 Account',
         SUPPORTED_CHAIN_IDS: [
             1, 5, 137, 80001, 56, 97, 42161, 42170, 421613, 10, 420, 43114, 43113, 8453, 84531, 1101, 1442, 59140,
         ],
         BATCH_TX: true,
+        VERSION: '1.0.0',
+    },
+    BICONOMY_V2: {
+        NAME: 'Biconomy Account',
+        SUPPORTED_CHAIN_IDS: [
+            1, 5, 137, 80001, 56, 97, 42161, 42170, 421613, 10, 420, 43114, 43113, 8453, 84531, 1101, 1442, 59144,
+            59140, 204, 5611, 91715,
+        ],
+        BATCH_TX: true,
+        VERSION: '2.0.0',
     },
     SIMPLE: {
+        NAME: 'Simple Account',
         SUPPORTED_CHAIN_IDS: [
             1, 5, 11155111, 137, 80001, 56, 97, 204, 5611, 42161, 42170, 421613, 43114, 43113, 8453, 84531, 59144,
             59140, 10, 420, 169, 3441005, 5000, 5001, 534352, 534351, 100, 10200, 424, 58008, 88, 89, 1284, 1285, 1287,
-            1101, 1442, 250, 4002, 91715, 167007, 195, 1261120, 12008, 12015, 12021,
+            1101, 1442, 250, 4002, 91715, 167007, 195, 1261120, 12008, 12015, 7001,
         ],
         BATCH_TX: true,
+        VERSION: '1.0.0',
     },
     CYBERCONNECT: {
-        SUPPORTED_CHAIN_IDS: [10, 420, 137, 80001, 8453, 84531, 59144, 59140, 42161, 421613, 204, 5611],
-        BATCH_TX: false,
+        NAME: 'Cyber Account',
+        SUPPORTED_CHAIN_IDS: [10, 420, 137, 80001, 8453, 84531, 59144, 59140, 42161, 421613, 204, 5611, 534352, 534351],
+        BATCH_TX: true,
+        VERSION: '1.0.0',
     },
 };
 
 const aaOptions = {
-    biconomy: options.BICONOMY.SUPPORTED_CHAIN_IDS.map((chainId) => {
-        return {
-            chainId,
-            version: '1.0.0',
-        };
-    }),
-    cyberConnect: options.CYBERCONNECT.SUPPORTED_CHAIN_IDS.map((chainId) => {
-        return {
-            chainId,
-            version: '1.0.0',
-        };
-    }),
-    simple: options.SIMPLE.SUPPORTED_CHAIN_IDS.map((chainId) => {
-        return {
-            chainId,
-            version: '1.0.0',
-        };
-    }),
+    accountContracts: {
+        BICONOMY: [
+            {
+                version: options.BICONOMY_V1.VERSION,
+                chainIds: options.BICONOMY_V1.SUPPORTED_CHAIN_IDS,
+            },
+            {
+                version: options.BICONOMY_V2.VERSION,
+                chainIds: options.BICONOMY_V2.SUPPORTED_CHAIN_IDS,
+            },
+        ],
+        CYBERCONNECT: [
+            {
+                version: options.CYBERCONNECT.VERSION,
+                chainIds: options.CYBERCONNECT.SUPPORTED_CHAIN_IDS,
+            },
+        ],
+        SIMPLE: [
+            {
+                version: options.SIMPLE.VERSION,
+                chainIds: options.SIMPLE.SUPPORTED_CHAIN_IDS,
+            },
+        ],
+    },
     paymasterApiKeys: [
         {
             chainId: 1,

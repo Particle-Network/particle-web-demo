@@ -3548,10 +3548,10 @@
     node-addon-api "^3.2.1"
     node-gyp-build "^4.3.0"
 
-"@particle-network/aa@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@particle-network/aa/-/aa-1.2.0.tgz#58c964a734d233dc670da6128bab6146efcccf12"
-  integrity sha512-uwQtSi7dDlZMv83HPJhW7fNaqATmmdkwbezkyOsN3yEzEbAnszCDioGiZ3dVPIJ1xo2Q4Q4rPmBvxcpHO6a6EA==
+"@particle-network/aa@^1.3.3":
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/@particle-network/aa/-/aa-1.3.3.tgz#a6f8754f991b9f1c361708d22ac863d902a057a6"
+  integrity sha512-4KgIvL3v3pn+FtXOZBCNSFpOTuMC98FnpxHrV3PLcKZO8LLkQjlbqak/3qy7hbpnS2qmR2c4iDkXloLUEDqtxA==
   dependencies:
     axios "^1.3.6"
     uuid "^8.3.2"
@@ -3624,10 +3624,10 @@
     tweetnacl "^1.0.3"
     tweetnacl-util "^0.15.1"
 
-"@particle-network/local-provider@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@particle-network/local-provider/-/local-provider-1.2.0.tgz#bfb31a3da8c6748be179b570499ea7ef5c8f0033"
-  integrity sha512-nMkUH8qW0/uHmMXAN7vcrR3r9HygcpIv/27SRp03fLvi2aAdnHuBghnAHAGDdlgXRPDSui3sGN5MV0xhEVmcAA==
+"@particle-network/local-provider@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@particle-network/local-provider/-/local-provider-1.2.1.tgz#13e9be4a26a070b48c442dadad14bdf47aa582d5"
+  integrity sha512-SK28eSVKlHDL7NYC4NXVSL5IpbsKp8aMZabqcqRywMGMuXaNjcm9Z+ktMP1qcVi1uiHCZZ3X71Q1qYswRZIaLA==
   dependencies:
     "@ethereumjs/tx" "^3.5.2"
     "@ethereumjs/util" "^8.0.2"

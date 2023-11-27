@@ -1,4 +1,3 @@
-import { SendTransactionParams } from '@particle-network/aa/lib/types/types';
 import { Button, Input, InputNumber, message, notification } from 'antd';
 import { ethers } from 'ethers';
 import { useState } from 'react';
