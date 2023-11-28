@@ -80,7 +80,9 @@ function Home() {
             isNullish(localStorage.getItem('dapp_particle_walletentrance')),
         walletTheme: localStorage.getItem('dapp_particle_wallettheme') || 'light',
         fiatCoin: localStorage.getItem('web_demo_fiat_coin') || 'USD',
-        erc4337: JSON.parse(localStorage.getItem('dapp_particle_erc4337_option') ?? 'false'),
+        erc4337: localStorage.getItem('dapp_particle_erc4337_contract')
+            ? JSON.parse(localStorage.getItem('dapp_particle_erc4337_contract')!)
+            : undefined,
     });
 
     useEffect(() => {
@@ -167,7 +169,7 @@ function Home() {
                 appId: process.env.REACT_APP_APP_ID as string,
                 aaOptions,
             });
-            smartAccount.setSmartAccountType(erc4337.name)
+            smartAccount.setSmartAccountContract(erc4337);
             window.smartAccount = smartAccount;
             window.web3 = new Web3(new AAWrapProvider(smartAccount, SendTransactionMode.UserSelect) as any);
         } else {

@@ -17,10 +17,13 @@ readDir.forEach((item) => {
 
 (async () => {
     console.log('--START--');
-    try {
+
+    const loadPkgData = async (page) => {
         const response = await axios.get('https://www.npmjs.com/search', {
             params: {
                 q: '@particle-network',
+                perPage: 20,
+                page: page,
                 timestamp: new Date().getTime(),
             },
             headers: {
@@ -32,21 +35,42 @@ readDir.forEach((item) => {
                 'sec-ch-ua-platform': 'macOS',
                 'sec-fetch-dest': 'empty',
                 'sec-fetch-mode': 'cors',
-                'sec-fetch-site': 'same-origin',
+                'sec-fetch-site': 'none',
+                'cf-cache-status': 'DYNAMIC',
+                'cache-control': 'no-cache',
+                pragma: 'no-cache',
                 'user-agent':
                     'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36',
                 'x-requested-with': 'XMLHttpRequest',
                 'x-spiferack': '1',
             },
         });
-        const newVersions = response.data.objects.map((item) => ({
+        const reuslt = response.data.objects.map((item) => ({
             name: item.package.name,
             version: item.package.version,
         }));
+        return {
+            total: response.data.total,
+            result: reuslt,
+        };
+    };
+    try {
+        const newVersions = [];
+        const response = await loadPkgData(0);
+        newVersions.push(...response.result);
+
+        if (response.total > 20) {
+            const pages = Math.ceil(response.total / 20);
+            for (let i = 1; i < pages; i++) {
+                const response = await loadPkgData(i);
+                newVersions.push(...response.result);
+            }
+        }
+
         packageSrc.forEach((srcPath) => {
             let packageContent = fs.readFileSync(srcPath, 'utf8');
             newVersions.forEach(({ name, version }) => {
-                const reg = new RegExp(`"${name}": ".*"`);
+                const reg = new RegExp(`"${name}": ".*"`, 'g');
                 packageContent = packageContent.replace(reg, (substring) => {
                     const replacement = `"${name}": "^${version}"`;
                     console.log(`${substring} -> ${replacement}`);
