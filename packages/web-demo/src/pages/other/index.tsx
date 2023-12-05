@@ -65,6 +65,34 @@ const demos = [
     playLink: 'https://twitter.com/TABASCOweb3/status/1727513542830526875',
     githubLink: 'https://github.com/TABASCOatw/particle-fantom-demo',
   },
+  {
+    name: 'Integrating Smart WaaS on ZetaChain',
+    thumbnail: 'https://i.imgur.com/r5yFLUH.png',
+    thumbnailLink: 'https://particle-zetachain-demo.replit.app/',
+    playLink: 'https://twitter.com/TABASCOweb3/status/1728299016759157057',
+    githubLink: 'https://github.com/TABASCOatw/particle-zetachain-demo',
+  },
+  {
+    name: 'Creating and Utilizing Session Keys',
+    thumbnail: 'https://i.imgur.com/SlAMdXN.png',
+    thumbnailLink: 'https://particle-session-key-demo.replit.app/',
+    playLink: 'https://twitter.com/TABASCOweb3/status/1730561713014034476',
+    githubLink: 'https://github.com/TABASCOatw/particle-session-key-demo',
+  },
+  {
+    name: 'Leveraging Smart WaaS on Base',
+    thumbnail: 'https://i.imgur.com/hdB6BiQ.png',
+    thumbnailLink: 'https://particle-base-demo.replit.app/',
+    playLink: 'https://twitter.com/TABASCOweb3/status/1730197182186193244',
+    githubLink: 'https://github.com/TABASCOatw/particle-base-demo',
+  },
+  {
+    name: 'Understanding the Particle Auth Core SDK',
+    thumbnail: 'https://i.imgur.com/1cI3jQ4.png',
+    thumbnailLink: 'https://particle-auth-core-demo.replit.app/',
+    playLink: 'https://twitter.com/TABASCOweb3/status/1728110634628190523',
+    githubLink: 'https://github.com/TABASCOatw/particle-auth-core-demo',
+  },
 ];
 
 const PageOther: React.FC = () => {
