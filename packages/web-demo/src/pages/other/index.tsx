@@ -93,6 +93,27 @@ const demos = [
     playLink: 'https://twitter.com/TABASCOweb3/status/1728110634628190523',
     githubLink: 'https://github.com/TABASCOatw/particle-auth-core-demo',
   },
+  {
+    name: 'Implementing Smart WaaS on Moonbeam',
+    thumbnail: 'https://i.imgur.com/HJLVGWs.png',
+    thumbnailLink: 'https://particle-moonbeam-demo.replit.app/',
+    playLink: 'https://twitter.com/TABASCOweb3/status/1730829795422879858',
+    githubLink: 'https://github.com/TABASCOatw/particle-moonbeam-demo',
+  },
+  {
+    name: 'Using Smart WaaS on zkSync',
+    thumbnail: 'https://i.imgur.com/pJQJpZ2.png',
+    thumbnailLink: 'https://particle-zksync-demo.replit.app/',
+    playLink: 'https://twitter.com/TABASCOweb3/status/1733350758366490682',
+    githubLink: 'https://github.com/TABASCOatw/particle-zksync-demo',
+  },
+  {
+    name: 'Leveraging Smart WaaS on X1',
+    thumbnail: 'https://i.imgur.com/0usNfDz.png',
+    thumbnailLink: 'https://particle-x1-demo.replit.app/',
+    playLink: 'https://twitter.com/TABASCOweb3/status/1734422912893853799',
+    githubLink: 'https://github.com/TABASCOatw/particle-x1-demo',
+  },
 ];
 
 const PageOther: React.FC = () => {
