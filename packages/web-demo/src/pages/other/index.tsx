@@ -19,7 +19,7 @@ const demos = [
   {
     name: 'Biconomy Paymasters with Particle WaaS',
     thumbnail: 'https://i.imgur.com/dlHEeQO.png',
-    thumbnailLink: 'https://particle-account-kit.replit.app/',
+    thumbnailLink: '',
     playLink: 'https://twitter.com/ParticleNtwrk/status/1712423989296214252',
     githubLink: 'https://github.com/TABASCOatw/particle-biconomy-example',
   },
@@ -113,6 +113,27 @@ const demos = [
     thumbnailLink: 'https://particle-x1-demo.replit.app/',
     playLink: 'https://twitter.com/TABASCOweb3/status/1734422912893853799',
     githubLink: 'https://github.com/TABASCOatw/particle-x1-demo',
+  },
+  {
+    name: 'Implementing Smart WaaS on Linea',
+    thumbnail: 'https://i.imgur.com/3XQ7Q9k.png',
+    thumbnailLink: 'https://particle-linea-demo.replit.app/',
+    playLink: 'https://twitter.com/TABASCOweb3/status/1735945124461334900',
+    githubLink: 'https://github.com/TABASCOatw/particle-linea-demo',
+  },
+  {
+    name: 'Implementing Smart WaaS on Taiko',
+    thumbnail: 'https://i.imgur.com/L9ksZnS.png',
+    thumbnailLink: 'https://particle-taiko-demo.replit.app/',
+    playLink: 'https://twitter.com/TABASCOweb3/status/1735262274246365545',
+    githubLink: 'https://github.com/TABASCOatw/particle-taiko-demo',
+  },
+  {
+    name: 'Utilizing aa-signers from Alchemy with Particle WaaS',
+    thumbnail: 'https://i.imgur.com/JnD3ct4.png',
+    thumbnailLink: 'https://particle-aa-signers-demo.replit.app/',
+    playLink: 'https://twitter.com/TABASCOweb3/status/1735594992805068942',
+    githubLink: 'https://github.com/TABASCOatw/particle-aa-signers-demo',
   },
 ];
 
