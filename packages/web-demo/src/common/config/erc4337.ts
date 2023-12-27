@@ -28,7 +28,10 @@ export const options = {
     },
     CYBERCONNECT: {
         NAME: 'Cyber Account',
-        SUPPORTED_CHAIN_IDS: [10, 420, 137, 80001, 8453, 84531, 59144, 59140, 42161, 421613, 204, 5611, 534352, 534351],
+        SUPPORTED_CHAIN_IDS: [
+            1, 11155111, 56, 97, 10, 420, 137, 80001, 8453, 84531, 59144, 59140, 42161, 421613, 204, 5611, 534352,
+            534351,
+        ],
         BATCH_TX: true,
         VERSION: '1.0.0',
     },
