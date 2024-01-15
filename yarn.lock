@@ -3564,7 +3564,7 @@
     hash.js "^1.1.7"
     uuidv4 "^6.2.13"
 
-"@particle-network/auth@>=1.2.2", "@particle-network/auth@^1.2.2":
+"@particle-network/auth@>=1.2.2":
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/@particle-network/auth/-/auth-1.2.2.tgz#ce084f832b8bae39caa5802b0ebc5fff3e703df4"
   integrity sha512-xm5j+qex8z0cYxNy9XuxVaIBdb1x7edl4W5XDWx1Px/TdtuqbhGwMsCGbzkTc++yB/LTSIXzzdbDW8a4gRU/gQ==
@@ -3575,10 +3575,21 @@
     buffer "^6.0.3"
     draggabilly "^3.0.0"
 
-"@particle-network/chains@*", "@particle-network/chains@^1.3.3":
-  version "1.3.3"
-  resolved "https://registry.yarnpkg.com/@particle-network/chains/-/chains-1.3.3.tgz#c35d5ec2eae7d98c445ab8060c5efb5ed79c5a54"
-  integrity sha512-M/h5YwvtEJ4zk3ssF6fAUl0jRGFNhdN+K6YgxVbswJgFVD1pKNYMQgN+5hkV6YNUzuhqgTb0y9a4ol+tVZeVIQ==
+"@particle-network/auth@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@particle-network/auth/-/auth-1.3.0.tgz#34b08e639104f7bd114a3e46d19904b19e7c6795"
+  integrity sha512-iCBiOAo/yrK7wLbZXCF1Z+eOOUc1OQwZCFt+HFCNtNjkM1t0Uj9+ugffuHJipSqtgzjzvw8y9IYE5dTGj89DlA==
+  dependencies:
+    "@particle-network/analytics" "^1.0.1"
+    "@particle-network/chains" "*"
+    "@particle-network/crypto" "^1.0.1"
+    buffer "^6.0.3"
+    draggabilly "^3.0.0"
+
+"@particle-network/chains@*", "@particle-network/chains@^1.3.5":
+  version "1.3.5"
+  resolved "https://registry.yarnpkg.com/@particle-network/chains/-/chains-1.3.5.tgz#c203679250d93e12df5cc5a3a676944f7c1b77b2"
+  integrity sha512-od0ZFi+YU+QoemQxgkeSWVPpz+q2JgqAls56MyhkRlgety7fCG53PeVPu8y1vT/cOtp8o7G4ee/xofl3xYwpjA==
 
 "@particle-network/connect-react-ui@^1.2.1":
   version "1.2.1"
@@ -3639,7 +3650,7 @@
     ethereumjs-wallet "^1.0.2"
     uuid "^8.3.2"
 
-"@particle-network/provider@>=1.2.1", "@particle-network/provider@^1.2.1":
+"@particle-network/provider@>=1.2.1":
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/@particle-network/provider/-/provider-1.2.1.tgz#0b77f2b3ce6f23f215faf98aa465b2faec964ec6"
   integrity sha512-mE3CEmzOQu6IrZxK0TJ5T+jRXsF58DNXfvnqO2Crkhr7IHJKbSJaLcrzPC1y95sYWJjYmaOD1gd6Ea66+7sYnA==
@@ -3648,18 +3659,32 @@
     axios "^1.3.6"
     uuid "^8.3.2"
 
-"@particle-network/rainbowkit-ext@^1.2.1":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@particle-network/rainbowkit-ext/-/rainbowkit-ext-1.2.1.tgz#7076c360d36186c00ad92438f5dd46206bc9d19e"
-  integrity sha512-O5epg8h0tvKU4FgHh2YXerLh81F1BC18c3QiIpHKXxdFKL/zwDHz5pVneitWuavAdeAUW6xa1PaHT2WxvqYWXw==
+"@particle-network/provider@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@particle-network/provider/-/provider-1.3.0.tgz#9f0f3ce7695eed53a6521fe6701330ee6dc79d00"
+  integrity sha512-9Nja6CYvkjHtkCuafoxP/QQrBYoUfmJZmAUkzsk8xBr/I6ByThER4SCtGTW6gGndWFtHSJuLJtnustlq3FKgeA==
   dependencies:
-    "@particle-network/auth" "^1.2.2"
-    "@particle-network/provider" "^1.2.1"
+    "@particle-network/chains" "*"
+    axios "^1.3.6"
+    uuid "^8.3.2"
 
-"@particle-network/solana-wallet@>=1.2.1", "@particle-network/solana-wallet@^1.2.1":
+"@particle-network/rainbowkit-ext@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@particle-network/rainbowkit-ext/-/rainbowkit-ext-1.3.0.tgz#6fcb943b685dac7fedd7860e4b6ea1e071082ea6"
+  integrity sha512-P6m6qIlmFqrekY3FGho32oGppSULbPiZ5Lll9imDnibz/uI2aVYdgyPEecIWJAqwkWjHDwWNQziHaNNLCJmX3A==
+  dependencies:
+    "@particle-network/auth" "^1.3.0"
+    "@particle-network/provider" "^1.3.0"
+
+"@particle-network/solana-wallet@>=1.2.1":
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/@particle-network/solana-wallet/-/solana-wallet-1.2.1.tgz#fc57fa4b6d1af19b9d237c80b6c412aa671213d7"
   integrity sha512-s7kG1NdC+aB4+pp4KGr+N9DwPUEG6V1rYVh3n3xRDjXBd7QoycY8UZIyKthELeSrBrTQdr2rSq3Dhmh4LAtOCg==
+
+"@particle-network/solana-wallet@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@particle-network/solana-wallet/-/solana-wallet-1.3.0.tgz#e55b65582e083a501b18dcd83e6a2a02479116b9"
+  integrity sha512-Pvm9+uaKajKpDXSoPLLIRRU0dz2tuzI/LfeC6Iqr4WwcqHOW4yNAXBjT6iwg0yHkFj1vWZKEh7s0GhU/b6Z8NQ==
 
 "@phenomnomnominal/tsquery@4.1.1":
   version "4.1.1"

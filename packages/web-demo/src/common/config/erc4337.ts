@@ -21,7 +21,7 @@ export const options = {
         SUPPORTED_CHAIN_IDS: [
             1, 5, 11155111, 137, 80001, 56, 97, 204, 5611, 42161, 42170, 421613, 43114, 43113, 8453, 84531, 59144,
             59140, 10, 420, 169, 3441005, 5000, 5001, 534352, 534351, 100, 10200, 424, 58008, 88, 89, 1284, 1285, 1287,
-            1101, 1442, 250, 4002, 9980, 91715, 167007, 195, 1261120, 12008, 12015, 7001,
+            1101, 1442, 250, 4002, 9980, 91715, 167007, 195, 1261120, 12008, 12015, 7001, 28122024,
         ],
         BATCH_TX: true,
         VERSION: '1.0.0',
@@ -34,6 +34,12 @@ export const options = {
         ],
         BATCH_TX: true,
         VERSION: '1.0.0',
+    },
+    LIGHT: {
+        NAME: 'Alchemy Account',
+        SUPPORTED_CHAIN_IDS: [1, 11155111, 10, 420, 137, 80001, 8453, 84531, 42161, 421613],
+        BATCH_TX: true,
+        VERSION: '1.0.2',
     },
 };
 
@@ -61,6 +67,12 @@ const aaOptions = {
                 chainIds: options.SIMPLE.SUPPORTED_CHAIN_IDS,
             },
         ],
+        LIGHT: [
+            {
+                version: options.LIGHT.VERSION,
+                chainIds: options.LIGHT.SUPPORTED_CHAIN_IDS,
+            }
+        ]
     },
     paymasterApiKeys: [
         {
