@@ -38,7 +38,7 @@ function DemoSetting(props: any) {
     const LanguageOptions = ['en', 'zh-CN', 'zh-TW', 'ja', 'ko'];
     const ThemeOptions = ['light', 'dark'];
     const FiatCoinOptions = ['USD', 'CNY', 'JPY', 'HKD', 'INR', 'KRW'];
-    const ERC4337Types = ['DISABLE', 'BICONOMY 1.0.0', 'BICONOMY 2.0.0', 'CYBERCONNECT 1.0.0', 'SIMPLE 1.0.0'];
+    const ERC4337Types = ['DISABLE', 'BICONOMY 1.0.0', 'BICONOMY 2.0.0', 'CYBERCONNECT 1.0.0', 'LIGHT 1.0.2','SIMPLE 1.0.0'];
     const SettingWhenLoginOption = [
         { value: '0', label: 'None' },
         { value: '1', label: 'Once' },
