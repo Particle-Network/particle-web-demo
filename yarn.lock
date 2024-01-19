@@ -3564,18 +3564,7 @@
     hash.js "^1.1.7"
     uuidv4 "^6.2.13"
 
-"@particle-network/auth@>=1.2.2":
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/@particle-network/auth/-/auth-1.2.2.tgz#ce084f832b8bae39caa5802b0ebc5fff3e703df4"
-  integrity sha512-xm5j+qex8z0cYxNy9XuxVaIBdb1x7edl4W5XDWx1Px/TdtuqbhGwMsCGbzkTc++yB/LTSIXzzdbDW8a4gRU/gQ==
-  dependencies:
-    "@particle-network/analytics" "^1.0.1"
-    "@particle-network/chains" "*"
-    "@particle-network/crypto" "^1.0.1"
-    buffer "^6.0.3"
-    draggabilly "^3.0.0"
-
-"@particle-network/auth@^1.3.0":
+"@particle-network/auth@>=1.2.2", "@particle-network/auth@^1.3.0":
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/@particle-network/auth/-/auth-1.3.0.tgz#34b08e639104f7bd114a3e46d19904b19e7c6795"
   integrity sha512-iCBiOAo/yrK7wLbZXCF1Z+eOOUc1OQwZCFt+HFCNtNjkM1t0Uj9+ugffuHJipSqtgzjzvw8y9IYE5dTGj89DlA==
@@ -3586,10 +3575,10 @@
     buffer "^6.0.3"
     draggabilly "^3.0.0"
 
-"@particle-network/chains@*", "@particle-network/chains@^1.3.6":
-  version "1.3.6"
-  resolved "https://registry.yarnpkg.com/@particle-network/chains/-/chains-1.3.6.tgz#940883f53d07997bbd7ba50817f25fb2eacdff57"
-  integrity sha512-zT9In4svIu5c01C881fhyHCklH+gJP9q73KodenLKYK87cSFp+79/NFdjPSkvAnwwdKPjPnAlxENfd9cyr30gg==
+"@particle-network/chains@*", "@particle-network/chains@^1.3.8":
+  version "1.3.8"
+  resolved "https://registry.yarnpkg.com/@particle-network/chains/-/chains-1.3.8.tgz#61f1847ac31eb7ae358a51e5f11ebda4d5bbb7cb"
+  integrity sha512-hDygYWHxkKYkKUZsbA8KIlauejiLYfPA944jCAJj5JjGcfx9sMVhahGFUj6MnJOxh/7uhJHzlQfK9PvuCxXUlw==
 
 "@particle-network/connect-react-ui@^1.2.1":
   version "1.2.1"
