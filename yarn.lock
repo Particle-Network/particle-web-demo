@@ -3564,10 +3564,10 @@
     hash.js "^1.1.7"
     uuidv4 "^6.2.13"
 
-"@particle-network/auth@>=1.2.2", "@particle-network/auth@^1.3.0":
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/@particle-network/auth/-/auth-1.3.0.tgz#34b08e639104f7bd114a3e46d19904b19e7c6795"
-  integrity sha512-iCBiOAo/yrK7wLbZXCF1Z+eOOUc1OQwZCFt+HFCNtNjkM1t0Uj9+ugffuHJipSqtgzjzvw8y9IYE5dTGj89DlA==
+"@particle-network/auth@>=1.2.2", "@particle-network/auth@^1.3.1":
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/@particle-network/auth/-/auth-1.3.1.tgz#f9ee51749e3b10e700e0d8c51a8c0769ab0b9851"
+  integrity sha512-hu6ie5RjjN4X+6y/vfjyCsSX3pQuS8k8ZoMb61QWwhWsnZXKzpBUVeAEk55aGfxxXY+KfBkSmZosyaZHGoHnfw==
   dependencies:
     "@particle-network/analytics" "^1.0.1"
     "@particle-network/chains" "*"
@@ -3575,10 +3575,10 @@
     buffer "^6.0.3"
     draggabilly "^3.0.0"
 
-"@particle-network/chains@*", "@particle-network/chains@^1.3.8":
-  version "1.3.8"
-  resolved "https://registry.yarnpkg.com/@particle-network/chains/-/chains-1.3.8.tgz#61f1847ac31eb7ae358a51e5f11ebda4d5bbb7cb"
-  integrity sha512-hDygYWHxkKYkKUZsbA8KIlauejiLYfPA944jCAJj5JjGcfx9sMVhahGFUj6MnJOxh/7uhJHzlQfK9PvuCxXUlw==
+"@particle-network/chains@*", "@particle-network/chains@^1.3.9":
+  version "1.3.9"
+  resolved "https://registry.yarnpkg.com/@particle-network/chains/-/chains-1.3.9.tgz#68e87c52e07b718529b96f1122bbca1bf4a10bf3"
+  integrity sha512-u9fwm13J/q1GyjwQrzsiJx+nxDfcPYPXBvOL5l6Luq5cpdmi4g3bXyUq5YGSt/eI5lbzUzXTLvXxFxh7QgEWGg==
 
 "@particle-network/connect-react-ui@^1.2.1":
   version "1.2.1"
@@ -3648,32 +3648,34 @@
     axios "^1.3.6"
     uuid "^8.3.2"
 
-"@particle-network/provider@^1.3.0":
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/@particle-network/provider/-/provider-1.3.0.tgz#9f0f3ce7695eed53a6521fe6701330ee6dc79d00"
-  integrity sha512-9Nja6CYvkjHtkCuafoxP/QQrBYoUfmJZmAUkzsk8xBr/I6ByThER4SCtGTW6gGndWFtHSJuLJtnustlq3FKgeA==
+"@particle-network/provider@^1.3.2":
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/@particle-network/provider/-/provider-1.3.2.tgz#68ae98cca471c7612206cb43c915719cd321fb25"
+  integrity sha512-3XAUMCISTMYE57LZik7PrVanLIUyyU1ufb5eHtsoQw5ORfH0IeX3E5o6x5mxtfOXKfxVQ0tsIoLRMw0jMmSDpA==
   dependencies:
     "@particle-network/chains" "*"
     axios "^1.3.6"
     uuid "^8.3.2"
 
-"@particle-network/rainbowkit-ext@^1.3.0":
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/@particle-network/rainbowkit-ext/-/rainbowkit-ext-1.3.0.tgz#6fcb943b685dac7fedd7860e4b6ea1e071082ea6"
-  integrity sha512-P6m6qIlmFqrekY3FGho32oGppSULbPiZ5Lll9imDnibz/uI2aVYdgyPEecIWJAqwkWjHDwWNQziHaNNLCJmX3A==
+"@particle-network/rainbowkit-ext@^1.3.2":
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/@particle-network/rainbowkit-ext/-/rainbowkit-ext-1.3.2.tgz#25a81a837593a3786ddc1dc37817a70ba0073f08"
+  integrity sha512-TriiTJlgUqQVgkm6M0HXI+N1b758nIoYw1owjX1RC4qmVApmtS73S40ZmJZIC5zxqLAUSk1ArxrtE2yDOkgdmw==
   dependencies:
-    "@particle-network/auth" "^1.3.0"
-    "@particle-network/provider" "^1.3.0"
+    "@particle-network/auth" "^1.3.1"
+    "@particle-network/provider" "^1.3.2"
 
 "@particle-network/solana-wallet@>=1.2.1":
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/@particle-network/solana-wallet/-/solana-wallet-1.2.1.tgz#fc57fa4b6d1af19b9d237c80b6c412aa671213d7"
   integrity sha512-s7kG1NdC+aB4+pp4KGr+N9DwPUEG6V1rYVh3n3xRDjXBd7QoycY8UZIyKthELeSrBrTQdr2rSq3Dhmh4LAtOCg==
 
-"@particle-network/solana-wallet@^1.3.0":
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/@particle-network/solana-wallet/-/solana-wallet-1.3.0.tgz#e55b65582e083a501b18dcd83e6a2a02479116b9"
-  integrity sha512-Pvm9+uaKajKpDXSoPLLIRRU0dz2tuzI/LfeC6Iqr4WwcqHOW4yNAXBjT6iwg0yHkFj1vWZKEh7s0GhU/b6Z8NQ==
+"@particle-network/solana-wallet@^1.3.2":
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/@particle-network/solana-wallet/-/solana-wallet-1.3.2.tgz#9966209ccda60abb0114bf0447a524c781536b76"
+  integrity sha512-KviKVP87OtWq813y8IumM3rIQMNkTjHBaQmCUbTWGebz3csFOv54JIoy1r+3J3NnA+mBxBdZeRedZ5g+07v75w==
+  dependencies:
+    "@particle-network/auth" "^1.3.1"
 
 "@phenomnomnominal/tsquery@4.1.1":
   version "4.1.1"
