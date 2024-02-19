@@ -8,7 +8,7 @@
         "@metamask/eth-sig-util": "^5.0.2",
         "@particle-network/aa": "^1.3.3",
         "@particle-network/auth": "^1.3.1",
-        "@particle-network/chains": "^1.3.16",
+        "@particle-network/chains": "^1.3.18",
         "@particle-network/connect-react-ui": "^1.2.1",
         "@particle-network/local-provider": "^1.2.1",
         "@particle-network/provider": "^1.3.2",
