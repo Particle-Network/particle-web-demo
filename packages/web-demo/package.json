@@ -1,6 +1,6 @@
 {
     "name": "web-demo",
-    "version": "1.3.12",
+    "version": "1.3.13",
     "private": true,
     "dependencies": {
         "@ethereumjs/tx": "^3.5.2",
@@ -8,7 +8,7 @@
         "@metamask/eth-sig-util": "^5.0.2",
         "@particle-network/aa": "^1.3.3",
         "@particle-network/auth": "^1.3.1",
-        "@particle-network/chains": "^1.3.19",
+        "@particle-network/chains": "^1.3.20",
         "@particle-network/connect-react-ui": "^1.2.1",
         "@particle-network/local-provider": "^1.2.1",
         "@particle-network/provider": "^1.3.2",
