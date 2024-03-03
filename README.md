@@ -4,7 +4,7 @@
 
 # Particle Web Demo
 
-This repository is [Particle Demo](https://web-demo.particle.network) source code. It supports Solana and EVM-compatiable chains, more chains and more features coming soon! Learn more visit [Particle Network](https://particle.network/).
+This repository is [Particle Demo](https://web-demo.particle.network) source code. It supports Solana and EVM-compatible chains, more chains and more features coming soon! Learn more visit [Particle Network](https://particle.network/).
 
 🔥 Currently hosted [here](https://web-demo.particle.network).    
 
@@ -18,7 +18,7 @@ REACT_APP_PROJECT_ID=xxx
 REACT_APP_CLIENT_KEY= xxx
 REACT_APP_APP_ID=xxx
 
-# if use waleltconnect, set walletconnect project id, created in https://walletconnect.com/
+# if you use walletconnect, set walletconnect project id, created in https://walletconnect.com/
 REACT_APP_WALLETCONNECT_PROJECT_ID=xxx
 ```
 
